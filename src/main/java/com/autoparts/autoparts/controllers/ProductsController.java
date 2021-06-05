@@ -20,9 +20,9 @@ import com.autoparts.autoparts.services.ProductsService;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,8 +50,11 @@ public class ProductsController {
     @Autowired
     ServletContext servletContext;
 
-    @Autowired
-    private Environment env;
+    @Value("${cloud.aws.credentials.accessKey}")
+    private String accessKey;
+    
+    @Value("${cloud.aws.credentials.secretKey}")
+    private String secretKey;
 
     // GET - all products- view all - products page
     @GetMapping("/shop")
@@ -90,12 +93,8 @@ public class ProductsController {
         product.setPhoto(nameP);
 
         productsService.addProduct(product);
-
-        // AWS S3
-        String accessK = env.getProperty("awsautopartskey");
-        String privK = env.getProperty("awsautopartsaccess");
         
-        AWSCredentials credentials = new BasicAWSCredentials(accessK, privK);
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
         AmazonS3 s3client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
@@ -137,18 +136,14 @@ public class ProductsController {
         String nameP = product.getProductId() + "." + extension;
         product.setPhoto(nameP);
 
-        // productsService.addProduct(product);
-
-        // FileUploadUtil.saveFile("http://s3.amazonaws.com/autoparts250", nameP,
-        // studentPhoto);
-
         // AWS S3
-        AWSCredentials credentials = new BasicAWSCredentials("AKIAXCMAX5TCBFYGLRGH",
-                "CKbqWUr8iIhR/gorR7OYIKCgFWya/r1BDIa9UQV8");
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+
         AmazonS3 s3client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
         File file = convertMultiPartToFile(studentPhoto);
+
         s3client.putObject("autoparts250", nameP, file);
 
         // photo
