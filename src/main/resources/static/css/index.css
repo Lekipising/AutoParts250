@@ -1,0 +1,943 @@
+/* // Authors: Liplan Lekipising and catherine Muthoni */
+
+
+
+.navbar-brand {
+    color: white;
+}
+
+.nav-link {
+    color: white;
+}
+
+body {
+    background-color: #ffbd4a;
+    color: black;
+    /*font-family: Arial, serif;*/
+    font-weight: bold;
+    margin: 30px;
+}
+
+.welcomeimg {
+    position: relative;
+}
+
+.welcomeac>h2 {
+    font-weight: bold;
+}
+
+.ul {
+    width: 30%;
+    margin-left: 40%;
+}
+
+.ul ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.ul li {
+    float: left;
+}
+
+.ul > button {
+    background-color: #212529 ;
+    color: white;
+    font-weight: bold;
+}
+
+.ul > button:hover {
+    color: #ffbd4a;
+}
+
+.logoutf {
+    margin-left: 75%;
+}
+
+.logoutf input[type=submit]{
+    width: 30%;
+    font-weight: bold;
+    background-color: #ffbd4a;
+    color: black;
+}
+
+.logoutf > input[type=submit]{
+    background-color: black;
+    color: #ffbd4a;
+    font-weight: bold;
+    width: 30%;
+}
+
+#acc > .acf > form > input[type=submit]{
+    background-color: black;
+    color: #ffbd4a;
+    font-weight: bold;
+    width: 30%;
+}
+
+.contai > table{
+    border: 0px solid black;
+    width: 100%;
+}
+
+.contai > table > .tbody {
+    margin-top: 200px;
+}
+
+.contai > form {
+    margin-left: 30%;
+}
+
+.contai > form > input{
+    background-color: black;
+    color: #ffbd4a;
+    font-size: 30px;
+}
+
+.contai > table > thead {
+    color: black;
+    background-color: #ffbd4a;
+}
+
+.cont > .card {
+    width: 50%;
+    margin-left: 25%;
+    padding-left: 14%;
+    background-color: #212529;
+    border-radius: 25px;
+    color: white;
+}
+
+.cont > .card > img {
+    margin-top: 20px;
+    width: 70%;
+    border-radius: 25px;
+    color: white;
+}
+
+
+.cont > .card > .cardbody > h5 {
+    font-size: 35px;
+    color: white;
+}
+
+.cont > .card > .cardbody > .row > .morede {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+}
+
+.cont > .card > .cardbody > .row > .morede > a {
+    text-decoration: underline;
+    padding-right: 100px;
+    font-size: 25px;
+    color: white;
+}
+
+.cont > .card > .cardbody > .row > .morede > form > label {
+    font-size: 35px;
+    color: white;
+}
+
+.cont > .card > .cardbody > .row > .morede > form > button {
+    background-color: black;
+    color: #ffbd4a;
+    font-size: 20px;
+    margin-left: 80px;
+    margin-bottom: 50px;
+}
+
+
+.cont {
+    margin: 0px;
+}
+
+.cont > .table {
+    margin: 0px;
+    padding: 0px;
+}
+
+.cont > .he {
+    margin-left: 5%;
+}
+
+.cont > .he > h2 {
+    text-align: center;
+}
+
+.cont > .row {
+    margin-left: 45%;
+    padding-bottom: 30px;
+}
+
+.cont > .table > .ap > .card {
+    width: 20%;
+    margin-bottom: 70px;
+    float: left;
+    margin-right: 63px;
+    background-color: #ffbd4a;
+    margin-top: 20px;
+}
+
+.cont > .table > .ap > .card > img {
+    border-radius: 40px;
+}
+
+.cont > .table > .ap > .card > ul {
+    list-style: none;
+}
+
+.cont > .table > .ap > .card > .cardbody {
+    color: black;
+    font-size: 15px;
+    padding: 0px;
+    padding-left: 50px;
+}
+
+.cont > .table > .ap > .card > .cardbody > p {
+    font-size: 20px;
+}
+
+.cont > .table > .ap > .card > .pdetails {
+    color: black;
+    font-size: 15px;
+    padding: 0px;
+    padding-left: 50px;
+}
+
+
+.cont > .table > .ap > .card > .morebtn {
+    padding-left: 50px;
+
+}
+.cont > .table > .ap > .card > .morebtn > .btnmore {
+    padding: 10px;
+    background-color: #212529;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+}
+
+
+
+#acc .acf > form > input[type=text]{
+    width: 220px;
+    height: 40px;
+}
+
+
+#acc .acf > form > h4{
+    color: black;
+}
+
+
+#myordersac {
+    display: none;
+}
+
+#myordersac > table > tr > th {
+    color: #ffbd4a;
+}
+
+.ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.ul li a:hover {
+    background-color: #111;
+}
+
+h1 {
+    font-weight: bold;
+    color: white;
+    font-family: monospace;
+    text-decoration: underline;
+    background-color: black;
+    width: max-content;
+    border-radius: 10px;
+
+}
+
+h2 {
+    font-weight: bold;
+    color: white;
+    font-family: monospace;
+    text-decoration: underline;
+    background-color: black;
+    width: max-content;
+    border-radius: 10px;
+}
+
+h3 {
+    font-weight: bold;
+    color: white;
+    font-family: monospace;
+    text-decoration: underline;
+    background-color: black;
+    width: max-content;
+    border-radius: 10px;
+
+}
+
+h4 {
+    font-weight: bold;
+    color: white;
+    font-family: monospace;
+    text-decoration: underline;
+    background-color: black;
+    width: max-content;
+    border-radius: 10px;
+
+}
+
+.welcomeimg>img {
+    width: 100%;
+}
+
+.overinfo {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+}
+
+.overinfo>p {
+    color: white;
+    font-size: 30px;
+}
+
+.overinfo>p>a {
+    background-color: white;
+    color: black;
+    border: 2px solid #0de2e2;
+    text-decoration: none;
+}
+
+.overinfo>p>a:hover {
+    background-color: black;
+    color: white;
+}
+
+.details {
+    float: right;
+}
+
+.history {
+    float: left;
+}
+
+.cfooter {
+    width: 20%;
+    margin-top: 300px;
+    position: relative;
+}
+
+.cfooter>.care>a {
+    font-size: 20px;
+}
+
+.account {
+    margin: 0px;
+    background-color: black;
+    padding: 0px;
+}
+
+.account>a {
+    font-size: 20px;
+    color: white;
+}
+
+.footer {
+    background-color: #212529;
+    float: left;
+    width: 100%;
+    margin-top: 100px;
+    padding-bottom: 50px;
+    margin-bottom: 30px;
+}
+
+.footer>footer>form>input {
+    background-color: black;
+    color: white;
+}
+
+.footer>footer>form>label {
+    color: white;
+    font-size: 25px;
+}
+
+.footer>footer>.iconss {
+    margin-left: 40%;
+    margin-right: 25%;
+}
+
+.footer>footer>.bnav {
+    margin-left: 45%;
+}
+
+.footer>footer>.bnav>a {
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+}
+.co {
+    width: 45%;
+    float: left;
+}
+
+.co2 {
+    margin: 0px;
+}
+.co>form>input{
+    width: 100%;
+}
+
+.co>form>textarea{
+    width: 100%;
+}
+
+.co>form>input[type=submit] {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-twitter:hover {
+    background: black;
+    color: white;
+}
+
+.fa-instagram {
+    background: #125688;
+    color: white;
+}
+
+.fa-instagram:hover {
+    background: black;
+    color: white;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-facebook:hover {
+    background: black;
+    color: white;
+}
+
+.featured_products > .featured {
+    width: 100%;
+    /* background-color: red; */
+}
+
+.featured {
+    /* display: block; */
+    background-color: #212529;
+    /* background-color: red; */
+    /* width: 100%; */
+    padding: 0px;
+    margin: 0px;
+}
+
+.featured_products{
+    padding-top: 50px;
+    
+}
+
+.featured>.pr>img {
+    height: 250px;
+    border-radius: 10px;
+    padding-top: 20px;
+    margin: 0px;
+    width: 273px;
+}
+
+.featured>.pr {
+    float: left;
+    padding-right: 30px;
+    padding-left: 20px;
+    background-color: #212529;
+    color: white;
+}
+
+.welcome h2 {
+    word-spacing: 30px;
+    width: 80%;
+    color: black;
+    margin-left: 170px;
+    /* margin-right: 100px; */
+    /* display: inline-block; */
+    /* text-align: justify; */
+    font-size: 20px;
+}
+
+.adminlogin a {
+    font-size: initial;
+}
+
+input {
+    width: 50%;
+}
+
+.m-t {
+    width: 60%;
+}
+
+.reg {
+    margin-left: 25%;
+}
+
+.linksh {
+    margin-left: 25%;
+    padding-top: 50px;
+    width: 40%;
+}
+
+.linksh>a {
+    font-size: 30px;
+    padding: 40px;
+}
+
+p {
+    font-weight: bold;
+}
+
+.loginform {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.loginform>form>fieldset>input {
+    width: 50%;
+}
+
+.loginform>form>fieldset>label {
+    font-size: 20px;
+}
+
+.loginform>form>fieldset>button {
+    background-color: black;
+    color: white;
+    margin-left: 140px;
+    margin-top: 50px;
+}
+
+.navbar {
+    align-items: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    /* background-color: white; */
+    text-align: center;
+    /* float: right; */
+    margin-bottom: 60px;
+    margin-top: 30px;
+    align-content: center;
+    background-color: #cfc8dd;
+}
+
+.nav {
+    overflow: hidden;
+    background-color: #cfc8dd;
+    align-items: center;
+    margin-bottom: 60px;
+    margin-top: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.nav a {
+    float: left;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#details {
+    display: none;
+}
+
+.allptop .onep a {
+    font-size: 14px;
+    padding-left: 40px;
+    font-style: normal;
+    background-color: #AA714D;
+    margin-left: 12px;
+}
+
+.custnav {
+    background-color: #67a4f3;
+    width: 35%;
+    margin-bottom: 30px;
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.custnav a {
+    color: black;
+    font-size: 14px;
+}
+
+.logo {
+    height: 150px;
+    width: 150px;
+    margin: auto;
+    padding: 0px;
+}
+
+.logo img {
+    height: 150px;
+    width: 150px;
+}
+
+.allptop {
+    /* display: inline-block; */
+    float: left;
+    width: 75%;
+}
+
+.allptop .onep {
+    float: left;
+    margin-bottom: 50px;
+    color: black;
+    font-weight: bold;
+    width: 20%;
+    margin-left: 20px;
+    border-radius: 5px;
+    padding: 0px;
+    margin-right: 0px;
+}
+
+.about {
+    display: inline-block;
+    width: 60%;
+    margin-left: 150px;
+}
+
+.allptop .onep .imgp img {
+    width: 150px;
+    height: 150px;
+}
+
+.cart {
+    padding-left: 0px;
+    margin-left: 0px;
+    float: left;
+    width: 20%;
+    margin-left: 20px;
+}
+
+.addp {
+    margin-bottom: 100px;
+}
+
+input[type=text], textarea {
+    width: 70%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead {
+    background-color: black;
+}
+
+thead > tr > th {
+    color: #ffbd4a;
+}
+
+th {
+    text-align: left;
+    background-color: black;
+    color: #ffbd4a;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    color: black;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+.mySlides {
+    display: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.mySlides img {
+    height: 400px;
+    /* width: 80%; */
+}
+
+.slideshow-container {
+    /* max-width: 1000px; */
+    position: relative;
+    margin: auto;
+}
+
+.text {
+    /* color: #f2f2f2; */
+    color: black;
+    font-size: 15px;
+    padding: 8px 12px;
+    /* position: absolute; */
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    margin-bottom: 50px;
+}
+
+.active {
+    background-color: #717171;
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .text {
+        font-size: 11px
+    }
+}
+
+.featurecars {
+    /* border: 2px solid rgb(39, 20, 209); */
+    text-align: center;
+    /* padding: 0px; */
+    /* margin-bottom: 100px; */
+    padding-bottom: 50px;
+}
+
+.featurecars>h1 {
+    /* text-justify: distribute; */
+    word-spacing: 30px;
+    text-decoration: underline dotted black;
+}
+
+.colborder1 {
+    /* float: left; */
+    /* border: 2px solid rgb(245, 16, 157); */
+    /* margin-right: 200px; */
+    /* padding: 0px; */
+    /* margin-bottom: 100px; */
+    width: 600px;
+    float: right;
+}
+
+.colborder2 {
+    /* float: left; */
+    /* border: 2px solid rgb(245, 36, 248); */
+    /* margin-right: 100px; */
+    /* padding: 0px; */
+    /* margin-bottom: 100px; */
+    width: 600px;
+}
+
+.img1 {
+    /* border: 2px solid rgb(65, 223, 33); */
+    height: 400px;
+    width: 500px;
+}
+
+.img1>img {
+    height: 100%;
+    width: 100%;
+}
+
+.txt1 {
+    /* width: 53.7%; */
+    /* border: 2px solid red; */
+    color: black;
+    display: block;
+    width: 400px;
+    margin: auto;
+}
+
+.featurecontant {
+    /* border: 2px solid red; */
+    display: block;
+    color: black;
+}
+
+.featurecontant>h1 {
+    font-family: "OpenSans Regular";
+    font-size: 19.8px;
+    text-align: center;
+    color: black;
+    /* margin-top:14%; */
+    /* margin-bottom: 8px; */
+}
+
+.featurecontant>p {
+    font-family: "OpenSans Regular";
+    font-size: 11.44px;
+    text-align: center;
+    color: black;
+}
+
+.featurecontant>h2 {
+    font-family: "OpenSans Regular";
+    font-size: 12.41pt;
+    color: black;
+    text-align: center;
+    letter-spacing: 8px;
+    /* margin-top: 36%; */
+    /* margin-bottom: 19px; */
+}
+
+.img2 {
+    /* padding: 0px!important; */
+    /* margin: 0px!important; */
+    /* max-width:46.3%; */
+    /* border: 2px solid rgb(125, 230, 56); */
+    width: 400px;
+    height: 500px;
+}
+
+.img2>img {
+    height: 100%;
+    width: 100%;
+}
+
+.allpls {
+    text-align: center;
+    background-color: #67a4f3;
+    /* height: 40px; */
+    float: unset;
+}
+
+.allpls a:hover {
+    background-color: #67a4f3;
+}
+
+.bottomnav {
+    /* border: 2px solid rgb(39, 20, 209); */
+    width: 50%;
+    float: left;
+}
+
+.bottomnav a {
+    font-size: 30px;
+    padding: 5px;
+    color: black;
+}
+
+.bottomnav p {
+    font-size: 20px;
+    color: tomato;
+}
+
+.social {
+    /* border: 2px solid rgb(39, 20, 209); */
+    width: 50%;
+    float: left
+}
+
+.social p {
+    font-size: 20px;
+    color: tomato;
+}
+
+.social a {
+    font-size: 30px;
+    padding: 5px;
+    color: black;
+}
+
+.cart {
+    font-size: 20px;
+    background-color: burlywood;
+    margin: auto;
+}
+
+.myaccountform {
+    float: right;
+}

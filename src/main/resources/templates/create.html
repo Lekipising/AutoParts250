@@ -1,0 +1,71 @@
+<!-- // Authors: Liplan Lekipising and catherine Muthoni -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../static/css/login.css" type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
+  <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
+  <title>Create Admin Account</title>
+
+</head>
+
+<body>
+
+
+  <h2>Welcome to 250 Auto Part : ADMIN</h2>
+
+  <div class="container" id="container">
+    <div class="form-container sign-in-container">
+      <form autocomplete="off" action="" th:action="@{/create}" th:object="${account}" method="post" class="m-t"
+        role="form" data-toggle="validator">
+        <h1>Create Account</h1>
+
+        <div th:if="${confirmationMessage}" class="alert alert-success" role="alert" th:text="${confirmationMessage}">
+        </div>
+
+        <div th:if="${exists}" class="alert alert-success" role="alert" th:text="${exists}">
+        </div>
+
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
+
+        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name ..." />
+        <input type="text" name="secondName" th:field="*{secondName}" placeholder="Second Name ..." />
+        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Phone ..." />
+        <input type="email" name="username" th:field="*{username}" placeholder="Email" />
+        <input type="checkbox" name="policy" id="policy">
+        <button type="submit">Create Account</button>
+        <a href="./home.html" th:href="@{/}">Go to Home</a>
+        <a href="./create.html" th:href="@{create}">Create a new account</a>
+      </form>
+
+    </div>
+
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Welcome Back!</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <button class="ghost" id="signIn">Login</button>
+
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+  crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/assets/js/index.js}"></script>
+</body>
+
+</html>
