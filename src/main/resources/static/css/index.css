@@ -1,9 +1,18 @@
 /* // Authors: Liplan Lekipising and catherine Muthoni */
 
-
-
 .navbar-brand {
     color: white;
+}
+
+.navbar-brand>img {
+    height: 80px;
+    width: 80px;
+    float: left;
+}
+
+.navbar-brand>p {
+    padding-top: 25px;
+    padding-left: 100px;
 }
 
 .nav-link {
@@ -43,13 +52,13 @@ body {
     float: left;
 }
 
-.ul > button {
-    background-color: #212529 ;
+.ul>button {
+    background-color: #212529;
     color: white;
     font-weight: bold;
 }
 
-.ul > button:hover {
+.ul>button:hover {
     color: #ffbd4a;
 }
 
@@ -57,52 +66,52 @@ body {
     margin-left: 75%;
 }
 
-.logoutf input[type=submit]{
+.logoutf input[type=submit] {
     width: 30%;
     font-weight: bold;
     background-color: #ffbd4a;
     color: black;
 }
 
-.logoutf > input[type=submit]{
+.logoutf>input[type=submit] {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
     width: 30%;
 }
 
-#acc > .acf > form > input[type=submit]{
+#acc>.acf>form>input[type=submit] {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
     width: 30%;
 }
 
-.contai > table{
+.contai>table {
     border: 0px solid black;
     width: 100%;
 }
 
-.contai > table > .tbody {
+.contai>table>.tbody {
     margin-top: 200px;
 }
 
-.contai > form {
+.contai>form {
     margin-left: 30%;
 }
 
-.contai > form > input{
+.contai>form>input {
     background-color: black;
     color: #ffbd4a;
     font-size: 30px;
 }
 
-.contai > table > thead {
+.contai>table>thead {
     color: black;
     background-color: #ffbd4a;
 }
 
-.cont > .card {
+.cont>.card {
     width: 50%;
     margin-left: 25%;
     padding-left: 14%;
@@ -111,38 +120,37 @@ body {
     color: white;
 }
 
-.cont > .card > img {
+.cont>.card>img {
     margin-top: 20px;
     width: 70%;
     border-radius: 25px;
     color: white;
 }
 
-
-.cont > .card > .cardbody > h5 {
+.cont>.card>.cardbody>h5 {
     font-size: 35px;
     color: white;
 }
 
-.cont > .card > .cardbody > .row > .morede {
+.cont>.card>.cardbody>.row>.morede {
     text-decoration: none;
     font-size: 20px;
     color: white;
 }
 
-.cont > .card > .cardbody > .row > .morede > a {
+.cont>.card>.cardbody>.row>.morede>a {
     text-decoration: underline;
     padding-right: 100px;
     font-size: 25px;
     color: white;
 }
 
-.cont > .card > .cardbody > .row > .morede > form > label {
+.cont>.card>.cardbody>.row>.morede>form>label {
     font-size: 35px;
     color: white;
 }
 
-.cont > .card > .cardbody > .row > .morede > form > button {
+.cont>.card>.cardbody>.row>.morede>form>button {
     background-color: black;
     color: #ffbd4a;
     font-size: 20px;
@@ -150,30 +158,29 @@ body {
     margin-bottom: 50px;
 }
 
-
 .cont {
     margin: 0px;
 }
 
-.cont > .table {
+.cont>.table {
     margin: 0px;
     padding: 0px;
 }
 
-.cont > .he {
+.cont>.he {
     margin-left: 5%;
 }
 
-.cont > .he > h2 {
+.cont>.he>h2 {
     text-align: center;
 }
 
-.cont > .row {
+.cont>.row {
     margin-left: 45%;
     padding-bottom: 30px;
 }
 
-.cont > .table > .ap > .card {
+.cont>.table>.ap>.card {
     width: 20%;
     margin-bottom: 70px;
     float: left;
@@ -182,38 +189,37 @@ body {
     margin-top: 20px;
 }
 
-.cont > .table > .ap > .card > img {
+.cont>.table>.ap>.card>img {
     border-radius: 40px;
 }
 
-.cont > .table > .ap > .card > ul {
+.cont>.table>.ap>.card>ul {
     list-style: none;
 }
 
-.cont > .table > .ap > .card > .cardbody {
+.cont>.table>.ap>.card>.cardbody {
     color: black;
     font-size: 15px;
     padding: 0px;
     padding-left: 50px;
 }
 
-.cont > .table > .ap > .card > .cardbody > p {
+.cont>.table>.ap>.card>.cardbody>p {
     font-size: 20px;
 }
 
-.cont > .table > .ap > .card > .pdetails {
+.cont>.table>.ap>.card>.pdetails {
     color: black;
     font-size: 15px;
     padding: 0px;
     padding-left: 50px;
 }
 
-
-.cont > .table > .ap > .card > .morebtn {
+.cont>.table>.ap>.card>.morebtn {
     padding-left: 50px;
-
 }
-.cont > .table > .ap > .card > .morebtn > .btnmore {
+
+.cont>.table>.ap>.card>.morebtn>.btnmore {
     padding: 10px;
     background-color: #212529;
     color: white;
@@ -221,24 +227,20 @@ body {
     border-radius: 25px;
 }
 
-
-
-#acc .acf > form > input[type=text]{
+#acc .acf>form>input[type=text] {
     width: 220px;
     height: 40px;
 }
 
-
-#acc .acf > form > h4{
+#acc .acf>form>h4 {
     color: black;
 }
-
 
 #myordersac {
     display: none;
 }
 
-#myordersac > table > tr > th {
+#myordersac>table>tr>th {
     color: #ffbd4a;
 }
 
@@ -262,7 +264,6 @@ h1 {
     background-color: black;
     width: max-content;
     border-radius: 10px;
-
 }
 
 h2 {
@@ -283,7 +284,6 @@ h3 {
     background-color: black;
     width: max-content;
     border-radius: 10px;
-
 }
 
 h4 {
@@ -294,7 +294,6 @@ h4 {
     background-color: black;
     width: max-content;
     border-radius: 10px;
-
 }
 
 .welcomeimg>img {
@@ -386,6 +385,7 @@ h4 {
     color: white;
     text-decoration: none;
 }
+
 .co {
     width: 45%;
     float: left;
@@ -394,11 +394,12 @@ h4 {
 .co2 {
     margin: 0px;
 }
-.co>form>input{
+
+.co>form>input {
     width: 100%;
 }
 
-.co>form>textarea{
+.co>form>textarea {
     width: 100%;
 }
 
@@ -451,7 +452,7 @@ h4 {
     color: white;
 }
 
-.featured_products > .featured {
+.featured_products>.featured {
     width: 100%;
     /* background-color: red; */
 }
@@ -465,9 +466,8 @@ h4 {
     margin: 0px;
 }
 
-.featured_products{
+.featured_products {
     padding-top: 50px;
-    
 }
 
 .featured>.pr>img {
@@ -552,13 +552,12 @@ p {
     align-items: center;
     padding-bottom: 30px;
     padding-top: 30px;
-    /* background-color: white; */
     text-align: center;
-    /* float: right; */
     margin-bottom: 60px;
     margin-top: 30px;
     align-content: center;
     background-color: #cfc8dd;
+    border-radius: 25px;
 }
 
 .nav {
@@ -687,7 +686,7 @@ thead {
     background-color: black;
 }
 
-thead > tr > th {
+thead>tr>th {
     color: #ffbd4a;
 }
 
@@ -705,7 +704,6 @@ th, td {
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
 
 * {
     box-sizing: border-box;
