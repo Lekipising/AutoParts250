@@ -181,16 +181,20 @@ body {
 }
 
 .cont>.table>.ap>.card {
-    width: 20%;
-    margin-bottom: 70px;
+    width: 19%;
+    margin-bottom: 30px;
     float: left;
-    margin-right: 63px;
+    margin-right: 7px;
     background-color: #ffbd4a;
     margin-top: 20px;
+    min-height: 330px;
 }
 
 .cont>.table>.ap>.card>img {
     border-radius: 40px;
+    max-height: 180px;
+    max-width: 200px;
+    margin-left: 30px;
 }
 
 .cont>.table>.ap>.card>ul {
@@ -206,17 +210,22 @@ body {
 
 .cont>.table>.ap>.card>.cardbody>p {
     font-size: 20px;
+    padding: 0px;
+    margin-bottom: 0px;
 }
 
 .cont>.table>.ap>.card>.pdetails {
     color: black;
-    font-size: 15px;
+    font-size: 13px;
     padding: 0px;
     padding-left: 50px;
+    padding-top: 0px;
 }
 
 .cont>.table>.ap>.card>.morebtn {
     padding-left: 50px;
+    position: absolute;
+    bottom: 0px;
 }
 
 .cont>.table>.ap>.card>.morebtn>.btnmore {

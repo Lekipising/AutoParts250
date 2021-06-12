@@ -146,12 +146,6 @@ public class ProductsController {
 
         s3client.putObject("autoparts250", nameP, file);
 
-        // photo
-
-        // get previous photo
-        // MultipartFile previousPhoto =
-        // productsService.getOneProduct(product.getProductId()).getStudentPhoto();
-
         productsService.addProduct(product);
 
         return "redirect:/shop";
@@ -161,7 +155,7 @@ public class ProductsController {
     @GetMapping("/delete/{productId}")
     public String delProduct(@PathVariable("productId") Long productId) {
         productsService.delProduct(productId);
-
+        
         return "redirect:/shop";
 
     }
