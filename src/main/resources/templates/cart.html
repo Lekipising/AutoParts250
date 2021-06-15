@@ -20,12 +20,11 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark" style="border-radius: 25px;">
+    <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="./home.html" th:href="@{/}">
-                <img src="./assets/logo.png" th:src="@{assets/logo.png}" width="30" height="24"
-                    class="d-inline-block align-text-top" style="height: 80px; width: 80px; float: left;">
-                <p style="padding-top: 25px; padding-left: 100px;">250 Autoparts</p>
+                <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
+                <p>250 Autoparts</p>
             </a>
         </div>
         <div class="container-fluid">
@@ -112,11 +111,14 @@
                 <tr th:each="orderProduct: ${orderProducts}">
                     <td th:text="${orderProduct.quantity} + ' ' + ${orderProduct.products.name}"></td>
                     <td th:text="${orderProduct.products.price} * ${orderProduct.quantity}" th:id="totalPrice"></td>
-                    <td><form th:action="@{/remove}" method="post">
-                        <input type="hidden" name="orderProduct" id="orderProduct" th:value="${orderProduct.orderProductId}" />
-                        <input type="submit" value="Remove" /> </form>
+                    <td>
+                        <form th:action="@{/remove}" method="post">
+                            <input type="hidden" name="orderProduct" id="orderProduct"
+                                th:value="${orderProduct.orderProductId}" />
+                            <input type="submit" value="Remove" />
+                        </form>
                     </td>
-                    
+
                 </tr>
             </tbody>
         </table>

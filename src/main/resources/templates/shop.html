@@ -21,12 +21,11 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark" style="border-radius: 25px;">
+    <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="./home.html" th:href="@{/}">
-                <img src="./assets/logo.png" th:src="@{assets/logo.png}" width="30" height="24"
-                     class="d-inline-block align-text-top" style="height: 80px; width: 80px; float: left;">
-                <p style="padding-top: 25px; padding-left: 100px;">250 Autoparts</p>
+                <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
+                <p>250 Autoparts</p>
             </a>
         </div>
         <div class="container-fluid">
@@ -38,15 +37,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
+                        <a class="nav-link active" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  active" href="./shop.html" th:href="@{/shop}">Shop</a>
+                        <a class="nav-link" href="./shop.html" th:href="@{/shop}">Shop</a>
                     </li>
-        
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
@@ -54,21 +52,22 @@
                         <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./login.html" th:href="@{login}" th:if="!${#request.userPrincipal}">Login</a></li>
+                            <li><a class="dropdown-item" href="./login.html" th:href="@{login}"
+                                    th:if="!${#request.userPrincipal}">Login</a></li>
 
-                            <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}" sec:authorize="isAuthenticated()">My Account</a>
-                            </li>
-                            <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}" th:if="!${#request.userPrincipal}">Create Account</a>
-                            </li>
+                            <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}"
+                                    sec:authorize="isAuthenticated()">My Account</a></li>
+                            <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}"
+                                    th:if="!${#request.userPrincipal}">Create Account</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Inventory
                         </a>
@@ -82,8 +81,11 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img src="https://img.icons8.com/nolan/45/fast-cart.png"/></a>
-                      </li>
+                        <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img
+                                src="https://img.icons8.com/nolan/45/fast-cart.png" /></a>
+                    </li>
+
+
                 </ul>
             </div>
         </div>

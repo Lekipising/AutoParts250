@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
@@ -17,138 +17,148 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg bg-dark" style="border-radius: 25px;">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="./home.html" th:href="@{/}">
-            <img src="./assets/logo.png" th:src="@{assets/logo.png}" width="30" height="24"
-                 class="d-inline-block align-text-top" style="height: 80px; width: 80px; float: left;">
-            <p style="padding-top: 25px; padding-left: 100px;">250 Autoparts</p>
-        </a>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./home.html" th:href="@{/}">
+                <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
+                <p>250 Autoparts</p>
+            </a>
+        </div>
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./shop.html" th:href="@{/shop}">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./login.html" th:href="@{login}"
+                                    th:if="!${#request.userPrincipal}">Login</a></li>
+
+                            <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}"
+                                    sec:authorize="isAuthenticated()">My Account</a></li>
+                            <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}"
+                                    th:if="!${#request.userPrincipal}">Create Account</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Inventory
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
+
+                            <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a>
+                            </li>
+                            <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
+                            <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img
+                                src="https://img.icons8.com/nolan/45/fast-cart.png" /></a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h2 th:if="${message}" role="alert" th:text="${message}" style="margin-left: 37%;"></h2>
+
+
+    <div class="ul">
+        <button id="adetails" onclick="showAccount()">Account Details</button>
+        <button id="acorders" onclick="showOrders()">My Orders</button>
     </div>
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./shop.html" th:href="@{/shop}">Shop</a>
-                </li>
-            
-                <li class="nav-item">
-                    <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="./login.html" th:href="@{login}" th:if="!${#request.userPrincipal}">Login</a></li>
+    <form th:action="@{/logout}" method="post" class="logoutf">
 
-                        <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}" sec:authorize="isAuthenticated()">My Account</a></li>
-                        <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}" th:if="!${#request.userPrincipal}">Create Account</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Inventory
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
-
-                        <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a></li>
-                        <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
-                        <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img src="https://img.icons8.com/nolan/45/fast-cart.png"/></a>
-                  </li>
-            </ul>
+        <input type="submit" value="Log out" />
+    </form>
+    <div id="acc">
+        <h3>Personal Information</h3>
+        <div class="acf">
+            <form action="">
+                <h4 th:if="${message1}" role="alert" th:text="${message1}"
+                    style="color: black; background-color: #ffbd4a;"></h4>
+                <input type="text" name="firstName" id="firstName" placeholder="New first name ...">
+                <h4 th:if="${message2}" role="alert" th:text="${message2}"
+                    style="color: black; background-color: #ffbd4a;"></h4>
+                <input type="text" name="secondName" id="secondName" placeholder="New second name ...">
+                <h4 th:if="${message3}" role="alert" th:text="${message3}"
+                    style="color: black; background-color: #ffbd4a;"></h4>
+                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="New phone ...">
+                <h4 th:if="${message4}" role="alert" th:text="${message4}"
+                    style="color: black; background-color: #ffbd4a;"></h4>
+                <input type="text" name="username" id="username" placeholder="New Email ..."> <br>
+                <input type="submit" value="Update">
+            </form>
         </div>
     </div>
-</nav>
-
-<h2 th:if="${message}" role="alert" th:text="${message}" style="margin-left: 37%;"></h2>
 
 
-<div class="ul">
-    <button id="adetails" onclick="showAccount()">Account Details</button>
-    <button id="acorders" onclick="showOrders()">My Orders</button>
-</div>
-<form th:action="@{/logout}" method="post" class="logoutf">
-
-    <input type="submit" value="Log out" />
-</form>
-<div id="acc">
-    <h3>Personal Information</h3>
-    <div class="acf">
-        <form action="">
-            <h4 th:if="${message1}" role="alert" th:text="${message1}" style="color: black; background-color: #ffbd4a;"></h4>
-            <input type="text" name="firstName" id="firstName" placeholder="New first name ...">
-            <h4 th:if="${message2}" role="alert" th:text="${message2}" style="color: black; background-color: #ffbd4a;"></h4>
-            <input type="text" name="secondName" id="secondName" placeholder="New second name ...">
-            <h4 th:if="${message3}" role="alert" th:text="${message3}" style="color: black; background-color: #ffbd4a;"></h4>
-            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="New phone ...">
-            <h4 th:if="${message4}" role="alert" th:text="${message4}" style="color: black; background-color: #ffbd4a;"></h4>
-            <input type="text" name="username" id="username" placeholder="New Email ..."> <br>
-            <input type="submit" value="Update">
-        </form>
+    <div id="myordersac">
+        <h3>Order History</h3>
+        <table>
+            <tr>
+                <th style="color: #ffbd4a;">Order Id</th>
+                <th style="color: #ffbd4a;">Date of Order</th>
+                <th style="color: #ffbd4a;">Total Price</th>
+                <th style="color: #ffbd4a;">Order Status</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
     </div>
-</div>
-
-
-<div id="myordersac">
-    <h3>Order History</h3>
-    <table>
-        <tr>
-            <th style="color: #ffbd4a;">Order Id</th>
-            <th style="color: #ffbd4a;">Date of Order</th>
-            <th style="color: #ffbd4a;">Total Price</th>
-            <th style="color: #ffbd4a;">Order Status</th>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-</div>
 
 
 
-<div class="footer">
-    <footer>
-        <form action="#">
-            <input type="text" id="news" name="news" placeholder="Enter your email ...">
-            <label for="news">Sign up for newsletter</label>
-        </form>
-        <div class="iconss">
-            <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
-            <a href="#" class="fa fa-twitter"></a>
-            <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
-        </div>
+    <div class="footer">
+        <footer>
+            <form action="#">
+                <input type="text" id="news" name="news" placeholder="Enter your email ...">
+                <label for="news">Sign up for newsletter</label>
+            </form>
+            <div class="iconss">
+                <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
+                <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
+            </div>
 
-    </footer>
-</div>
+        </footer>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{/js/index.js}"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
 
 </body>
 

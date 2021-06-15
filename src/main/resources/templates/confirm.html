@@ -26,7 +26,7 @@
         <h4 th:if="${successMessage}" class="alert alert-success" role="alert" th:text="${successMessage}"></h4>
 
         <h4 th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></h4>
-  
+
         <h4 th:if="${invalidToken}" class="alert alert-danger" role="alert" th:text="${invalidToken}"></h4>
         <input type="hidden" name="token" th:value="${confirmationToken}">
 

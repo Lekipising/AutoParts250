@@ -116,7 +116,6 @@ public class ProductsController {
     @GetMapping("/edit/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id) {
         ModelAndView mav = new ModelAndView("updateproduct");
-
         Products product = productsService.getOneProduct(id);
         mav.addObject("product", product);
         return mav;
