@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.autoparts.autoparts.classes.Account;
 import com.autoparts.autoparts.services.AccountService;
+import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.EmailSenderService;
 import com.autoparts.autoparts.services.OrdersService;
 import com.autoparts.autoparts.services.ShippingService;
@@ -36,16 +37,19 @@ public class homeController {
     @Autowired
     EmailSenderService emailService;
 
+    @Autowired
+    BusinessDetailsService businessDetailsService;
+
     @RequestMapping("/")
     public String home(Model model) {
-        SecurityContext context = SecurityContextHolder.getContext();
-        model.addAttribute("message", "You are logged in as " + context.getAuthentication().getName() + context.getAuthentication().getAuthorities());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "home";
     }
 
     @RequestMapping("/contact")
-    public ModelAndView contact(ModelAndView modelAndView) {
+    public ModelAndView contact(ModelAndView modelAndView, Model model) {
 		modelAndView.setViewName("contact");
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
 		return modelAndView;
     }
 
@@ -81,31 +85,36 @@ public class homeController {
     }
 
     @RequestMapping("/about")
-    public String about() {
+    public String about(Model model) {
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "about";
     }
 
     @RequestMapping("/storepolicies")
-    public String storepolicies() {
+    public String storepolicies(Model model) {
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "storepolicies";
     }
 
     @RequestMapping("/shippings")
     public String getAllShippings(Model model){
         model.addAttribute("shippings", shippingService.getAllShippings());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "shippings";
     }
 
     @RequestMapping("/users")
     public String getAllAccounts(Model model){
         model.addAttribute("account", accountService.getAllAccounts());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "users";
     }
 
-    @RequestMapping("/errors")
-    public String errorse(){
-        return "errors";
-    }
+    // @RequestMapping("/errors")
+    // public String errorse(Model model){
+    //     model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+    //     return "errors";
+    // }
 
     // protect
     @RequestMapping("/myaccount")
@@ -117,6 +126,7 @@ public class homeController {
         model.addAttribute("message2", user.getSecondName());
         model.addAttribute("message3", user.getPhoneNumber());
         model.addAttribute("message4", user.getUsername());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "myaccount";
     }
 

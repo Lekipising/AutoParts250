@@ -13,15 +13,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
 
-    <title>Your Account</title>
+    <title>Your Account | AutoParts 250</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./home.html" th:href="@{/}">
-                <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
-                <p>250 Autoparts</p>
+            <p th:text="${businessDetails.bname}" id="bname"></p>
+            <a href="./home.html" th:href="@{/}">
+                <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}"
+                    alt="logo" class="d-inline-block align-text-top" id="logoimg">
             </a>
         </div>
         <div class="container-fluid">
@@ -33,7 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
+                        <a class="nav-link" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
@@ -48,7 +49,7 @@
                         <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Account
                         </a>
@@ -74,6 +75,7 @@
                             </li>
                             <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
                             <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+                            <li><a class="dropdown-item" href="./editlogo.html" th:href="@{editlogo}">Edit Logo</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -104,16 +106,16 @@
             <form action="">
                 <h4 th:if="${message1}" role="alert" th:text="${message1}"
                     style="color: black; background-color: #ffbd4a;"></h4>
-                <input type="text" name="firstName" id="firstName" placeholder="New first name ...">
+                <input type="text" name="firstName" id="firstName" placeholder="New first name ..." required>
                 <h4 th:if="${message2}" role="alert" th:text="${message2}"
                     style="color: black; background-color: #ffbd4a;"></h4>
-                <input type="text" name="secondName" id="secondName" placeholder="New second name ...">
+                <input type="text" name="secondName" id="secondName" placeholder="New second name ..." required>
                 <h4 th:if="${message3}" role="alert" th:text="${message3}"
                     style="color: black; background-color: #ffbd4a;"></h4>
-                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="New phone ...">
+                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="New phone ..." required>
                 <h4 th:if="${message4}" role="alert" th:text="${message4}"
                     style="color: black; background-color: #ffbd4a;"></h4>
-                <input type="text" name="username" id="username" placeholder="New Email ..."> <br>
+                <input type="text" name="username" id="username" placeholder="New Email ..." required> <br>
                 <input type="submit" value="Update">
             </form>
         </div>

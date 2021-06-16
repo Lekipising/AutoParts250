@@ -24,9 +24,9 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="./home.html" th:href="@{/}">
-        <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
-        <p>250 Autoparts</p>
+      <p th:text="${businessDetails.bname}" id="bname"></p>
+      <a href="./home.html" th:href="@{/}">
+        <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}" alt="logo" class="d-inline-block align-text-top" id="logoimg">
       </a>
     </div>
     <div class="container-fluid">
@@ -77,6 +77,7 @@
               <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a></li>
               <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
               <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+              <li><a class="dropdown-item" href="./editlogo.html" th:href="@{editlogo}">Edit Logo</a></li>
             </ul>
           </li>
           <li class="nav-item">

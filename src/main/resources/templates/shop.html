@@ -17,15 +17,16 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
-    <title>Shop</title>
+    <title>Shop | AutoParts 250</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./home.html" th:href="@{/}">
-                <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
-                <p>250 Autoparts</p>
+            <p th:text="${businessDetails.bname}" id="bname"></p>
+            <a href="./home.html" th:href="@{/}">
+                <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}"
+                    alt="logo" class="d-inline-block align-text-top" id="logoimg">
             </a>
         </div>
         <div class="container-fluid">
@@ -37,13 +38,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
+                        <a class="nav-link" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./shop.html" th:href="@{/shop}">Shop</a>
+                        <a class="nav-link active" href="./shop.html" th:href="@{/shop}">Shop</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
@@ -78,6 +79,7 @@
                             </li>
                             <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
                             <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+                            <li><a class="dropdown-item" href="./editlogo.html" th:href="@{editlogo}">Edit Logo</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -98,6 +100,11 @@
             <a class="btn btn-primary col-md-3" href="./addproduct.html" th:href="@{/newproduct}" role="button">Add
                 Product</a>
         </div>
+        <p th:if="${rmv}" class="alert alert-success" role="alert"  th:text="${success}"></p>
+        <p th:if="${rmv}" class="alert alert-success" role="alert"  th:text="${rmv}"></p>
+        <p th:if="${deleted}" class="alert alert-success" role="alert"  th:text="${deleted}"></p>
+        <p th:if="${succe}" class="alert alert-success" role="alert"  th:text="${succe}"></p>
+
         <div class="table">
             <div th:each="product: ${products}" class="ap">
 
@@ -120,8 +127,6 @@
                             role="button">View More Details</a>
                     </div>
                 </div>
-
-
             </div>
         </div>
 

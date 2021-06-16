@@ -4,6 +4,7 @@ package com.autoparts.autoparts.controllers;
 import com.autoparts.autoparts.classes.OrderProduct;
 import com.autoparts.autoparts.classes.Orders;
 import com.autoparts.autoparts.repository.OrderProductRepository;
+import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.OrderProductService;
 import com.autoparts.autoparts.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,14 @@ public class OrderProductController {
     @Autowired
     OrderProductRepository orderProductRepository;
 
+    @Autowired
+    BusinessDetailsService businessDetailsService;
+
     // get all Items in Cart
     @GetMapping(path = "/allitems")
     public String getAllOrderProduct(Model model) {
         model.addAttribute("orderProducts", cart);
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "cart";
     }
 
@@ -42,20 +47,22 @@ public class OrderProductController {
     public ModelAndView addToCart(@PathVariable("id") Long id,
             @ModelAttribute("orderProduct") OrderProduct orderProduct, @ModelAttribute("order") Orders order,
             BindingResult bindingResult, Model model, @RequestParam("quantity") Integer q, ModelAndView mav) {
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         if (bindingResult.hasErrors()) {
             mav.addObject("errorss", "Error in adding items to cart, try again");
-            mav.setViewName("errors");
+            mav.setViewName("productview");
         } else {
             orderProduct.setProducts(productsService.getOneProduct(id));
             orderProductService.addOrderProduct(orderProduct);
             if (q > productsService.getOneProduct(id).getCount()) {
                 mav.addObject("greater", "Limit for this product is " + productsService.getOneProduct(id).getCount());
-                mav.setViewName("errors");
+                mav.setViewName("productview");
             } else {
                 cart.add(orderProduct);
                 orderProduct.setProductsRemaining();
                 orderProductRepository.save(orderProduct);
-                mav.setViewName("redirect:/shop");
+                mav.addObject("succe", "Item added to cart!");
+                mav.setViewName("shop");
             }
 
         }
@@ -63,12 +70,14 @@ public class OrderProductController {
         return mav;
     }
 
+    // remove a product from the cart
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public ModelAndView delProduct(Model model, @RequestParam("orderProduct") Long orderProductId) {
         ModelAndView mav = new ModelAndView("allitems");
         orderProductService.delOrderProduct(orderProductId);
         cart.clear();
-        mav.setViewName("redirect:/shop");
+        model.addAttribute("rmv", "Product removed from cart!");
+        mav.setViewName("shop");
         return mav;
     }
 

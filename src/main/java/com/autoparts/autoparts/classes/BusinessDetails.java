@@ -23,7 +23,7 @@ public class BusinessDetails {
     @Column(name = "bname", nullable = false)
 	private String bname;
 
-    @Column(name = "logo", nullable = false)
+    @Column(name = "logo", nullable = true)
 	private String logo;
 
     @Transient

@@ -1,5 +1,38 @@
 /* // Authors: Liplan Lekipising and catherine Muthoni */
 
+#success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+#editlogo {
+    width: 1000px;
+    margin-right: 150px;
+    color: white;
+    margin-top: 0px;
+
+}
+
+#logoimg {
+    float: left;
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+}
+
+#bname {
+    background-color:#ffbd4a;
+    margin: 0px;
+    position: absolute;
+    margin-left: 100px;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
 .navbar-brand {
     color: white;
 }
@@ -562,7 +595,7 @@ p {
     padding-bottom: 30px;
     padding-top: 30px;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     margin-top: 30px;
     align-content: center;
     background-color: #cfc8dd;

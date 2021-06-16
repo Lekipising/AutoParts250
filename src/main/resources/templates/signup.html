@@ -11,7 +11,7 @@
     <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
 
-    <title>Create Account</title>
+    <title>Create Account | AutoParts 250</title>
 
 </head>
 
@@ -34,11 +34,14 @@
                 </div>
 
                 <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
-
-                <input type="text" name="firstName" placeholder="First Name ..." />
-                <input type="text" name="secondName" placeholder="Second Name ..." />
-                <input type="text" name="phoneNumber" placeholder="Phone ..." />
-                <input type="email" name="username" placeholder="Email" />
+                <p th:if="${#fields.hasErrors('firstName')}" class="error">Invalid first name</p>
+                <p th:if="${#fields.hasErrors('secondName')}" class="error">Invalid second name</p>
+                <p th:if="${#fields.hasErrors('phoneNumber')}" class="error">Invalid phone number</p>
+                <p th:if="${#fields.hasErrors('username')}" class="error">Invalid username</p>
+                <input type="text" name="firstName" placeholder="First Name ..."  required/>
+                <input type="text" name="secondName" placeholder="Second Name ..."  required/>
+                <input type="text" name="phoneNumber" placeholder="Phone ..."  required/>
+                <input type="email" name="username" placeholder="Email"  required/>
                 <button type="submit">Create Account</button>
                 <a href="./home.html" th:href="@{/}">Go to Home</a>
             </form>
@@ -48,14 +51,9 @@
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
-                    <button class="ghost" id="signIn">Login</button>
-
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
 
                 </div>
             </div>

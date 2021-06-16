@@ -14,19 +14,16 @@ public class OrderProduct {
     @Column(name = "orderProductId")
     private long orderProductId;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ordersId", nullable = true)
     private Orders orders;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="productId", nullable = false)
     private Products products;
 
-
     @Column
     private int quantity;
-
-
 
     public OrderProduct(Orders orders, Products products, int quantity, long price) {
         this.orders = orders;

@@ -68,7 +68,6 @@ public class RegisterController {
 				user.setUsername(username);
 				// Disable user until they click on confirmation link in email
 				user.setEnabled(false);
-				System.out.println("enabled");
 				// Generate random 36-character string token for confirmation link
 				user.setConfirmationToken(UUID.randomUUID().toString());
 
@@ -111,7 +110,6 @@ public class RegisterController {
 	// Process confirmation link
 	@RequestMapping(value="/confirm", method = RequestMethod.POST)
 	public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult, @RequestParam Map requestParams, RedirectAttributes redir) {
-		System.out.println(requestParams.get("password"));
 		modelAndView.setViewName("confirm");
 
 		Zxcvbn passwordCheck = new Zxcvbn();
@@ -124,7 +122,6 @@ public class RegisterController {
 			redir.addFlashAttribute("errorMessage", "Your password is too weak.  Choose a stronger one.");
 
 			modelAndView.setViewName("redirect:confirm?token=" + requestParams.get("token"));
-			System.out.println(requestParams.get("token"));
 			return modelAndView;
 		}
 
@@ -149,13 +146,11 @@ public class RegisterController {
 	public String showLoginPage(Model model, String error, String logout){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))){
-			System.out.println("User found");
 			model.addAttribute("loggedin", auth.getName() + "is currently logged in");
 			return "login";
 		}
 
 		if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))){
-			System.out.println("User found");
 			model.addAttribute("loggedin", auth.getName() + "is currently logged in");
 			return "login";
 		}

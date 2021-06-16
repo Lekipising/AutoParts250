@@ -17,15 +17,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
 
-    <title>Product Details</title>
+    <title>Product Details | AutoParts 250</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./home.html" th:href="@{/}">
-                <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
-                <p>250 Autoparts</p>
+            <p th:text="${businessDetails.bname}" id="bname"></p>
+            <a href="./home.html" th:href="@{/}">
+                <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}"
+                    alt="logo" class="d-inline-block align-text-top" id="logoimg">
             </a>
         </div>
         <div class="container-fluid">
@@ -37,13 +38,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
+                        <a class="nav-link" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./shop.html" th:href="@{/shop}">Shop</a>
+                        <a class="nav-link active" href="./shop.html" th:href="@{/shop}">Shop</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
@@ -78,6 +79,7 @@
                             </li>
                             <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
                             <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+                            <li><a class="dropdown-item" href="./editlogo.html" th:href="@{editlogo}">Edit Logo</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -115,9 +117,12 @@
                         <form action="" th:action="@{'/adding/' + ${#request.getAttribute('id')}}"
                             th:object="${orderProduct}" method="post">
                             <label for="formGroupExampleInput" class="form-label">Quantity</label>
-                            <input type="text" class="form-control" th:field="*{quantity}" id="quantity" name="quantity"
-                                placeholder="1">
+                            <input type="number" class="form-control" th:field="*{quantity}" id="quantity" name="quantity" required>
                             <button class="btn btn-primary" type="submit">Add to Cart</button>
+                            <div class="errorse">
+                                <p th:if="${#fields.hasErrors('quantity')}" class="error">Invalid Quantity</p>
+                                <h4 th:if="${greater}" role="alert" th:text="${greater}"></h4>
+                            </div>
                         </form>
                     </div>
                 </div>

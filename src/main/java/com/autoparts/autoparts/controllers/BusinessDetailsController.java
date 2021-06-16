@@ -44,12 +44,12 @@ public class BusinessDetailsController {
     private String secretKey;
 
     @GetMapping(path = "/editlogo")
-    public String showEditLogoForm(Model model) {
+    public String showAddForm(Model model) {
         model.addAttribute("businessDetails", new BusinessDetails());
         return "editlogo";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/editlogo/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id) {
         ModelAndView mav = new ModelAndView("editlogo");
         BusinessDetails businessDetails = businessDetailsService.getOneDetail(id);
@@ -58,6 +58,34 @@ public class BusinessDetailsController {
     }
 
     @RequestMapping(value = "/editlogo", method = RequestMethod.POST)
+    public String addProductSubmission(@ModelAttribute("businessDetails") BusinessDetails businessDetails, BindingResult bindingResult,
+            Model model, @RequestParam("logoPhoto") MultipartFile logoPhoto) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            return "editlogo";
+        }
+        // photo
+        businessDetailsService.addDetail(businessDetails);
+        String extension = FilenameUtils.getExtension(logoPhoto.getOriginalFilename());
+        String nameP = businessDetails.getDetailid() + "." + extension;
+        businessDetails.setLogo(nameP);
+
+        // AWS S3
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+
+        AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
+
+        File file = convertMultiPartToFile(logoPhoto);
+
+        s3client.putObject("autoparts250", nameP, file);
+
+        businessDetailsService.addDetail(businessDetails);
+        model.addAttribute("success", "Business details added successfully!");
+        return "editlogo";
+    }
+
+    @RequestMapping(value = "/editlogo", method = RequestMethod.PUT)
     public String updateProductSubmission(@ModelAttribute("businessDetails") BusinessDetails businessDetails, BindingResult bindingResult,
             Model model, @RequestParam("logoPhoto") MultipartFile logoPhoto) throws IOException {
 
@@ -81,8 +109,8 @@ public class BusinessDetailsController {
         s3client.putObject("autoparts250", nameP, file);
 
         businessDetailsService.addDetail(businessDetails);
-
-        return "redirect:/";
+        model.addAttribute("successup", "Business details updated successfully!");
+        return "editlogo";
     }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {

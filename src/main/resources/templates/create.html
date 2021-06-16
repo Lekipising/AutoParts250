@@ -11,37 +11,39 @@
   <link href="../static/css/login.css" type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
   <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
-  <title>Create Admin Account</title>
+  <title>Create Admin Account | AutoParts 250</title>
 
 </head>
 
 <body>
 
 
-  <h2>Welcome to 250 Auto Part : ADMIN</h2>
+  <h2>Admin Login Page</h2>
 
   <div class="container" id="container">
     <div class="form-container sign-in-container">
       <form autocomplete="off" action="" th:action="@{/create}" th:object="${account}" method="post" class="m-t"
         role="form" data-toggle="validator">
         <h1>Create Account</h1>
-
-        <div th:if="${confirmationMessage}" class="alert alert-success" role="alert" th:text="${confirmationMessage}">
+        <p th:if="${#fields.hasErrors('firstName')}" class="error">Invalid first name</p>
+        <p th:if="${#fields.hasErrors('secondName')}" class="error">Invalid second name</p>
+        <p th:if="${#fields.hasErrors('phoneNumber')}" class="error">Invalid phone number</p>
+        <p th:if="${#fields.hasErrors('username')}" class="error">Invalid username</p>
+        <div th:if="${confirmationMessage}" class="alert alert-success" role="alert" th:text="${confirmationMessage}" id="success">
         </div>
 
-        <div th:if="${exists}" class="alert alert-success" role="alert" th:text="${exists}">
+        <div th:if="${exists}" th:text="${exists}" class="error">
         </div>
 
         <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
 
-        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name ..." />
-        <input type="text" name="secondName" th:field="*{secondName}" placeholder="Second Name ..." />
-        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Phone ..." />
-        <input type="email" name="username" th:field="*{username}" placeholder="Email" />
-        <input type="checkbox" name="policy" id="policy">
+        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name ..."  required/>
+        <input type="text" name="secondName" th:field="*{secondName}" placeholder="Second Name ..."  required/>
+        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Phone ..."  required/>
+        <input type="email" name="username" th:field="*{username}" placeholder="Email"  required/>
         <button type="submit">Create Account</button>
         <a href="./home.html" th:href="@{/}">Go to Home</a>
-        <a href="./create.html" th:href="@{create}">Create a new account</a>
+        <a href="./login.html" th:href="@{login}">Login instead?</a>
       </form>
 
     </div>
@@ -50,13 +52,11 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h1>Welcome Back!</h1>
-          <p>To keep connected with us please login with your personal info</p>
           <button class="ghost" id="signIn">Login</button>
 
         </div>
         <div class="overlay-panel overlay-right">
           <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
 
         </div>
       </div>

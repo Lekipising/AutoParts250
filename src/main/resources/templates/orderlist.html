@@ -17,15 +17,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
 
-  <title>All Orders</title>
+  <title>All Orders | AutoParts 250</title>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="./home.html" th:href="@{/}">
-        <img src="./assets/logo.png" th:src="@{assets/logo.png}" class="d-inline-block align-text-top">
-        <p>250 Autoparts</p>
+      <p th:text="${businessDetails.bname}" id="bname"></p>
+      <a href="./home.html" th:href="@{/}">
+        <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}" alt="logo" class="d-inline-block align-text-top" id="logoimg">
       </a>
     </div>
     <div class="container-fluid">
@@ -36,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
+            <a class="nav-link" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
@@ -66,7 +66,7 @@
             </ul>
           </li>
           <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
+            <a class="nav-link dropdown-toggle active" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               Inventory
             </a>
@@ -76,6 +76,7 @@
               <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a></li>
               <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
               <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+              <li><a class="dropdown-item" href="./editlogo.html" th:href="@{editlogo}">Edit Logo</a></li>
             </ul>
           </li>
           <li class="nav-item">
