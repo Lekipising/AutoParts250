@@ -19,7 +19,7 @@ public class OrderProduct {
     private Orders orders;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="productId", nullable = false)
+    @JoinColumn(name="productId", nullable = true)
     private Products products;
 
     @Column

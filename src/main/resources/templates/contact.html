@@ -15,6 +15,7 @@
   <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <title>Contact Us | AutoParts 250</title>
 </head>
@@ -89,8 +90,8 @@
     </div>
   </nav>
   <h2>Contact</h2>
-  <h4 th:if="${message1}" class="alert alert-success" role="alert"  th:text="${message1}"></h4>
-  <h4 th:if="${message2}" class="alert alert-success" role="alert"  th:text="${message2}"></h4>
+  <div th:if="${message1}" class="alert alert-success" role="alert"  th:text="${message1}"></div>
+  <div th:if="${message2}" class="alert alert-success" role="alert"  th:text="${message2}"></div>
 
   <div class="co">
     <form action="" th:action="@{/contact}" method="post">
@@ -104,9 +105,8 @@
       <label for="subject">Subject</label> <br>
       <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" required></textarea>
       <br>
-
+      <div class="g-recaptcha" data-sitekey="6Lf3ZT0bAAAAAIP4PZYj6-5-bWpkJiG2yTeJKh_c"></div> <br>
       <input type="submit" value="Submit"> <br>
-
     </form>
 
   </div>

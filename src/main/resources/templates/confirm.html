@@ -23,11 +23,11 @@
     <div class="form-container sign-in-container">
       <form th:if="!${invalidToken}" class="m-t" id="passwordForm" role="form" action="#" th:object="${setPassword}"
         th:action="@{/confirm}" method="post">
-        <h4 th:if="${successMessage}" class="alert alert-success" role="alert" th:text="${successMessage}"></h4>
+        <div th:if="${successMessage}" class="alert alert-success" role="alert" th:text="${successMessage}"></div>
 
-        <h4 th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></h4>
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
 
-        <h4 th:if="${invalidToken}" class="alert alert-danger" role="alert" th:text="${invalidToken}"></h4>
+        <div th:if="${invalidToken}" class="alert alert-danger" role="alert" th:text="${invalidToken}"></div>
         <input type="hidden" name="token" th:value="${confirmationToken}">
 
         <div class="form-group input-group">
@@ -49,12 +49,10 @@
 
           <div class="help-block with-errors"></div>
         </div>
-
-
-
         <button type="submit" class="btn btn-primary block full-width m-b">Save
         </button>
-        <a href="./home.html" th:href="@{/}">Go to Home</a>
+        <a href="./home.html" th:href="@{/}">Go to Home</a> or 
+        <a href="./login.html" th:href="@{/login}">Login</a>
 
       </form>
 

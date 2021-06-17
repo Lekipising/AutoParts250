@@ -54,7 +54,7 @@ public class homeController {
     }
 
     @RequestMapping(value = "/contact", method = RequestMethod.POST)
-	public ModelAndView processContactForm(ModelAndView modelAndView, BindingResult bindingResult, HttpServletRequest request, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("subject") String subject) {
+	public ModelAndView processContactForm(ModelAndView modelAndView, BindingResult bindingResult, HttpServletRequest request, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("subject") String subject, Model model) {
 	
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("message1", "Error in contact form");
@@ -69,8 +69,8 @@ public class homeController {
             registrationEmail.setFrom("noreply@domain.com");
 
             emailService.sendEmail(registrationEmail);
-
             modelAndView.addObject("message2", "We have received your message, one of our agent will get back you. Keep shopping!");
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
             modelAndView.setViewName("contact");
 			
 		}

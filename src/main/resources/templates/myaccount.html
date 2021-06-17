@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
 
-    <title>Your Account | AutoParts 250</title>
+    <title th:text="${message1} + ' | Auto Parts 250'"></title>
 </head>
 
 <body>
@@ -104,17 +104,17 @@
         <h3>Personal Information</h3>
         <div class="acf">
             <form action="">
-                <h4 th:if="${message1}" role="alert" th:text="${message1}"
-                    style="color: black; background-color: #ffbd4a;"></h4>
+                <div th:if="${message1}" role="alert" th:text="${message1}"
+                    style="color: black; background-color: #ffbd4a;"></div>
                 <input type="text" name="firstName" id="firstName" placeholder="New first name ..." required>
-                <h4 th:if="${message2}" role="alert" th:text="${message2}"
-                    style="color: black; background-color: #ffbd4a;"></h4>
+                <div th:if="${message2}" role="alert" th:text="${message2}"
+                    style="color: black; background-color: #ffbd4a;"></div>
                 <input type="text" name="secondName" id="secondName" placeholder="New second name ..." required>
-                <h4 th:if="${message3}" role="alert" th:text="${message3}"
-                    style="color: black; background-color: #ffbd4a;"></h4>
+                <div th:if="${message3}" role="alert" th:text="${message3}"
+                    style="color: black; background-color: #ffbd4a;"></div>
                 <input type="text" name="phoneNumber" id="phoneNumber" placeholder="New phone ..." required>
-                <h4 th:if="${message4}" role="alert" th:text="${message4}"
-                    style="color: black; background-color: #ffbd4a;"></h4>
+                <div th:if="${message4}" role="alert" th:text="${message4}"
+                    style="color: black; background-color: #ffbd4a;"></div>
                 <input type="text" name="username" id="username" placeholder="New Email ..." required> <br>
                 <input type="submit" value="Update">
             </form>

@@ -2,6 +2,7 @@
 package com.autoparts.autoparts.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -133,39 +135,47 @@ public class ProductsController {
     // UPDATE A PRODUCT
     @RequestMapping(value = "/updateproduct", method = RequestMethod.POST)
     public String updateProductSubmission(@ModelAttribute("product") Products product, BindingResult bindingResult,
-            Model model, @RequestParam("studentPhoto") MultipartFile studentPhoto) throws IOException {
+            Model model, @RequestParam(value = "studentPhoto", required = false) MultipartFile studentPhoto)
+            throws IOException {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         if (bindingResult.hasErrors()) {
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
             return "updateproduct";
         }
         // photo
-        productsService.addProduct(product);
-        String extension = FilenameUtils.getExtension(studentPhoto.getOriginalFilename());
-        String nameP = product.getProductId() + "." + extension;
-        product.setPhoto(nameP);
+        try {
+            productsService.addProduct(product);
+            String extension = FilenameUtils.getExtension(studentPhoto.getOriginalFilename());
+            String nameP = product.getProductId() + "." + extension;
+            product.setPhoto(nameP);
 
-        // AWS S3
-        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+            // AWS S3
+            AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
 
-        AmazonS3 s3client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
+            AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+                    .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2)
+                    .build();
 
-        File file = convertMultiPartToFile(studentPhoto);
+            File file = convertMultiPartToFile(studentPhoto);
 
-        s3client.putObject("autoparts250", nameP, file);
+            s3client.putObject("autoparts250", nameP, file);
 
-        productsService.addProduct(product);
-        model.addAttribute("success", "Product updated Successfully!");
-        return "updateproduct";
+            productsService.addProduct(product);
+            model.addAttribute("success", "Product updated Successfully!");
+            return "updateproduct";
+        } catch (FileNotFoundException e) {
+            productsService.addProduct(product);
+            model.addAttribute("success", "Product updated Successfully!");
+            return "updateproduct";
+        }
+
     }
 
     // DELETE - delete a product
     @GetMapping("/delete/{productId}")
-    public String delProduct(@PathVariable("productId") Long productId, Model model) {
+    public String delProduct(@PathVariable("productId") Long productId, Model model, RedirectAttributes attributes) {
         productsService.delProduct(productId);
-        model.addAttribute("success", "Product deleted Successfully!");
-        System.out.println("PRODUCT DELETED!");
+        attributes.addFlashAttribute("success", "Product deleted Successfully!");
         return "redirect:/shop";
 
     }

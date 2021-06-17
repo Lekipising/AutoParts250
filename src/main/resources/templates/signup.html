@@ -25,14 +25,11 @@
             <form autocomplete="off" action="#" th:action="@{/signup}" th:object="${account}" method="post" class="m-t"
                 role="form" data-toggle="validator">
                 <h1>Create Account</h1>
-
                 <div th:if="${confirmationMessage}" class="alert alert-success" role="alert"
                     th:text="${confirmationMessage}">
                 </div>
-
                 <div th:if="${exists}" class="alert alert-success" role="alert" th:text="${exists}">
                 </div>
-
                 <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
                 <p th:if="${#fields.hasErrors('firstName')}" class="error">Invalid first name</p>
                 <p th:if="${#fields.hasErrors('secondName')}" class="error">Invalid second name</p>
