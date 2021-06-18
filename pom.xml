@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.autoparts</groupId>
 	<artifactId>autoparts</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>autoparts</name>
 	<description>Web App - 250 Auto Parts Rwanda</description>
 	<properties>
@@ -43,11 +43,6 @@
 			<artifactId>spring-data-commons</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.18</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-webmvc</artifactId>
 			<version>3.4.5</version>
@@ -62,12 +57,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<dependency>
     		<groupId>com.fasterxml.jackson.core</groupId>
     		<artifactId>jackson-core</artifactId>
@@ -236,10 +225,11 @@
 			<artifactId>firebase-admin</artifactId>  
 			<version>6.11.0</version>  
 		</dependency> 
-		
-		
-
-
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty-shaded</artifactId>
+			<version>1.27.1</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
