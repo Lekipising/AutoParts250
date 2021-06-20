@@ -1,11 +1,14 @@
 /* // Authors: Liplan Lekipising and catherine Muthoni */
 
 #success {
-    color: green;
+    color: black;
+    width: 45%;
+    background-color: lightgreen;
 }
 
 .error {
     color: red;
+    width: 45%;
 }
 
 #editlogo {
@@ -52,6 +55,20 @@
     color: white;
 }
 
+.nav-link:hover {
+    background-color: #ffbd4a;
+    color: black;
+}
+
+.store_policies {
+    width: 40%;
+    margin-left: 30%;
+}
+
+.polh {
+    margin-left: 25%;
+}
+
 body {
     background-color: #ffbd4a;
     color: black;
@@ -89,8 +106,9 @@ body {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%; */
+    /* height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -104,11 +122,12 @@ body {
 }
 
 .logoutf input[type=submit] {
-    width: 30%;
+    /* width: 30%; */
     font-weight: bold;
     background-color: #ffbd4a;
     color: black;
-    height: 50px;
+    /* height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -117,8 +136,9 @@ body {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%; */
+    /* height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -127,8 +147,9 @@ body {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%; */
+    /* height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -200,8 +221,9 @@ body {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%;
+    height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -317,40 +339,44 @@ h1 {
     font-weight: bold;
     color: white;
     font-family: monospace;
-    text-decoration: underline;
     background-color: black;
     width: max-content;
     border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 h2 {
     font-weight: bold;
     color: white;
     font-family: monospace;
-    text-decoration: underline;
     background-color: black;
     width: max-content;
     border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 h3 {
     font-weight: bold;
     color: white;
     font-family: monospace;
-    text-decoration: underline;
     background-color: black;
     width: max-content;
     border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 h4 {
     font-weight: bold;
     color: white;
     font-family: monospace;
-    text-decoration: underline;
     background-color: black;
     width: max-content;
     border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .welcomeimg>img {
@@ -464,8 +490,9 @@ h4 {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%; */
+    /* height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -602,12 +629,14 @@ p {
     font-size: 20px;
 }
 
+
 button {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%;
+    height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -616,8 +645,9 @@ button {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%;
+    height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
@@ -731,7 +761,7 @@ button {
     margin-bottom: 100px;
 }
 
-input[type=text], textarea {
+input[type=text], textarea{
     width: 70%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -757,11 +787,24 @@ input[type=submit] {
     background-color: black;
     color: #ffbd4a;
     font-weight: bold;
-    width: 30%;
-    height: 50px;
+    /* width: 30%; */
+    /* height: 50px; */
+    display: inline-block;
     font-size: 23px;
     border-radius: 10px;
 }
+
+#submit:disabled { 
+    background-color: darkgrey;
+    color: black;
+    font-weight: bold;
+    /* width: 30%; */
+    /* height: 50px; */
+    display: inline-block;
+    font-size: 23px;
+    border-radius: 10px;
+    font-style: italic;
+}​
 
 table {
     border-collapse: collapse;

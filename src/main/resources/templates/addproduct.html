@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
     <title>Add Product | AutoParts 250</title>
 </head>
 
@@ -95,13 +96,14 @@
         <h3>Add Product</h3>
         <form class="mb-3" action="" th:action="@{/addproduct}" th:object="${products}" method="post"
             enctype="multipart/form-data">
-            <p th:if="${#fields.hasErrors('name')}" class="error">Invalid product name</p>
-            <p th:if="${#fields.hasErrors('description')}" class="error">Invalid product description</p>
-            <p th:if="${#fields.hasErrors('price')}" class="error">Invalid product price</p>
-            <p th:if="${#fields.hasErrors('count')}" class="error">Invalid product count</p>
-            <p th:if="${#fields.hasErrors('studentPhoto')}" class="error">Invalid product image</p>
-            <div th:if="${success}" class="alert alert-success" role="alert" th:text="${success}">
-            </div>
+            <p th:if="${#fields.hasErrors('name')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product name</p>
+            <p th:if="${#fields.hasErrors('description')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product description</p>
+            <p th:if="${#fields.hasErrors('price')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product price</p>
+            <p th:if="${#fields.hasErrors('count')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product count</p>
+            <p th:if="${#fields.hasErrors('studentPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product image</p>
+
+            <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
+
             <label for="formGroupExampleInput" class="form-label">Name</label>
             <input type="text" class="form-control" th:field="*{name}" id="formGroupExampleInput" placeholder="Name" required>
 

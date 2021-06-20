@@ -118,7 +118,7 @@
                             th:object="${orderProduct}" method="post">
                             <label for="formGroupExampleInput" class="form-label">Quantity</label>
                             <input type="number" min="1" class="form-control" th:field="*{quantity}" id="quantity" name="quantity" required>
-                            <button class="btn btn-primary" type="submit">Add to Cart</button>
+                            <button class="btn btn-primary" type="submit" style="margin-top: 10px; margin-left: 30%;">Add to Cart</button>
                             <div class="errorse">
                                 <p th:if="${#fields.hasErrors('quantity')}" class="error">Invalid Quantity</p>
                                 <div th:if="${greater}" role="alert" th:text="${greater}"></div>

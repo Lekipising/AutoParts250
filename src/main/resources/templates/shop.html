@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
     <title>Shop | AutoParts 250</title>
 </head>
 
@@ -100,10 +101,9 @@
             <a class="btn btn-primary col-md-3" href="./addproduct.html" th:href="@{/newproduct}" role="button">Add
                 Product</a>
         </div>
-        <p th:if="${rmv}" class="alert alert-success" role="alert"  th:text="${success}"></p>
-        <p th:if="${rmv}" class="alert alert-success" role="alert"  th:text="${rmv}"></p>
-        <p th:if="${deleted}" class="alert alert-success" role="alert"  th:text="${deleted}"></p>
-        <p th:if="${succe}" class="alert alert-success" role="alert"  th:text="${succe}"></p>
+        <p th:if="${rmv}" class="isa_success"  th:text="${rmv}" th:inline="text"><i class="fa fa-check"></i> [[${rmv}]]</p>
+        <p th:if="${deleted}" class="isa_success"  th:text="${deleted}" th:inline="text"><i class="fa fa-check"></i> [[${deleted}]]</p>
+        <p th:if="${succe}" class="isa_success" th:text="${succe}" th:inline="text"><i class="fa fa-check"></i> [[${succe}]]</p>
         <div class="table">
             <div th:each="product: ${products}" class="ap">
 

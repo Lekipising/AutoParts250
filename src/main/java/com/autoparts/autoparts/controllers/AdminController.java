@@ -9,11 +9,14 @@ import javax.validation.Valid;
 
 import com.autoparts.autoparts.classes.Account;
 import com.autoparts.autoparts.services.AccountService;
+import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.EmailSenderService;
+import com.autoparts.autoparts.services.ReCaptchaValidationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +28,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 	@Autowired
 	EmailSenderService emailService;
+
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	ReCaptchaValidationService validator;
 
 	// Return registration form template
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -39,43 +46,48 @@ public class AdminController {
 	// Process form input data
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView processRegistrationForm(ModelAndView modelAndView,
-			@ModelAttribute("account") @Valid Account user, BindingResult bindingResult, HttpServletRequest request,
-			@RequestParam("username") String username) {
-		try {
-			Account exists = accountService.getOneAccount(username);
-			modelAndView.addObject("exists", "Email already in use, try a different one");
-			modelAndView.setViewName("create");
-
-		} catch (NoSuchElementException e) {
-			if (bindingResult.hasErrors()) {
+			@ModelAttribute("account") @Valid Account user, BindingResult bindingResult, Model model, HttpServletRequest request,
+			@RequestParam("username") String username, @RequestParam(name = "g-recaptcha-response") String resp) {
+		if (validator.validateCaptcha(resp)) {
+			try {
+				Account exists = accountService.getOneAccount(username);
+				modelAndView.addObject("exists", "Email already in use, try a different one");
 				modelAndView.setViewName("create");
+
+			} catch (NoSuchElementException e) {
+				if (bindingResult.hasErrors()) {
+					modelAndView.setViewName("create");
+				}
+
+				else { // new user so we create user and send confirmation e-mail
+					user.setUsername(username);
+					// Disable user until they click on confirmation link in email
+					user.setEnabled(false);
+					// Generate random 36-character string token for confirmation link
+					user.setConfirmationToken(UUID.randomUUID().toString());
+					user.setRole("ADMIN");
+					accountService.addAccount(user);
+
+					String appUrl = request.getScheme() + "://" + request.getServerName();
+
+					SimpleMailMessage registrationEmail = new SimpleMailMessage();
+					registrationEmail.setTo(user.getUsername());
+					registrationEmail.setSubject("Registration Confirmation");
+					registrationEmail.setText("To confirm your e-mail address, please click the link below:\n" + appUrl
+							+ "/confirm?token=" + user.getConfirmationToken());
+					registrationEmail.setFrom("noreply@domain.com");
+
+					emailService.sendEmail(registrationEmail);
+
+					modelAndView.addObject("confirmationMessage",
+							"A confirmation e-mail has been sent to " + user.getUsername());
+					modelAndView.setViewName("create");
+				}
 			}
-
-			else { // new user so we create user and send confirmation e-mail
-				user.setUsername(username);
-				// Disable user until they click on confirmation link in email
-				user.setEnabled(false);
-				// Generate random 36-character string token for confirmation link
-				user.setConfirmationToken(UUID.randomUUID().toString());
-				user.setRole("ADMIN");
-				accountService.addAccount(user);
-
-				String appUrl = request.getScheme() + "://" + request.getServerName();
-
-				SimpleMailMessage registrationEmail = new SimpleMailMessage();
-				registrationEmail.setTo(user.getUsername());
-				registrationEmail.setSubject("Registration Confirmation");
-				registrationEmail.setText("To confirm your e-mail address, please click the link below:\n" + appUrl
-						+ "/confirm?token=" + user.getConfirmationToken());
-				registrationEmail.setFrom("noreply@domain.com");
-
-				emailService.sendEmail(registrationEmail);
-
-				modelAndView.addObject("confirmationMessage",
-						"A confirmation e-mail has been sent to " + user.getUsername());
-				modelAndView.setViewName("create");
-			}
-		}
+		} else {
+            modelAndView.addObject("capmessage", "ReCaptcha failed! Please try again");
+            modelAndView.setViewName("create");
+        }
 
 		return modelAndView;
 	}

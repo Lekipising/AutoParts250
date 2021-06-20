@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
     <title>Edit Logo and Business Name | AutoParts 250</title>
 </head>
 
@@ -20,9 +21,10 @@
         <input type="file" id="logoPhoto" name="logoPhoto" th:field="${businessDetails.logoPhoto}" accept="image/png, image/jpeg"
             placeholder="Upload new logo ..." required>
         <button type="submit">Add Details</button>
-        <div th:if="${success}" class="alert alert-success" role="alert" th:text="${success}"></div>
-        <p th:if="${#fields.hasErrors('bname')}" class="error">Invalid bname</p>
-        <p th:if="${#fields.hasErrors('logo')}" class="error">Invalid logo</p>
+
+        <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
+        <p th:if="${#fields.hasErrors('bname')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid bname</p>
+        <p th:if="${#fields.hasErrors('logo')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid logo</p>
     </form>
 
     <h2>Edit Logo and Business Name - form</h2>
@@ -32,9 +34,9 @@
         <input type="file" path="logoPhoto" id="logoPhoto" name="logoPhoto" th:field="${businessDetails.logoPhoto}" accept="image/png, image/jpeg"
             placeholder="Upload new logo ..." required>
         <button type="submit">Update Details</button>
-        <div th:if="${successup}" class="alert alert-success" role="alert" th:text="${successup}"></div>
-        <p th:if="${#fields.hasErrors('bname')}" class="error">Invalid bname</p>
-        <p th:if="${#fields.hasErrors('logo')}" class="error">Invalid logo</p>
+        <div th:if="${successup}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successup}]]</div>
+        <p th:if="${#fields.hasErrors('bname')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid bname</p>
+        <p th:if="${#fields.hasErrors('logo')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid logo</p>
     </form>
 </body>
 
