@@ -74,7 +74,8 @@ public class OrderProductController {
 
     // remove a product from the cart
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public ModelAndView delProduct(Model model, @RequestParam("orderProduct") Long orderProductId, RedirectAttributes attributes) {
+    public ModelAndView delProduct(Model model, @RequestParam("orderProduct") Long orderProductId,
+            RedirectAttributes attributes) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         ModelAndView mav = new ModelAndView("allitems");
         orderProductService.delOrderProduct(orderProductId);

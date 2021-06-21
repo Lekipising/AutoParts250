@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import javax.servlet.ServletContext;
 
@@ -82,9 +83,14 @@ public class ProductsController {
     // show more about product form
     @GetMapping(path = "/{id}")
     public String showMore(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("products", productsService.getOneProduct(id));
-        model.addAttribute("orderProduct", new OrderProduct());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        try {
+            model.addAttribute("products", productsService.getOneProduct(id));
+            model.addAttribute("orderProduct", new OrderProduct());
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        } catch (NoSuchElementException e) {
+            return "error-404";
+        }
+
         return "productview";
     }
 

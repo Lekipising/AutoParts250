@@ -7,12 +7,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/error.css}">
   <title>Error | AutoParts 250</title>
 </head>
 
 <body>
   <div>
-    <h1>Error 404</h1>
+    <h1 id="errorcode">Error 404</h1>
+    <p id="errormsg">We can't find that page or item</p>
     <h2><a href="./home.html" th:href="@{/}">Go Home</a></h2>
   </div>
 </body>

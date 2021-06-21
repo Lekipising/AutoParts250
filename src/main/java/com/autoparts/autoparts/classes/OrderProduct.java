@@ -18,7 +18,7 @@ public class OrderProduct {
     @JoinColumn(name="ordersId", nullable = true)
     private Orders orders;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="productId", nullable = true)
     private Products products;
 
@@ -73,8 +73,9 @@ public class OrderProduct {
         return this.getProducts().getPrice() * this.getQuantity();
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        String items = "ID : " + this.getOrderProductId() + " Quantity : " + this.getQuantity() + "Product : ";
+        return items;
+    }
 }
