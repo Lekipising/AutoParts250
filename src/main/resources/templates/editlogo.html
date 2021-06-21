@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
+    <title>Edit Logo and Business Name | AutoParts 250</title>
+</head>
+
+<body>
+    <h2>Add</h2>
+    <form action="" th:action="@{/editlogo}" th:object="${businessDetails}" method="post" enctype="multipart/form-data">
+        <input type="text" name="bname" id="bname" th:field="${businessDetails.bname}" placeholder="Enter new business name ..."
+            required>
+        <input type="file" id="logoPhoto" name="logoPhoto" th:field="${businessDetails.logoPhoto}" accept="image/png, image/jpeg"
+            placeholder="Upload new logo ..." required>
+        <button type="submit">Add Details</button>
+
+        <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
+        <p th:if="${#fields.hasErrors('bname')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid bname</p>
+        <p th:if="${#fields.hasErrors('logo')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid logo</p>
+    </form>
+
+    <h2>Edit Logo and Business Name - form</h2>
+    <form action="" th:action="@{/updatelogo}" th:object="${businessDetails}" method="put" enctype="multipart/form-data">
+        <input type="text" name="bname" id="bname" th:field="${businessDetails.bname}" placeholder="Enter new business name ..."
+            required>
+        <input type="file" path="logoPhoto" id="logoPhoto" name="logoPhoto" th:field="${businessDetails.logoPhoto}" accept="image/png, image/jpeg"
+            placeholder="Upload new logo ..." required>
+        <button type="submit">Update Details</button>
+        <div th:if="${successup}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successup}]]</div>
+        <p th:if="${#fields.hasErrors('bname')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid bname</p>
+        <p th:if="${#fields.hasErrors('logo')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid logo</p>
+    </form>
+</body>
+
+</html>

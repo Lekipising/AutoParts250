@@ -10,14 +10,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../static/css/login.css" type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
   <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
-  <title>Create Admin Account</title>
+  <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+  <link rel="stylesheet" th:href="@{/css/messages.css}">
+  <title>Create Admin Account | AutoParts 250</title>
 
 </head>
 
 <body>
 
 
-  <h2>Welcome to 250 Auto Part : ADMIN</h2>
+  <h2>Admin Login Page</h2>
 
   <div class="container" id="container">
     <div class="form-container sign-in-container">
@@ -25,22 +27,27 @@
         role="form" data-toggle="validator">
         <h1>Create Account</h1>
 
-        <div th:if="${confirmationMessage}" class="alert alert-success" role="alert" th:text="${confirmationMessage}">
-        </div>
+        <p th:if="${#fields.hasErrors('firstName')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid first name</p>
+        <p th:if="${#fields.hasErrors('secondName')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid second name</p>
+        <p th:if="${#fields.hasErrors('phoneNumber')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid phone number</p>
+        <p th:if="${#fields.hasErrors('username')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid username</p>
 
-        <div th:if="${exists}" class="alert alert-success" role="alert" th:text="${exists}">
-        </div>
+        <div th:if="${confirmationMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${confirmationMessage}]]</div>
 
-        <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
+        <div th:if="${exists}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${exists}]]</div>
 
-        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name ..." />
-        <input type="text" name="secondName" th:field="*{secondName}" placeholder="Second Name ..." />
-        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Phone ..." />
-        <input type="email" name="username" th:field="*{username}" placeholder="Email" />
-        <input type="checkbox" name="policy" id="policy">
-        <button type="submit">Create Account</button>
+        <div th:if="${errorMessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${errorMessage}]]</div>
+
+        <input type="text" name="firstName" th:field="*{firstName}" placeholder="First Name ..." required />
+        <input type="text" name="secondName" th:field="*{secondName}" placeholder="Second Name ..." required />
+        <input type="text" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Phone ..." required />
+        <input type="email" name="username" th:field="*{username}" placeholder="Email" required />
+        <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Lf3ZT0bAAAAAIP4PZYj6-5-bWpkJiG2yTeJKh_c"></div> <br>
+        <div th:if="${capmessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${capmessage}]]</div>
+        
+        <button id="submit" type="submit">Create Account</button>
         <a href="./home.html" th:href="@{/}">Go to Home</a>
-        <a href="./create.html" th:href="@{create}">Create a new account</a>
+        <a href="./login.html" th:href="@{login}">Login instead?</a>
       </form>
 
     </div>
@@ -49,23 +56,22 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h1>Welcome Back!</h1>
-          <p>To keep connected with us please login with your personal info</p>
           <button class="ghost" id="signIn">Login</button>
 
         </div>
         <div class="overlay-panel overlay-right">
           <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
 
         </div>
       </div>
     </div>
   </div>
- 
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-  crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{/assets/js/index.js}"></script>
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
 </body>
 
 </html>

@@ -16,16 +16,18 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Shop</title>
+    <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
+    <title>Shop | AutoParts 250</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark" style="border-radius: 25px;">
+    <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./home.html" th:href="@{/}">
-                <img src="./assets/logo.png" th:src="@{assets/logo.png}" width="30" height="24"
-                     class="d-inline-block align-text-top" style="height: 80px; width: 80px; float: left;">
-                <p style="padding-top: 25px; padding-left: 100px;">250 Autoparts</p>
+            <p th:text="${businessDetails.bname}" id="bname"></p>
+            <a href="./home.html" th:href="@{/}">
+                <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}"
+                    alt="logo" class="d-inline-block align-text-top" id="logoimg">
             </a>
         </div>
         <div class="container-fluid">
@@ -43,9 +45,8 @@
                         <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  active" href="./shop.html" th:href="@{/shop}">Shop</a>
+                        <a class="nav-link active" href="./shop.html" th:href="@{/shop}">Shop</a>
                     </li>
-        
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
@@ -53,21 +54,22 @@
                         <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./login.html" th:href="@{login}" th:if="!${#request.userPrincipal}">Login</a></li>
+                            <li><a class="dropdown-item" href="./login.html" th:href="@{login}"
+                                    th:if="!${#request.userPrincipal}">Login</a></li>
 
-                            <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}" sec:authorize="isAuthenticated()">My Account</a>
-                            </li>
-                            <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}" th:if="!${#request.userPrincipal}">Create Account</a>
-                            </li>
+                            <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}"
+                                    sec:authorize="isAuthenticated()">My Account</a></li>
+                            <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}"
+                                    th:if="!${#request.userPrincipal}">Create Account</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Inventory
                         </a>
@@ -78,11 +80,15 @@
                             </li>
                             <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
                             <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+                            <li><a class="dropdown-item" href="./editlogo.html" th:href="@{editlogo}">Edit Logo</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img src="https://img.icons8.com/nolan/45/fast-cart.png"/></a>
-                      </li>
+                        <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img
+                                src="https://img.icons8.com/nolan/45/fast-cart.png" /></a>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
@@ -95,6 +101,9 @@
             <a class="btn btn-primary col-md-3" href="./addproduct.html" th:href="@{/newproduct}" role="button">Add
                 Product</a>
         </div>
+        <p th:if="${rmv}" class="isa_success"  th:text="${rmv}" th:inline="text"><i class="fa fa-check"></i> [[${rmv}]]</p>
+        <p th:if="${deleted}" class="isa_success"  th:text="${deleted}" th:inline="text"><i class="fa fa-check"></i> [[${deleted}]]</p>
+        <p th:if="${succe}" class="isa_success" th:text="${succe}" th:inline="text"><i class="fa fa-check"></i> [[${succe}]]</p>
         <div class="table">
             <div th:each="product: ${products}" class="ap">
 
@@ -117,8 +126,6 @@
                             role="button">View More Details</a>
                     </div>
                 </div>
-
-
             </div>
         </div>
 

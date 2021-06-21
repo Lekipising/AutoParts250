@@ -14,19 +14,16 @@ public class OrderProduct {
     @Column(name = "orderProductId")
     private long orderProductId;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ordersId", nullable = true)
     private Orders orders;
 
-    @ManyToOne
-    @JoinColumn(name="productId", nullable = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="productId", nullable = true)
     private Products products;
-
 
     @Column
     private int quantity;
-
-
 
     public OrderProduct(Orders orders, Products products, int quantity, long price) {
         this.orders = orders;
@@ -76,8 +73,9 @@ public class OrderProduct {
         return this.getProducts().getPrice() * this.getQuantity();
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        String items = "ID : " + this.getOrderProductId() + " Quantity : " + this.getQuantity() + "Product : ";
+        return items;
+    }
 }

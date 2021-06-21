@@ -15,16 +15,18 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Update Product</title>
+    <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
+    <title>Update Product | AutoParts 250</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark" style="border-radius: 25px;">
+    <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./home.html" th:href="@{/}">
-                <img src="./assets/logo.png" th:src="@{assets/logo.png}" width="30" height="24"
-                     class="d-inline-block align-text-top" style="height: 80px; width: 80px; float: left;">
-                <p style="padding-top: 25px; padding-left: 100px;">250 Autoparts</p>
+            <p th:text="${businessDetails.bname}" id="bname"></p>
+            <a href="./home.html" th:href="@{/}">
+                <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}"
+                    alt="logo" class="d-inline-block align-text-top" id="logoimg">
             </a>
         </div>
         <div class="container-fluid">
@@ -36,15 +38,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="./home.html" th:href="@{/}">Home</a>
+                        <a class="nav-link" aria-current="page" href="./home.html" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./about.html" th:href="@{about}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./shop.html" th:href="@{/shop}">Shop</a>
+                        <a class="nav-link active" href="./shop.html" th:href="@{/shop}">Shop</a>
                     </li>
-                
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
@@ -52,21 +53,22 @@
                         <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./login.html" th:href="@{login}" th:if="!${#request.userPrincipal}">Login</a></li>
+                            <li><a class="dropdown-item" href="./login.html" th:href="@{login}"
+                                    th:if="!${#request.userPrincipal}">Login</a></li>
 
-                            <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}" sec:authorize="isAuthenticated()">My Account</a>
-                            </li>
-                            <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}" th:if="!${#request.userPrincipal}">Create Account</a>
-                            </li>
+                            <li><a class="dropdown-item" href="./myaccount.html" th:href="@{myaccount}"
+                                    sec:authorize="isAuthenticated()">My Account</a></li>
+                            <li><a class="dropdown-item" href="./signup.html" th:href="@{signup}"
+                                    th:if="!${#request.userPrincipal}">Create Account</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Inventory
                         </a>
@@ -77,11 +79,15 @@
                             </li>
                             <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
                             <li><a class="dropdown-item" href="./orderlist.html" th:href="@{orders}">Orders</a></li>
+                            <li><a class="dropdown-item" href="./editlogo.html" th:href="@{editlogo}">Edit Logo</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img src="https://img.icons8.com/nolan/45/fast-cart.png"/></a>
-                      </li>
+                        <a class="nav-link" href="./cart.html" th:href="@{/allitems}"><img
+                                src="https://img.icons8.com/nolan/45/fast-cart.png" /></a>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
@@ -89,35 +95,40 @@
 
     <div class="container">
         <h3>Update Product</h3>
-        <form class="mb-3" action="" th:action="@{/updateproduct}" th:object="${product}" method="post" enctype="multipart/form-data">
+        <form class="mb-3" action="" th:action="@{/updateproduct}" th:object="${product}" method="post"
+            enctype="multipart/form-data">
+
+            <p th:if="${#fields.hasErrors('name')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product name</p>
+            <p th:if="${#fields.hasErrors('description')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product description</p>
+            <p th:if="${#fields.hasErrors('price')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product price</p>
+            <p th:if="${#fields.hasErrors('count')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product count</p>
+            <p th:if="${#fields.hasErrors('studentPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product image</p>
+
+            <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
+
             <label for="formGroupExampleInput" class="form-label">Product Id</label>
             <input type="text" class="form-control" th:field="${product.productId}" readonly="readonly"
-                id="formGroupExampleInput" placeholder="Id">
+                id="formGroupExampleInput" placeholder="Id" required>
 
             <label for="formGroupExampleInput1" class="form-label">Name</label>
             <input type="text" class="form-control" th:field="${product.name}" id="formGroupExampleInput1"
-                placeholder="Name">
+                placeholder="Name" required>
 
             <label for="formGroupExampleInput2" class="form-label">Description</label>
             <input type="text" class="form-control" th:field="${product.description}" id="formGroupExampleInput2"
-                placeholder="Description">
+                placeholder="Description" required>
 
             <label for="formGroupExampleInput3" class="form-label">Price</label>
             <input type="text" class="form-control" th:field="${product.price}" id="formGroupExampleInput3"
-                placeholder="Price">
+                placeholder="Price" required>
 
             <label for="formGroupExampleInput4" class="form-label">Count</label>
             <input type="text" class="form-control" th:field="${product.count}" id="formGroupExampleInput4"
-                placeholder="Count">
+                placeholder="Count" required>
 
             <label class="form-label">Upload Photo</label>
             <input type="file" path="studentPhoto" id="studentPhoto" name="studentPhoto" class="form-control"
-                th:field="*{studentPhoto}" accept="image/png, image/jpeg">
-            <!--                <label for="formGroupExampleInput5" class="form-label">Created Date</label>-->
-            <!--                <input type="text" class="form-control" th:field="${product.createdDate}" id="formGroupExampleInput5" placeholder="Count">-->
-
-            <!--                <label for="formGroupExampleInput6" class="form-label">Updated Date</label>-->
-            <!--                <input type="text" class="form-control" th:field="${product.updatedDate}" id="formGroupExampleInput6" placeholder="Count">-->
+                th:field="*{studentPhoto}" accept="image/png, image/jpeg" placeholder="Upload product image">
 
             <button class="btn btn-primary" type="submit">Save</button>
 

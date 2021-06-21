@@ -5,6 +5,7 @@ import com.autoparts.autoparts.classes.OrderProduct;
 import com.autoparts.autoparts.classes.Orders;
 import com.autoparts.autoparts.repository.OrderProductRepository;
 import com.autoparts.autoparts.repository.OrdersRepository;
+import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,31 +28,35 @@ public class OrderController {
     @Autowired
     OrderProductRepository orderProductRepository;
 
+    @Autowired
+    BusinessDetailsService businessDetailsService;
+
 
     // get all orders
     @GetMapping(path = "/orders")
     public String getAllOrders(Model model){
         model.addAttribute("orders", ordersService.getAllOrders());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "orderlist";
     }
 
     // DELETE - delete an order
     @GetMapping("/order/delete/{orderId}")
-    public String delProduct(@PathVariable("orderId") Long orderId){
+    public String delProduct(@PathVariable("orderId") Long orderId, Model model){
         ordersService.delOrder(orderId);
-
-        return "home";
+        model.addAttribute("deleted", "Order deleted successfully!");
+        return "shop";
     }
 
-    // GET - one product
+    // GET - one order details 
     @GetMapping(path = "/orders/{orderId}")
-    public Orders getOneOrder(@PathVariable("orderId") Long orderId){
+    public Orders getOneOrder(@PathVariable("orderId") Long orderId, Model model){
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return ordersService.getOneOrder(orderId);
     }
 
     // POST - add order(Proceed to Checkout)
     @RequestMapping(value="/addorder", method= RequestMethod.POST)
-
     public String createOrder(@ModelAttribute("orders") Orders orders, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()){
@@ -71,8 +76,8 @@ public class OrderController {
     // Get details of a specific order
     @GetMapping(path = "/order/more/{id}")
     public String getOrderDetails(@PathVariable("id") Long id,Model model){
-
         model.addAttribute("orderedProducts",ordersService.getOneOrder(id).getOrderProduct());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         return "orderdetails";
     }
 
