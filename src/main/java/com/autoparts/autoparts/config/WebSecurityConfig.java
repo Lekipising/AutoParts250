@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 				.antMatchers("/addorder").hasAuthority("USER")
-				.antMatchers("/shippings", "/orderlist", "/users").hasAuthority("ADMIN")
+				.antMatchers("/shippings", "/orders", "/orderlist", "/users").hasAuthority("ADMIN")
 				.antMatchers("/myaccount").hasAnyAuthority("ADMIN", "USER")
 				.anyRequest().permitAll()
 				.and()

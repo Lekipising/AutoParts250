@@ -103,7 +103,6 @@
             <p th:if="${#fields.hasErrors('price')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product price</p>
             <p th:if="${#fields.hasErrors('count')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product count</p>
             <p th:if="${#fields.hasErrors('studentPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product image</p>
-
             <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
 
             <label for="formGroupExampleInput" class="form-label">Product Id</label>
@@ -112,19 +111,19 @@
 
             <label for="formGroupExampleInput1" class="form-label">Name</label>
             <input type="text" class="form-control" th:field="${product.name}" id="formGroupExampleInput1"
-                placeholder="Name" required>
+                placeholder="Name" required minlength="2">
 
             <label for="formGroupExampleInput2" class="form-label">Description</label>
             <input type="text" class="form-control" th:field="${product.description}" id="formGroupExampleInput2"
-                placeholder="Description" required>
+                placeholder="Description" required minlength="5">
 
             <label for="formGroupExampleInput3" class="form-label">Price</label>
             <input type="text" class="form-control" th:field="${product.price}" id="formGroupExampleInput3"
-                placeholder="Price" required>
+                placeholder="Price" required min="1">
 
             <label for="formGroupExampleInput4" class="form-label">Count</label>
             <input type="text" class="form-control" th:field="${product.count}" id="formGroupExampleInput4"
-                placeholder="Count" required>
+                placeholder="Count" required min="1">
 
             <label class="form-label">Upload Photo</label>
             <input type="file" path="studentPhoto" id="studentPhoto" name="studentPhoto" class="form-control"

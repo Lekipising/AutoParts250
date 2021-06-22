@@ -98,11 +98,12 @@ public class ProductsController {
     @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
     public String saveProductSubmission(@ModelAttribute("products") @Valid Products product, Model model,
             BindingResult bindingResult, @RequestParam("studentPhoto") MultipartFile studentPhoto) throws IOException {
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
         if (bindingResult.hasErrors()) {
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
             return "addproduct";
         }
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+
         productsService.addProduct(product);
         String extension = FilenameUtils.getExtension(studentPhoto.getOriginalFilename());
         String nameP = product.getProductId() + "." + extension;
@@ -117,6 +118,7 @@ public class ProductsController {
         File file = convertMultiPartToFile(studentPhoto);
         s3client.putObject("autoparts250", nameP, file);
         model.addAttribute("success", "Product Added Successfully!");
+
         return "addproduct";
     }
 

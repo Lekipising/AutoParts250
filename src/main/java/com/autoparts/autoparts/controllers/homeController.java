@@ -127,13 +127,6 @@ public class homeController {
         return "users";
     }
 
-    // @RequestMapping("/errors")
-    // public String errorse(Model model){
-    // model.addAttribute("businessDetails",
-    // businessDetailsService.getOneDetail(15L));
-    // return "errors";
-    // }
-
     // protect
     @RequestMapping("/myaccount")
     public String myaccount(Model model) {

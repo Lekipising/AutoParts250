@@ -3,6 +3,8 @@ package com.autoparts.autoparts.controllers;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -61,7 +63,7 @@ public class RegisterController {
 	public ModelAndView processRegistrationForm(ModelAndView modelAndView,
 			@ModelAttribute("account") @Valid Account user, BindingResult bindingResult, HttpServletRequest request,
 			@RequestParam("username") String username, @RequestParam(name = "g-recaptcha-response") String resp,
-			Model model) {
+			Model model, @RequestParam(name = "phoneNumber") String phn) {
 		if (validator.validateCaptcha(resp)) {
 			try {
 				Account exists = userService.getOneAccount(username);
@@ -69,10 +71,18 @@ public class RegisterController {
 				modelAndView.setViewName("signup");
 
 			} catch (NoSuchElementException e) {
+				Pattern pattern = Pattern.compile("^\\d{10}$");
+    			Matcher matcher = pattern.matcher(phn);
+				
+				if (!matcher.matches()){
+					modelAndView.addObject("phnerr", "Phone has to be atleast 10 digits");
+					modelAndView.setViewName("signup");
+					return modelAndView;
+				}
+
 				if (bindingResult.hasErrors()) {
 					modelAndView.setViewName("signup");
 				}
-
 				else { // new user so we create user and send confirmation e-mail
 					user.setUsername(username);
 					// Disable user until they click on confirmation link in email

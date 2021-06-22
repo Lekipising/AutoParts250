@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.Builder;
 @Entity
@@ -18,13 +19,16 @@ public class Account {
     @Column(unique = true)
     private String username;
  
+    @Size(min=2, max=255)
     @Column(name = "firstName", nullable = false)
     @NotEmpty(message = "Please provide your first name")
     private String firstName;
 
+    @Size(min=2, max=255)
     @Column(name = "secondName", nullable = false)
     @NotEmpty(message = "Please provide your second name")
     private String secondName;
+
 
     @Column(name = "phoneNumber", nullable = true)
     private String phoneNumber;

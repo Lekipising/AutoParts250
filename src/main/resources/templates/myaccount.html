@@ -106,16 +106,16 @@
             <form action="">
                 <div th:if="${message1}" role="alert" th:text="${message1}"
                     style="color: black; background-color: #ffbd4a;"></div>
-                <input type="text" name="firstName" id="firstName" placeholder="New first name ..." required>
+                <input type="text" name="firstName" id="firstName" placeholder="New first name ..." required minlength="2">
                 <div th:if="${message2}" role="alert" th:text="${message2}"
                     style="color: black; background-color: #ffbd4a;"></div>
-                <input type="text" name="secondName" id="secondName" placeholder="New second name ..." required>
+                <input type="text" name="secondName" id="secondName" placeholder="New second name ..." required minlength="2">
                 <div th:if="${message3}" role="alert" th:text="${message3}"
                     style="color: black; background-color: #ffbd4a;"></div>
-                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="New phone ..." required>
+                <input type="text" name="phoneNumber" id="phoneNumber" placeholder="New phone ..." required minlength="10" maxlength="10">
                 <div th:if="${message4}" role="alert" th:text="${message4}"
                     style="color: black; background-color: #ffbd4a;"></div>
-                <input type="text" name="username" id="username" placeholder="New Email ..." required> <br>
+                <input type="email" name="username" id="username" placeholder="New Email ..." required> <br>
                 <input type="submit" value="Update">
             </form>
         </div>

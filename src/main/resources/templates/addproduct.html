@@ -104,20 +104,23 @@
 
             <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
 
+            <div th:if="${maxf}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${maxf}]]</div>
+
             <label for="formGroupExampleInput" class="form-label">Name</label>
-            <input type="text" class="form-control" th:field="*{name}" id="formGroupExampleInput" placeholder="Name" required>
+            <input type="text" class="form-control" th:field="*{name}" id="formGroupExampleInput" placeholder="Name" required minlength="2">
 
             <label for="formGroupExampleInput2" class="form-label">Description</label>
             <input type="text" class="form-control" th:field="*{description}" id="formGroupExampleInput2"
-                placeholder="Description" required>
+                placeholder="Description" required minlength="5">
 
             <label for="formGroupExampleInput3" class="form-label">Price</label>
-            <input type="text" class="form-control" th:field="*{price}" id="formGroupExampleInput3" placeholder="Price" required>
+            <input type="text" class="form-control" th:field="*{price}" id="formGroupExampleInput3" placeholder="Price" required min="1">
 
             <label for="formGroupExampleInput4" class="form-label">Count</label>
-            <input type="text" class="form-control" th:field="*{count}" id="formGroupExampleInput4" placeholder="Count" required>
+            <input type="text" class="form-control" th:field="*{count}" id="formGroupExampleInput4" placeholder="Count" required min="1">
 
             <label class="form-label">Upload Photo</label>
+            <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
             <input type="file" path="studentPhoto" id="studentPhoto" name="studentPhoto" class="form-control"
                 th:field="*{studentPhoto}" accept="image/png, image/jpeg" required>
 

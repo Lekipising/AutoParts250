@@ -93,7 +93,11 @@
             </div>
         </div>
     </nav>
+
     <div class="cont">
+        <div>
+            <p id="phn">Need help to place an order? Give us a call on <strong>0780123456</strong></p>
+        </div>
         <div class="he">
             <h2 style="margin-left: 32%;">View our quality products</h2>
         </div>
@@ -101,9 +105,9 @@
             <a class="btn btn-primary col-md-3" href="./addproduct.html" th:href="@{/newproduct}" role="button">Add
                 Product</a>
         </div>
-        <p th:if="${rmv}" class="isa_success"  th:text="${rmv}" th:inline="text"><i class="fa fa-check"></i> [[${rmv}]]</p>
-        <p th:if="${deleted}" class="isa_success"  th:text="${deleted}" th:inline="text"><i class="fa fa-check"></i> [[${deleted}]]</p>
-        <p th:if="${succe}" class="isa_success" th:text="${succe}" th:inline="text"><i class="fa fa-check"></i> [[${succe}]]</p>
+        <p th:if="${rmv}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${rmv}]]</p>
+        <p th:if="${deleted}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${deleted}]]</p>
+        <p th:if="${succe}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${succe}]]</p>
         <div class="table">
             <div th:each="product: ${products}" class="ap">
 

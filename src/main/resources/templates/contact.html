@@ -96,9 +96,9 @@
   <div class="co">
     <form action="" th:action="@{/contact}" method="post">
       <label for="name">Name</label> <br>
-      <input type="text" id="name" name="name" placeholder="Your name.." required> <br>
+      <input type="text" id="name" name="name" placeholder="Your name.." required minlength="2"> <br>
       <label for="email">Email</label> <br>
-      <input type="text" id="email" name="email" placeholder="Your email.." required> <br>
+      <input type="email" id="email" name="email" placeholder="Your email.." required> <br>
       <label for="subject">Subject</label> <br>
       <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" required></textarea>
       <br>
@@ -112,6 +112,7 @@
   <div style="float: right;" class="co2">
     <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1dlCgDlbfCTyElUkSXVq6bWylc6dJuUpy" width="640"
       height="480"></iframe>
+      <p class="phn">Give us a call on <strong>0780123456</strong></p>
   </div>
 
   <div class="footer">
