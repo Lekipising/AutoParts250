@@ -40,7 +40,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView showRegistrationPage(ModelAndView modelAndView, Account user) {
 		modelAndView.addObject("account", user);
-		modelAndView.setViewName("create");
+		modelAndView.setViewName("admin");
 		return modelAndView;
 	}
 
@@ -53,7 +53,7 @@ public class AdminController {
 			try {
 				Account exists = accountService.getOneAccount(username);
 				modelAndView.addObject("exists", "Email already in use, try a different one");
-				modelAndView.setViewName("create");
+				modelAndView.setViewName("admin");
 
 			} catch (NoSuchElementException e) {
 				Pattern pattern = Pattern.compile("^\\d{10}$");
@@ -61,15 +61,15 @@ public class AdminController {
 				
 				if (!matcher.matches()){
 					modelAndView.addObject("phnerr", "Phone has to be atleast 10 digits");
-					modelAndView.setViewName("create");
+					modelAndView.setViewName("admin");
 					return modelAndView;
 				}
 				
 				if (bindingResult.hasErrors()) {
-					modelAndView.setViewName("create");
+					modelAndView.setViewName("admin");
 				}
 
-				else { // new user so we create user and send confirmation e-mail
+				else { // new user so we admin user and send confirmation e-mail
 					user.setUsername(username);
 					// Disable user until they click on confirmation link in email
 					user.setEnabled(false);
@@ -91,12 +91,12 @@ public class AdminController {
 
 					modelAndView.addObject("confirmationMessage",
 							"A confirmation e-mail has been sent to " + user.getUsername());
-					modelAndView.setViewName("create");
+					modelAndView.setViewName("admin");
 				}
 			}
 		} else {
             modelAndView.addObject("capmessage", "ReCaptcha failed! Please try again");
-            modelAndView.setViewName("create");
+            modelAndView.setViewName("admin");
         }
 
 		return modelAndView;

@@ -18,17 +18,17 @@
 <body>
 
 
-  <h2>Create a secure password</h2>
+  <h2>Password Confirmation</h2>
 
   <div class="container" id="container">
     <div class="form-container sign-in-container">
       <form th:if="!${invalidToken}" class="m-t" id="passwordForm" role="form" action="#" th:object="${setPassword}"
         th:action="@{/confirm}" method="post">
+
         <div th:if="${successMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successMessage}]]</div>
-
         <div th:if="${errorMessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${errorMessage}]]</div>
-
         <div th:if="${invalidToken}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${invalidToken}]]</div>
+        
         <input type="hidden" name="token" th:value="${confirmationToken}">
 
         <div class="form-group input-group">
@@ -68,9 +68,8 @@
 
         </div>
         <div class="overlay-panel overlay-right">
-          <h1>Hello, Friend!</h1>
-          <p>Create a strong and let's get shopping!</p>
-
+          <h1>Please use a strong password</h1>
+  
         </div>
       </div>
     </div>
@@ -88,7 +87,7 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 
-  <script th:src="@{js/fv.min.js}"></script>
+  <!-- <script th:src="@{js/fv.min.js}"></script> -->
   <script>
     $(document).ready(function () {
       $('#passwordForm').formValidation({

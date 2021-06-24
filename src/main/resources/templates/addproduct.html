@@ -50,7 +50,7 @@
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
+                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Policies</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -73,7 +73,7 @@
                             Inventory
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
+                            <li><a class="dropdown-item" href="./admin.html" th:href="@{admin}">Create Admin</a></li>
 
                             <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a>
                             </li>
@@ -103,7 +103,6 @@
             <p th:if="${#fields.hasErrors('studentPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product image</p>
 
             <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
-
             <div th:if="${maxf}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${maxf}]]</div>
 
             <label for="formGroupExampleInput" class="form-label">Name</label>
@@ -114,10 +113,10 @@
                 placeholder="Description" required minlength="5">
 
             <label for="formGroupExampleInput3" class="form-label">Price</label>
-            <input type="text" class="form-control" th:field="*{price}" id="formGroupExampleInput3" placeholder="Price" required min="1">
+            <input type="number" class="form-control" th:field="*{price}" id="formGroupExampleInput3" placeholder="Price" min="1">
 
             <label for="formGroupExampleInput4" class="form-label">Count</label>
-            <input type="text" class="form-control" th:field="*{count}" id="formGroupExampleInput4" placeholder="Count" required min="1">
+            <input type="number" class="form-control" th:field="*{count}" id="formGroupExampleInput4" placeholder="Count" min="1">
 
             <label class="form-label">Upload Photo</label>
             <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />

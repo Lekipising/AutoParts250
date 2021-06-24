@@ -50,7 +50,7 @@
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
+                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Policies</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -73,7 +73,7 @@
                             Inventory
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
+                            <li><a class="dropdown-item" href="./admin.html" th:href="@{admin}">Create Admin</a></li>
 
                             <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a>
                             </li>
@@ -95,13 +95,10 @@
 
     <div class="cont">
         <div class="card">
-            <img src="..." th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${products.photo}"
-                class="card-img-top" alt="...">
+            <img th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${products.photo}" class="card-img-top"
+                alt="...">
             <div class="cardbody">
-                <h5 class="card-title" th:text="${products.name}" style="font-weight: bold;
-            color: #ffbd4a;
-            font-family: monospace;
-            text-decoration: underline;"></h5>
+                <h5 class="card-title" th:text="${products.name}"></h5>
                 <div class="row">
                     <div class="tdetails">
                         <p class="pd"
@@ -113,12 +110,15 @@
                             th:href="@{'/edit/' + ${#request.getAttribute('id')}}" role="button"
                             sec:authorize="hasAuthority('ADMIN')">Update</a>
                         <a class="dep" href="#" th:href="@{'/delete/' + ${#request.getAttribute('id')}}" role="button"
-                            sec:authorize="hasAuthority('ADMIN')" onclick="return confirm('Are you sure you want to delete the product?')">Delete</a>
+                            sec:authorize="hasAuthority('ADMIN')"
+                            onclick="return confirm('Are you sure you want to delete the product?')">Delete</a>
                         <form action="" th:action="@{'/adding/' + ${#request.getAttribute('id')}}"
                             th:object="${orderProduct}" method="post">
                             <label for="formGroupExampleInput" class="form-label">Quantity</label>
-                            <input type="number" min="1" class="form-control" th:field="*{quantity}" id="quantity" name="quantity" required>
-                            <button class="btn btn-primary" type="submit" style="margin-top: 10px; margin-left: 30%;">Add to Cart</button>
+                            <input type="number" min="1" class="form-control" th:field="*{quantity}" id="quantity"
+                                name="quantity" required>
+                            <button class="btn btn-primary" type="submit"
+                                style="margin-top: 10px; margin-left: 20%;">Add to Cart</button>
                             <div class="errorse">
                                 <p th:if="${#fields.hasErrors('quantity')}" class="error">Invalid Quantity</p>
                                 <div th:if="${greater}" role="alert" th:text="${greater}"></div>

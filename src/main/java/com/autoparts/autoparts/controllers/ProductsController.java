@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.NoSuchElementException;
 
 import javax.servlet.ServletContext;
@@ -108,17 +109,18 @@ public class ProductsController {
         String extension = FilenameUtils.getExtension(studentPhoto.getOriginalFilename());
         String nameP = product.getProductId() + "." + extension;
         product.setPhoto(nameP);
-
         productsService.addProduct(product);
+        System.out.println(nameP);
+        System.out.println(extension);
 
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
-        AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+        final AmazonS3 s3client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
         File file = convertMultiPartToFile(studentPhoto);
         s3client.putObject("autoparts250", nameP, file);
         model.addAttribute("success", "Product Added Successfully!");
-
+        file.delete();
         return "addproduct";
     }
 
@@ -160,7 +162,7 @@ public class ProductsController {
             // AWS S3
             AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
 
-            AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+            final AmazonS3 s3client = AmazonS3ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2)
                     .build();
 
@@ -170,6 +172,7 @@ public class ProductsController {
 
             productsService.addProduct(product);
             model.addAttribute("success", "Product updated Successfully!");
+            file.delete();
             return "updateproduct";
         } catch (FileNotFoundException e) {
             productsService.addProduct(product);
@@ -182,6 +185,11 @@ public class ProductsController {
     // DELETE - delete a product
     @GetMapping("/delete/{productId}")
     public String delProduct(@PathVariable("productId") Long productId, Model model, RedirectAttributes attributes) {
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+        final AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2)
+                .build();
+        s3client.deleteObject("autoparts250", productsService.getOneProduct(productId).getPhoto());
         productsService.delProduct(productId);
         attributes.addFlashAttribute("success", "Product deleted Successfully!");
         return "redirect:/shop";

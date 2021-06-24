@@ -39,6 +39,10 @@
     color: white;
 }
 
+input {
+    border-radius: 10px;
+}
+
 .navbar-brand>img {
     height: 80px;
     width: 80px;
@@ -71,9 +75,9 @@
 body {
     background-color: #ffbd4a;
     color: black;
-    /*font-family: Arial, serif;*/
     font-weight: bold;
     margin: 30px;
+    margin-bottom: 10px;
 }
 
 .welcomeimg {
@@ -187,15 +191,19 @@ body {
 }
 
 .cont>.card>img {
-    margin-top: 20px;
-    width: 70%;
+    margin-top: 5px;
+    width: 50%;
+    height: 200px;
     border-radius: 25px;
     color: white;
 }
 
 .cont>.card>.cardbody>h5 {
-    font-size: 35px;
+    font-size: 25px;
     color: white;
+    font-weight: bold;
+    color: #ffbd4a;
+    font-family: monospace;
 }
 
 .cont>.card>.cardbody>.row>.morede {
@@ -231,11 +239,6 @@ body {
     margin: 0px;
 }
 
-.cont>.table {
-    margin: 0px;
-    padding: 0px;
-}
-
 .cont>.he {
     margin-left: 5%;
 }
@@ -244,9 +247,14 @@ body {
     text-align: center;
 }
 
-.cont>.row {
+/* .row {
     margin-left: 45%;
     padding-bottom: 30px;
+} */
+
+.cont>.table {
+    margin: 0px;
+    padding: 0px;
 }
 
 .cont>.table>.ap>.card {
@@ -648,11 +656,11 @@ button {
 
 .navbar {
     align-items: center;
-    padding-bottom: 30px;
-    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     text-align: center;
     margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 10px;
     align-content: center;
     background-color: #cfc8dd;
     border-radius: 25px;
@@ -751,10 +759,6 @@ button {
     margin-left: 20px;
 }
 
-input:invalid {
-    border: 2px solid red;
-}
-
 input:valid {
     border: 2px solid darkgreen;
 }
@@ -781,6 +785,17 @@ input:valid {
 }
 
 input[type=text], textarea {
+    width: 70%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=number] {
     width: 70%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -822,16 +837,10 @@ input[type=submit] {
     border-radius: 10px;
 }
 
-input[type=submit] :valid {
-    border: unset;
-}
-
 #submit:disabled {
     background-color: darkgrey;
     color: black;
     font-weight: bold;
-    /* width: 30%; */
-    /* height: 50px; */
     display: inline-block;
     font-size: 23px;
     border-radius: 10px;
