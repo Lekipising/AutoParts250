@@ -1,8 +1,10 @@
 package com.autoparts.autoparts.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -28,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -39,27 +40,34 @@ public class BusinessDetailsController {
 
     @Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
-    
+
     @Value("${cloud.aws.credentials.secretKey}")
     private String secretKey;
 
+    // edit logo page - display logos - add logo
     @GetMapping(path = "/editlogo")
     public String showAddForm(Model model) {
+        model.addAttribute("businessDetailss", businessDetailsService.getAllDetails());
         model.addAttribute("businessDetails", new BusinessDetails());
         return "editlogo";
     }
 
-    @GetMapping("/editlogo/{id}")
-    public ModelAndView showUpdateForm(@PathVariable("id") long id) {
-        ModelAndView mav = new ModelAndView("editlogo");
-        BusinessDetails businessDetails = businessDetailsService.getOneDetail(id);
-        mav.addObject("businessDetails", businessDetails);
-        return mav;
+    // display logo page - edit form 
+    @GetMapping(path = "/editlogo/{id}")
+    public String showMore(@PathVariable("id") Long id, Model model) {
+        try {
+            model.addAttribute("businessDetail", businessDetailsService.getOneDetail(id));
+        } catch (NoSuchElementException e) {
+            return "error-404";
+        }
+
+        return "updatelogo";
     }
 
     @RequestMapping(value = "/editlogo", method = RequestMethod.POST)
-    public String addProductSubmission(@ModelAttribute("businessDetails") BusinessDetails businessDetails, BindingResult bindingResult,
-            Model model, @RequestParam("logoPhoto") MultipartFile logoPhoto) throws IOException {
+    public String addProductSubmission(@ModelAttribute("businessDetails") BusinessDetails businessDetails,
+            BindingResult bindingResult, Model model, @RequestParam("logoPhoto") MultipartFile logoPhoto)
+            throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "editlogo";
@@ -85,32 +93,43 @@ public class BusinessDetailsController {
         return "editlogo";
     }
 
-    @RequestMapping(value = "/editlogo", method = RequestMethod.PUT)
-    public String updateProductSubmission(@ModelAttribute("businessDetails") BusinessDetails businessDetails, BindingResult bindingResult,
-            Model model, @RequestParam("logoPhoto") MultipartFile logoPhoto) throws IOException {
+    @RequestMapping(value = "/updatelogo", method = RequestMethod.POST)
+    public String updateProductSubmission(@ModelAttribute("businessDetail") BusinessDetails businessDetails,
+            BindingResult bindingResult, Model model,
+            @RequestParam(value = "logoPhoto", required = false) MultipartFile logoPhoto, @RequestParam(value = "logo", required = false) String logo) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            return "editlogo";
+            return "updatelogo";
         }
         // photo
-        businessDetailsService.addDetail(businessDetails);
-        String extension = FilenameUtils.getExtension(logoPhoto.getOriginalFilename());
-        String nameP = businessDetails.getDetailid() + "." + extension;
-        businessDetails.setLogo(nameP);
+        try {
+            businessDetailsService.addDetail(businessDetails);
+            String extension = FilenameUtils.getExtension(logoPhoto.getOriginalFilename());
+            String nameP = businessDetails.getDetailid() + "." + extension;
+            businessDetails.setLogo(nameP);
 
-        // AWS S3
-        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+            // AWS S3
+            AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
 
-        AmazonS3 s3client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
+            AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+                    .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2)
+                    .build();
 
-        File file = convertMultiPartToFile(logoPhoto);
+            File file = convertMultiPartToFile(logoPhoto);
 
-        s3client.putObject("autoparts250", nameP, file);
+            s3client.deleteObject("autoparts250", nameP);
+            s3client.putObject("autoparts250", nameP, file);
 
-        businessDetailsService.addDetail(businessDetails);
-        model.addAttribute("successup", "Business details updated successfully!");
-        return "editlogo";
+            businessDetailsService.addDetail(businessDetails);
+            model.addAttribute("successup", "Business details updated successfully!");
+            return "updatelogo";
+
+        } catch (FileNotFoundException e) {
+            businessDetails.setLogo(logo);
+            businessDetailsService.addDetail(businessDetails);
+            model.addAttribute("successup", "Business details updated successfully!");
+            return "updatelogo";
+        }
     }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
@@ -120,6 +139,5 @@ public class BusinessDetailsController {
         fos.close();
         return convFile;
     }
-
 
 }

@@ -168,6 +168,7 @@ public class ProductsController {
 
             File file = convertMultiPartToFile(studentPhoto);
 
+            s3client.deleteObject("autoparts250", nameP);
             s3client.putObject("autoparts250", nameP, file);
 
             productsService.addProduct(product);

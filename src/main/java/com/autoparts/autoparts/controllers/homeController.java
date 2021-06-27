@@ -4,6 +4,7 @@ package com.autoparts.autoparts.controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import com.autoparts.autoparts.classes.Account;
+import com.autoparts.autoparts.classes.BusinessDetails;
 import com.autoparts.autoparts.services.AccountService;
 import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.EmailSenderService;
