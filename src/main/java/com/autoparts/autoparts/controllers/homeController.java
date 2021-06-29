@@ -46,14 +46,14 @@ public class homeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "home";
     }
 
     @RequestMapping("/contact")
     public ModelAndView contact(ModelAndView modelAndView, Model model) {
         modelAndView.setViewName("contact");
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return modelAndView;
 
     }
@@ -68,7 +68,7 @@ public class homeController {
         if (validator.validateCaptcha(resp)) {
 
             if (bindingResult.hasErrors()) {
-                model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+                model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
                 modelAndView.setViewName("contact");
             }
 
@@ -82,13 +82,13 @@ public class homeController {
                 emailService.sendEmail(registrationEmail);
                 modelAndView.addObject("message2",
                         "We have received your message, one of our agents will get back you. Keep shopping!");
-                model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+                model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
                 modelAndView.setViewName("contact");
 
             }
         } else {
             modelAndView.addObject("capmessage", "ReCaptcha failed! Please try again");
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
             modelAndView.setViewName("contact");
         }
         // captcha
@@ -103,27 +103,27 @@ public class homeController {
 
     @RequestMapping("/about")
     public String about(Model model) {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "about";
     }
 
     @RequestMapping("/storepolicies")
     public String storepolicies(Model model) {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "storepolicies";
     }
 
     @RequestMapping("/shippings")
     public String getAllShippings(Model model) {
         model.addAttribute("shippings", shippingService.getAllShippings());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "shippings";
     }
 
     @RequestMapping("/users")
     public String getAllAccounts(Model model) {
         model.addAttribute("account", accountService.getAllAccounts());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "users";
     }
 
@@ -144,7 +144,7 @@ public class homeController {
         model.addAttribute("message2", user.getSecondName());
         model.addAttribute("message3", user.getPhoneNumber());
         model.addAttribute("message4", user.getUsername());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "myaccount";
     }
 
