@@ -68,7 +68,7 @@ public class ProductsController {
     @GetMapping("/shop")
     public String getAllProducts(Model model) {
         model.addAttribute("products", productsService.getAllProducts());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "shop";
     }
 
@@ -76,7 +76,7 @@ public class ProductsController {
     @GetMapping(path = "/newproduct")
     public String showAddForm(Model model) {
         model.addAttribute("products", new Products());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "addproduct";
     }
 
@@ -86,7 +86,7 @@ public class ProductsController {
         try {
             model.addAttribute("products", productsService.getOneProduct(id));
             model.addAttribute("orderProduct", new OrderProduct());
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         } catch (NoSuchElementException e) {
             return "error-404";
         }
@@ -99,10 +99,10 @@ public class ProductsController {
     public String saveProductSubmission(@ModelAttribute("products") @Valid Products product, Model model,
             BindingResult bindingResult, @RequestParam("studentPhoto") MultipartFile studentPhoto) throws IOException {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
             return "addproduct";
         }
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         productsService.addProduct(product);
         String extension = FilenameUtils.getExtension(studentPhoto.getOriginalFilename());
         String nameP = product.getProductId() + "." + extension;
@@ -131,7 +131,7 @@ public class ProductsController {
     // Show update form
     @GetMapping("/edit/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id, Model model) {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         ModelAndView mav = new ModelAndView("updateproduct");
         Products product = productsService.getOneProduct(id);
         mav.addObject("product", product);
@@ -143,9 +143,9 @@ public class ProductsController {
     public String updateProductSubmission(@ModelAttribute("product") Products product, BindingResult bindingResult,
             Model model, @RequestParam(value = "studentPhoto", required = false) MultipartFile studentPhoto)
             throws IOException {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         if (bindingResult.hasErrors()) {
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
             return "updateproduct";
         }
         // photo
