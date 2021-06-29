@@ -30,7 +30,8 @@
         <p th:if="${#fields.hasErrors('firstName')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid first name</p>
         <p th:if="${#fields.hasErrors('secondName')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid second name</p>
         <p th:if="${#fields.hasErrors('phoneNumber')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid phone number</p>
-        <p th:if="${#fields.hasErrors('username')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid username</p>
+        <p th:if="${#fields.hasErrors('username')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid email</p>
+
         <div th:if="${phnerr}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${phnerr}]]</div>
         <div th:if="${confirmationMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${confirmationMessage}]]</div>
         <div th:if="${exists}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${exists}]]</div>

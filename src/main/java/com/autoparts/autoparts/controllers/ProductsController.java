@@ -16,6 +16,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.autoparts.autoparts.classes.Another;
 import com.autoparts.autoparts.classes.OrderProduct;
 import com.autoparts.autoparts.classes.Products;
 import com.autoparts.autoparts.repository.ProductsRepository;
@@ -69,7 +70,8 @@ public class ProductsController {
     @GetMapping("/shop")
     public String getAllProducts(Model model) {
         model.addAttribute("products", productsService.getAllProducts());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("newsletter", new Another());
         return "shop";
     }
 
@@ -77,7 +79,8 @@ public class ProductsController {
     @GetMapping(path = "/newproduct")
     public String showAddForm(Model model) {
         model.addAttribute("products", new Products());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("newsletter", new Another());
         return "addproduct";
     }
 
@@ -87,7 +90,8 @@ public class ProductsController {
         try {
             model.addAttribute("products", productsService.getOneProduct(id));
             model.addAttribute("orderProduct", new OrderProduct());
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("newsletter", new Another());
         } catch (NoSuchElementException e) {
             return "error-404";
         }
@@ -99,9 +103,11 @@ public class ProductsController {
     @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
     public String saveProductSubmission(@ModelAttribute("products") @Valid Products product, Model model,
             BindingResult bindingResult, @RequestParam("studentPhoto") MultipartFile studentPhoto) throws IOException {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("newsletter", new Another());
         if (bindingResult.hasErrors()) {
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("newsletter", new Another());
             return "addproduct";
         }
 
@@ -135,7 +141,8 @@ public class ProductsController {
     // Show update form
     @GetMapping("/edit/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id, Model model) {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("newsletter", new Another());
         ModelAndView mav = new ModelAndView("updateproduct");
         Products product = productsService.getOneProduct(id);
         mav.addObject("product", product);
@@ -147,9 +154,11 @@ public class ProductsController {
     public String updateProductSubmission(@ModelAttribute("product") Products product, BindingResult bindingResult,
             Model model, @RequestParam(value = "studentPhoto", required = false) MultipartFile studentPhoto)
             throws IOException {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("newsletter", new Another());
         if (bindingResult.hasErrors()) {
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("newsletter", new Another());
             return "updateproduct";
         }
         // photo

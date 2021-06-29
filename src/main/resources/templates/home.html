@@ -26,7 +26,8 @@
     <div class="container-fluid">
       <p th:text="${businessDetails.bname}" id="bname"></p>
       <a href="./home.html" th:href="@{/}">
-        <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}" alt="logo" class="d-inline-block align-text-top" id="logoimg">
+        <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}" alt="logo"
+          class="d-inline-block align-text-top" id="logoimg">
       </a>
     </div>
     <div class="container-fluid">
@@ -136,13 +137,13 @@
       Shop</a>
   </div>
 
-
-
   <div class="footer">
+    <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${news}]]
+    </div>
     <footer>
-      <form action="#">
-        <input type="text" id="news" name="news" placeholder="Enter your email ...">
-        <label for="news">Sign up for newsletter</label>
+      <form th:action="@{/addnewsletter}" th:object="${newsletter}" method="post">
+        <input type="email" id="email" name="email" th:field="${newsletter.email}" placeholder="Enter your email ...">
+        <button type="submit">Sign up for newsletter</button>
       </form>
       <div class="iconss">
         <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>

@@ -23,7 +23,7 @@
         <input type="file" path="logoPhoto" id="logoPhoto" name="logoPhoto" th:field="${businessDetail.logoPhoto}"
             accept="image/png, image/jpeg" placeholder="Upload new logo ..."> <br>
         <button type="submit">Update Details</button> <br>
-        <div th:if="${successup}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successup}]]
+        <div th:if="${successup}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successup}]]
         </div>
         <p th:if="${#fields.hasErrors('bname')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid bname</p>
         <p th:if="${#fields.hasErrors('logoPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid logo</p>

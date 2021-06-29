@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.autoparts.autoparts.classes.CartCarrier.cart;
 
+import com.autoparts.autoparts.classes.Another;
+
 @Controller
 public class OrderProductController {
 
@@ -39,7 +41,8 @@ public class OrderProductController {
     @GetMapping(path = "/allitems")
     public String getAllOrderProduct(Model model) {
         model.addAttribute("orderProducts", cart);
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("newsletter", new Another());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "cart";
     }
 
@@ -49,7 +52,8 @@ public class OrderProductController {
             @ModelAttribute("orderProduct") OrderProduct orderProduct, @ModelAttribute("order") Orders order,
             BindingResult bindingResult, Model model, @RequestParam("quantity") Integer q, ModelAndView mav,
             RedirectAttributes attributes) {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("newsletter", new Another());
         if (bindingResult.hasErrors()) {
             mav.addObject("errorss", "Error in adding items to cart, try again");
             mav.setViewName("productview");
@@ -76,7 +80,8 @@ public class OrderProductController {
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public ModelAndView delProduct(Model model, @RequestParam("orderProduct") Long orderProductId,
             RedirectAttributes attributes) {
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("newsletter", new Another());
         ModelAndView mav = new ModelAndView("allitems");
         orderProductService.delOrderProduct(orderProductId);
         cart.clear();

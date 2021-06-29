@@ -103,7 +103,8 @@
             <p th:if="${#fields.hasErrors('price')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product price</p>
             <p th:if="${#fields.hasErrors('count')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product count</p>
             <p th:if="${#fields.hasErrors('studentPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product image</p>
-            <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
+
+            <div th:if="${success}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
 
             <label for="formGroupExampleInput" class="form-label">Product Id</label>
             <input type="text" class="form-control" th:field="${product.productId}" readonly="readonly"
@@ -134,19 +135,21 @@
         </form>
     </div>
     <div class="footer">
+        <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${news}]]
+        </div>
         <footer>
-            <form action="#">
-                <input type="text" id="news" name="news" placeholder="Enter your email ...">
-                <label for="news">Sign up for newsletter</label>
-            </form>
-            <div class="iconss">
-                <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
-                <a href="#" class="fa fa-twitter"></a>
-                <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
-            </div>
-
+          <form th:action="@{/addnewsletter}" th:object="${newsletter}" method="post">
+            <input type="email" id="email" name="email" th:field="${newsletter.email}" placeholder="Enter your email ...">
+            <button type="submit">Sign up for newsletter</button>
+          </form>
+          <div class="iconss">
+            <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
+          </div>
+    
         </footer>
-    </div>
+      </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

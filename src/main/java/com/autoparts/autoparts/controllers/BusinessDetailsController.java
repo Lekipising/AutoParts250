@@ -48,7 +48,6 @@ public class BusinessDetailsController {
     @GetMapping(path = "/editlogo")
     public String showAddForm(Model model) {
         model.addAttribute("businessDetailss", businessDetailsService.getAllDetails());
-        model.addAttribute("businessDetails", new BusinessDetails());
         return "editlogo";
     }
 

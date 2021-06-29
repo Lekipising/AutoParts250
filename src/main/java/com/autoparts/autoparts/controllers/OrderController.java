@@ -1,6 +1,7 @@
 // Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.controllers;
 
+import com.autoparts.autoparts.classes.Another;
 import com.autoparts.autoparts.classes.OrderProduct;
 import com.autoparts.autoparts.classes.Orders;
 import com.autoparts.autoparts.repository.OrderProductRepository;
@@ -36,7 +37,8 @@ public class OrderController {
     @GetMapping(path = "/orders")
     public String getAllOrders(Model model) {
         model.addAttribute("orders", ordersService.getAllOrders());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("newsletter", new Another());
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "orderlist";
     }
 
@@ -52,7 +54,7 @@ public class OrderController {
     @GetMapping(path = "/orders/{orderId}")
     public String getOneOrder(@PathVariable("orderId") Long orderId, Model model) {
         try {
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
             model.addAttribute("orders", ordersService.getOneOrder(orderId));
         } catch (NoSuchElementException e) {
             model.addAttribute("noorder", "Order doesn't exist");
@@ -85,7 +87,7 @@ public class OrderController {
     @GetMapping(path = "/order/more/{id}")
     public String getOrderDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("orderedProducts", ordersService.getOneOrder(id).getOrderProduct());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "orderdetails";
     }
 

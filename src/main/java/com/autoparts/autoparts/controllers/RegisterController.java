@@ -25,7 +25,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.autoparts.autoparts.classes.Account;
+import com.autoparts.autoparts.classes.Another;
 import com.autoparts.autoparts.services.AccountService;
+import com.autoparts.autoparts.services.AnotherService;
 import com.autoparts.autoparts.services.EmailSenderService;
 import com.autoparts.autoparts.services.ReCaptchaValidationService;
 import com.nulabinc.zxcvbn.Strength;
@@ -40,6 +42,9 @@ public class RegisterController {
 
 	@Autowired
 	ReCaptchaValidationService validator;
+
+	@Autowired
+    AnotherService newsletterService;
 
 	@Autowired
 	public RegisterController(BCryptPasswordEncoder bCryptPasswordEncoder, AccountService userService,
@@ -85,6 +90,9 @@ public class RegisterController {
 				}
 				else { // new user so we create user and send confirmation e-mail
 					user.setUsername(username);
+					Another another = new Another();
+					another.setEmail(username);
+					newsletterService.addNewsletter(another);
 					// Disable user until they click on confirmation link in email
 					user.setEnabled(false);
 					// Generate random 36-character string token for confirmation link
