@@ -36,7 +36,7 @@ public class OrderController {
     @GetMapping(path = "/orders")
     public String getAllOrders(Model model){
         model.addAttribute("orders", ordersService.getAllOrders());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "orderlist";
     }
 
@@ -51,7 +51,7 @@ public class OrderController {
     // GET - one order details 
     @GetMapping(path = "/orders/{orderId}")
     public Orders getOneOrder(@PathVariable("orderId") Long orderId, Model model){
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return ordersService.getOneOrder(orderId);
     }
 
@@ -77,7 +77,7 @@ public class OrderController {
     @GetMapping(path = "/order/more/{id}")
     public String getOrderDetails(@PathVariable("id") Long id,Model model){
         model.addAttribute("orderedProducts",ordersService.getOneOrder(id).getOrderProduct());
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(15L));
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "orderdetails";
     }
 
