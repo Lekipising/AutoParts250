@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
-
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
     <title>Order Details | AutoParts 250</title>
 </head>
 
@@ -132,13 +132,8 @@
 
     </div>
     <div class="footer">
-        <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${news}]]
-        </div>
+        <a th:href="@{/}" id="newslink">Signup for our monthly Newsletter?</a>
         <footer>
-          <form th:action="@{/addnewsletter}" th:object="${newsletter}" method="post">
-            <input type="email" id="email" name="email" th:field="${newsletter.email}" placeholder="Enter your email ...">
-            <button type="submit">Sign up for newsletter</button>
-          </form>
           <div class="iconss">
             <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
             <a href="#" class="fa fa-twitter"></a>

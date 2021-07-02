@@ -84,10 +84,9 @@ public class BusinessDetailsController {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
         File file = convertMultiPartToFile(logoPhoto);
-
         s3client.putObject("autoparts250", nameP, file);
-
         businessDetailsService.addDetail(businessDetails);
+        file.delete();
         model.addAttribute("success", "Business details added successfully!");
         return "editlogo";
     }

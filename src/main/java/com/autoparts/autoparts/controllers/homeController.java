@@ -1,6 +1,11 @@
 // Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.controllers;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.NoSuchElementException;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.autoparts.autoparts.classes.Account;
@@ -54,6 +59,7 @@ public class homeController {
     public String home(Model model) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         model.addAttribute("newsletter", new Another());
+        model.addAttribute("hide", true);
         return "home";
     }
 
@@ -62,6 +68,7 @@ public class homeController {
         model.addAttribute("newsletter", new Another());
         modelAndView.setViewName("contact");
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return modelAndView;
 
     }
@@ -116,6 +123,7 @@ public class homeController {
     public String about(Model model) {
         model.addAttribute("newsletter", new Another());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return "about";
     }
 
@@ -123,6 +131,7 @@ public class homeController {
     public String storepolicies(Model model) {
         model.addAttribute("newsletter", new Another());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return "storepolicies";
     }
 
@@ -130,6 +139,7 @@ public class homeController {
     public String getAllShippings(Model model) {
         model.addAttribute("shippings", shippingService.getAllShippings());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
         return "shippings";
     }
@@ -139,6 +149,7 @@ public class homeController {
         model.addAttribute("account", accountService.getAllAccounts());
         model.addAttribute("newsletter", new Another());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return "users";
     }
 
@@ -149,6 +160,7 @@ public class homeController {
         Account user = accountService.getOneAccount(context.getAuthentication().getName());
         model.addAttribute("message", "Welcome back, " + user.getFirstName());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
         model.addAttribute("user", user);
         return "myaccount";
@@ -158,9 +170,11 @@ public class homeController {
     public String updateUser(@ModelAttribute("user") Account user, BindingResult bindingResult, Model model,
             @RequestParam(value = "username", required = false) String username) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
         if (bindingResult.hasErrors()) {
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
             model.addAttribute("newsletter", new Another());
             return "myaccount";
         }
@@ -173,15 +187,72 @@ public class homeController {
 
     @RequestMapping(value = "/addnewsletter", method = RequestMethod.POST)
     public String addNewsletter(@ModelAttribute("newsletter") Another newsletter, BindingResult bindingResult,
-            Model model, @RequestParam(value = "email") String email) {
+            Model model, @RequestParam(value = "email") String email, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("newsletter", new Another());
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
             return "home";
         }
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         model.addAttribute("newsletter", new Another());
-        newsletterService.addNewsletter(newsletter);
+        // check if --email-- already exists
+        try {
+            Another exists = newsletterService.getOneNewsletter(email);
+            model.addAttribute("exists", "Email already in use, try a different one");
+            return "home";
+        } catch (NoSuchElementException e) {
+            // random6 digit code
+            Random random = new Random();
+            int val = random.nextInt(999999);
+            String confirmCode = String.format("%06d", val);
+            newsletter.setConf(confirmCode);
+            // send confirmation
+            // send to email
+            SimpleMailMessage registrationEmail = new SimpleMailMessage();
+            registrationEmail.setTo(email);
+            registrationEmail.setSubject("Verify Newsletter Signup");
+            registrationEmail.setText("Use this code to verify newsletter signup " + confirmCode);
+            registrationEmail.setFrom("noreply@domain.com");
+            emailService.sendEmail(registrationEmail);
+            model.addAttribute("sent", "Verification code sent to the email. Enter below to confirm");
+            model.addAttribute("show", true);
+            // set enabled
+            newsletter.setEnabled(true);
+            newsletterService.addNewsletter(newsletter);
+            // end - success
+        }
+
+        return "home";
+    }
+
+    @RequestMapping(value = "/confirmnews", method = RequestMethod.POST)
+    public String confirmEmail(Model model, @RequestParam(value = "conf") String conf) {
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        try {
+            Another news = newsletterService.findByConfirmationToken(conf);
+            // get datetime created on
+            LocalDateTime sentOn = news.getSendTime();
+            // get datetime now
+            LocalDateTime now = LocalDateTime.now();
+            long minutes = ChronoUnit.MINUTES.between(sentOn, now);
+            // check if 30mins elapsed
+            if (minutes > 2) {
+                model.addAttribute("newsletter", new Another());
+                model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+                model.addAttribute("tm", "Code Expired, try again");
+                return "home";
+            }
+        } catch (NullPointerException e) {
+            model.addAttribute("newsletter", new Another());
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("coderr", "Wrong verification, please try again");
+            return "home";
+        }
+
+        // true - save email -success
+        model.addAttribute("newsletter", new Another());
+        model.addAttribute("hide", true);
         model.addAttribute("news", "Successfully subscribed to our newsletter!");
         return "home";
     }

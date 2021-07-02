@@ -7,9 +7,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../static/css/login.css" type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
-    <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+    <link type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet"  th:href="@{/css/responsive.css}">
     <link rel="stylesheet" th:href="@{/css/messages.css}">
 
     <title>Create Account | AutoParts 250</title>
@@ -18,13 +18,18 @@
 
 <body>
 
+    <a href="./home.html" th:href="@{/}">
+        <img id="logosignup" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}"
+            alt="logo">
+    </a>
+
     <h1>Welcome to 250 Auto Parts</h1>
 
     <div class="container" id="container">
 
         <div class="form-container sign-in-container">
-            <form autocomplete="off" action="#" th:action="@{/signup}" th:object="${account}" method="post" class="m-t"
-                role="form" data-toggle="validator">
+            <form autocomplete="off" th:action="@{/signup}" th:object="${account}" method="post" class="m-t"
+                role="form" data-toggle="validator" style="overflow: hidden; display: inline-block;">
                 <h2>Create Account</h2>
 
                 <div th:if="${confirmationMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${confirmationMessage}]]</div>
@@ -37,18 +42,18 @@
                 <p th:if="${#fields.hasErrors('phoneNumber')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid phone number</p>
                 <p th:if="${#fields.hasErrors('username')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid username</p>
 
-                <input type="text" name="firstName" placeholder="First Name ..." required minlength="2"/>
-                <input type="text" name="secondName" placeholder="Second Name ..." required minlength="2"/>
-                <input type="text" name="phoneNumber" placeholder="Phone ..." required minlength="10" maxlength="10"/>
+                <input type="text" name="firstName" placeholder="First Name" required minlength="2"/>
+                <input type="text" name="secondName" placeholder="Second Name" required minlength="2"/>
+                <input type="text" name="phoneNumber" placeholder="Phone" required minlength="10" maxlength="10"/>
                 <input type="email" name="username" placeholder="Email" required />
 
                 <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Lf3ZT0bAAAAAIP4PZYj6-5-bWpkJiG2yTeJKh_c"></div>
                 <br>
                 <div th:if="${capmessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${capmessage}]]</div>
 
-                <button id="submit" type="submit">Create Account</button>
-                <a href="./home.html" th:href="@{/}">Go to Home</a>
-                <a href="./login.html" th:href="@{login}">Login instead?</a>
+                <button id="submit" type="submit">Create Account</button> <br>
+                <a href="./home.html" th:href="@{/}">Go to Home</a> <br>
+                <a href="./login.html" th:href="@{login}">Login instead?</a> <br>
             </form>
 
         </div>

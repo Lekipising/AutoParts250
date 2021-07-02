@@ -39,6 +39,7 @@ public class OrderController {
         model.addAttribute("orders", ordersService.getAllOrders());
         model.addAttribute("newsletter", new Another());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return "orderlist";
     }
 
@@ -55,6 +56,7 @@ public class OrderController {
     public String getOneOrder(@PathVariable("orderId") Long orderId, Model model) {
         try {
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
             model.addAttribute("orders", ordersService.getOneOrder(orderId));
         } catch (NoSuchElementException e) {
             model.addAttribute("noorder", "Order doesn't exist");
@@ -88,6 +90,7 @@ public class OrderController {
     public String getOrderDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("orderedProducts", ordersService.getOneOrder(id).getOrderProduct());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return "orderdetails";
     }
 

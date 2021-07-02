@@ -1,10 +1,13 @@
 package com.autoparts.autoparts.controllers;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.temporal.ChronoUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,6 +31,7 @@ import com.autoparts.autoparts.classes.Account;
 import com.autoparts.autoparts.classes.Another;
 import com.autoparts.autoparts.services.AccountService;
 import com.autoparts.autoparts.services.AnotherService;
+import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.EmailSenderService;
 import com.autoparts.autoparts.services.ReCaptchaValidationService;
 import com.nulabinc.zxcvbn.Strength;
@@ -47,6 +51,9 @@ public class RegisterController {
     AnotherService newsletterService;
 
 	@Autowired
+    BusinessDetailsService businessDetailsService;
+
+	@Autowired
 	public RegisterController(BCryptPasswordEncoder bCryptPasswordEncoder, AccountService userService,
 			EmailSenderService emailService) {
 
@@ -57,12 +64,14 @@ public class RegisterController {
 
 	// Return registration form template
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
-	public ModelAndView showRegistrationPage(ModelAndView modelAndView, Account user) {
+	public ModelAndView showRegistrationPage(ModelAndView modelAndView, Account user, Model model) {
 		modelAndView.addObject("account", user);
+		model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
 		modelAndView.setViewName("signup");
 		return modelAndView;
 	}
 
+	//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
 	// Process form input data
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public ModelAndView processRegistrationForm(ModelAndView modelAndView,
@@ -72,6 +81,7 @@ public class RegisterController {
 		if (validator.validateCaptcha(resp)) {
 			try {
 				Account exists = userService.getOneAccount(username);
+				model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
 				modelAndView.addObject("exists", "Email already in use, try a different one");
 				modelAndView.setViewName("signup");
 
@@ -82,6 +92,7 @@ public class RegisterController {
 				if (!matcher.matches()){
 					modelAndView.addObject("phnerr", "Phone has to be atleast 10 digits");
 					modelAndView.setViewName("signup");
+					model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
 					return modelAndView;
 				}
 
@@ -90,9 +101,16 @@ public class RegisterController {
 				}
 				else { // new user so we create user and send confirmation e-mail
 					user.setUsername(username);
+					// news
 					Another another = new Another();
 					another.setEmail(username);
-					newsletterService.addNewsletter(another);
+					// check if customer had subscribed
+					try {
+						Another exists1 = newsletterService.getOneNewsletter(username);
+					} catch (NoSuchElementException ee) {
+						newsletterService.addNewsletter(another);
+					}
+					// news
 					// Disable user until they click on confirmation link in email
 					user.setEnabled(false);
 					// Generate random 36-character string token for confirmation link
@@ -120,7 +138,7 @@ public class RegisterController {
 			modelAndView.addObject("capmessage", "ReCaptcha failed! Please try again");
 			modelAndView.setViewName("signup");
 		}
-
+		model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
 		return modelAndView;
 	}
 
@@ -133,6 +151,16 @@ public class RegisterController {
 		if (user == null) { // No token found in DB
 			modelAndView.addObject("invalidToken", "Oops!  This is an invalid confirmation link.");
 		} else { // Token found
+			// create date
+			LocalDateTime sentOn = user.getCreatedDate();
+			LocalDateTime receivedOn = LocalDateTime.now();
+			long minutes = ChronoUnit.MINUTES.between(sentOn, receivedOn);
+			if (minutes > 1) {
+				modelAndView.addObject("expiredToken", "Expired token!");
+				modelAndView.setViewName("confirm");
+				return modelAndView;
+			}
+			modelAndView.addObject("validtoken", true);
 			modelAndView.addObject("confirmationToken", user.getConfirmationToken());
 		}
 

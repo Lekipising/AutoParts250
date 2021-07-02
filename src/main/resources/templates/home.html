@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+  <link rel="stylesheet" th:href="@{/css/messages.css}">
   <title>250 Auto Parts Rwanda</title>
 </head>
 
@@ -129,21 +130,33 @@
         <img src="../static/assets/product_pics/Hydraulic%20Pump.jpeg"
           th:src="@{/assets/product_pics/Hydraulic%20Pump.jpeg}" alt="Hydraulic_pump">
         <div>Hydraulic Pump</div>
-        <div>Price: Rwf 150,000</div>
+        <div>Price: Rwf 250,000</div>
       </div>
     </div>
     <a href="./shop.html" th:href="@{shop}"
       style="font-size: 20px; color: white; background-color: black; margin-left: 45%; margin-top: 50px;">View in
       Shop</a>
   </div>
-
+  
   <div class="footer">
-    <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${news}]]
+    <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i> [[${news}]]
+    </div>
+    <div th:if="${exists}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${exists}]]
+    </div>
+    <div th:if="${coderr}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${coderr}]]
+    </div>
+    <div th:if="${tm}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${tm}]]
     </div>
     <footer>
-      <form th:action="@{/addnewsletter}" th:object="${newsletter}" method="post">
+      <form th:if="${hide}" th:action="@{/addnewsletter}" th:object="${newsletter}" method="post">
         <input type="email" id="email" name="email" th:field="${newsletter.email}" placeholder="Enter your email ...">
         <button type="submit">Sign up for newsletter</button>
+      </form>
+      <div th:if="${sent}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i> [[${sent}]]
+      </div>
+      <form th:if="${show}" th:action="@{/confirmnews}" method="post">
+        <input type="number" id="conf" name="conf" placeholder="Enter code">
+        <button type="submit">Confirm</button>
       </form>
       <div class="iconss">
         <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>

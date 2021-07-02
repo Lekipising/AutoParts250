@@ -53,6 +53,7 @@ public class OrderProductController {
             BindingResult bindingResult, Model model, @RequestParam("quantity") Integer q, ModelAndView mav,
             RedirectAttributes attributes) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
         if (bindingResult.hasErrors()) {
             mav.addObject("errorss", "Error in adding items to cart, try again");
@@ -81,6 +82,7 @@ public class OrderProductController {
     public ModelAndView delProduct(Model model, @RequestParam("orderProduct") Long orderProductId,
             RedirectAttributes attributes) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
         ModelAndView mav = new ModelAndView("allitems");
         orderProductService.delOrderProduct(orderProductId);

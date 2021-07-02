@@ -1,6 +1,7 @@
 // Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.classes;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Account {
     private String password;
 
     @Column(name = "createdDate", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "confirmation_token")
 	private String confirmationToken;
@@ -86,8 +87,6 @@ public class Account {
         
     }
 
-
-
     public String getFirstName() {
         return firstName;
     }
@@ -103,8 +102,6 @@ public class Account {
     public String getPassword() {
         return password;
     }
-
-
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
@@ -128,11 +125,11 @@ public class Account {
         return String.format("%06d", val);
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
@@ -145,7 +142,7 @@ public class Account {
     }
 
     public Account(){
-        createdDate = LocalDate.now();
+        createdDate = LocalDateTime.now();
     }
 
 

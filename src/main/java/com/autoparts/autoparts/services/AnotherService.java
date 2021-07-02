@@ -14,7 +14,7 @@ public class AnotherService {
     @Autowired
     AnotherRepository newsletterRepository;
 
-    public Another getOneNewsletter(Long id){
+    public Another getOneNewsletter(String id){
         return newsletterRepository.findById(id).get();
     }
 
@@ -26,7 +26,13 @@ public class AnotherService {
         return newsletterRepository.save(newsletter);
     }
 
-    public void deleteNewsletter(Long id){
+    public void deleteNewsletter(String id){
         newsletterRepository.deleteById(id);
     }
+
+    public Another findByConfirmationToken(String conf) {
+		return newsletterRepository.findByConf(conf);
+	}
+
+
 }
