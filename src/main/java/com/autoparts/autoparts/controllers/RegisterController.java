@@ -175,11 +175,14 @@ public class RegisterController {
 	public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult,
 			@RequestParam Map requestParams, RedirectAttributes redir, @RequestParam("password") String pass, @RequestParam("ConfirmPassword") String conpass) {
 		modelAndView.setViewName("confirm");
+		System.out.println(pass + " PASS");
+		System.out.println(conpass + " CONFIRM");
 
 		Zxcvbn passwordCheck = new Zxcvbn();
 
 		Strength strength = passwordCheck.measure((String) requestParams.get("password"));
 
+		System.out.println(strength.getScore() + " SCORE");
 		if (strength.getScore() < 3) {
 			bindingResult.reject("password");
 

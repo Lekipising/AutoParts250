@@ -91,17 +91,6 @@ input[type=submit] {
     color: black;
 }
 
-
-/* input[type=password] {
-    background-color: black;
-    color: #ffbd4a;
-    font-weight: bold;
-    display: inline-block;
-    font-size: 23px;
-    border-radius: 10px;
-    width: 70%;
-} */
-
 input[type=submit]:disabled {
     background-color: white;
     color: black;

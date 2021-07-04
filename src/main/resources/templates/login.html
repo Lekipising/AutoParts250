@@ -32,10 +32,10 @@
                 </div>
                 <input type="email" id="username" name="username" placeholder="Email ..." required />
                 <input type="password" id="password" name="password" placeholder="Password ..." required />
-                <a href="#">Forgot your password?</a>
+                <a th:href="@{/resetpass}">Forgot your password?</a>
                 <button id="submit" type="submit">Login</button>
-                <a href="./home.html" th:href="@{/}">Go to Home</a>
-                <a href="./signup.html" th:href="@{signup}">Create a new account</a>
+                <a th:href="@{/}">Go to Home</a>
+                <a th:href="@{signup}">Create a new account</a>
             </form>
         </div>
 
