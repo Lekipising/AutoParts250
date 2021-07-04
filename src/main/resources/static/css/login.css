@@ -71,6 +71,43 @@ button {
     transition: transform 80ms ease-in;
 }
 
+input[type=submit] {
+    background-color: black;
+    color: #ffbd4a;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 23px;
+    border-radius: 10px;
+    width: 70%;
+}
+
+#message {
+    font-weight: bold;
+}
+
+#resetp {
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+
+
+/* input[type=password] {
+    background-color: black;
+    color: #ffbd4a;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 23px;
+    border-radius: 10px;
+    width: 70%;
+} */
+
+input[type=submit]:disabled {
+    background-color: white;
+    color: black;
+    width: 70%;
+}
+
 #go {
     background-color: black;
     color: #ffbd4a;

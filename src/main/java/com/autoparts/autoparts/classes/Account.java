@@ -2,12 +2,15 @@
 package com.autoparts.autoparts.classes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -30,15 +33,15 @@ public class Account {
     @NotEmpty(message = "Please provide your second name")
     private String secondName;
 
-
-    @Column(name = "phoneNumber", nullable = true)
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
     @Column(name = "password")
     private String password;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdDate", nullable = false)
-    private LocalDateTime createdDate;
+    private Date createdDate;
 
     @Column(name = "confirmation_token")
 	private String confirmationToken;
@@ -125,11 +128,11 @@ public class Account {
         return String.format("%06d", val);
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
@@ -142,7 +145,7 @@ public class Account {
     }
 
     public Account(){
-        createdDate = LocalDateTime.now();
+        createdDate = new Date();
     }
 
 

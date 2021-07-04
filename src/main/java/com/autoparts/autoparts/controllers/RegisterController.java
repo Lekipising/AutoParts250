@@ -2,6 +2,7 @@ package com.autoparts.autoparts.controllers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -152,10 +153,11 @@ public class RegisterController {
 			modelAndView.addObject("invalidToken", "Oops!  This is an invalid confirmation link.");
 		} else { // Token found
 			// create date
-			LocalDateTime sentOn = user.getCreatedDate();
-			LocalDateTime receivedOn = LocalDateTime.now();
-			long minutes = ChronoUnit.MINUTES.between(sentOn, receivedOn);
-			if (minutes > 1) {
+			Date sentOn = user.getCreatedDate();
+			Date receivedOn = new Date();
+			long diffInMillies = sentOn.getTime() - receivedOn.getTime();
+			System.out.println(diffInMillies + " MINUTES");
+			if (diffInMillies > 300000) {
 				modelAndView.addObject("expiredToken", "Expired token!");
 				modelAndView.setViewName("confirm");
 				return modelAndView;
@@ -171,7 +173,7 @@ public class RegisterController {
 	// Process confirmation link
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
 	public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult,
-			@RequestParam Map requestParams, RedirectAttributes redir) {
+			@RequestParam Map requestParams, RedirectAttributes redir, @RequestParam("password") String pass, @RequestParam("ConfirmPassword") String conpass) {
 		modelAndView.setViewName("confirm");
 
 		Zxcvbn passwordCheck = new Zxcvbn();
@@ -187,6 +189,12 @@ public class RegisterController {
 			return modelAndView;
 		}
 
+		if (!pass.equals(conpass)) {
+			redir.addFlashAttribute("noMatch", "Password not matching!");
+			modelAndView.setViewName("redirect:confirm?token=" + requestParams.get("token"));
+			return modelAndView;
+		}
+
 		// Find the user associated with the reset token
 		Account user = userService.findByConfirmationToken((String) requestParams.get("token"));
 
@@ -197,9 +205,7 @@ public class RegisterController {
 		user.setEnabled(true);
 
 		// Save user
-		System.out.println(requestParams.get("password"));
 		userService.addAccount(user);
-		System.out.println(user.getPassword());
 		modelAndView.addObject("successMessage", "Your password has been set!");
 		return modelAndView;
 	}
@@ -227,6 +233,14 @@ public class RegisterController {
 		}
 
 		return "login";
+	}
+
+	@RequestMapping(value = "/resetpassword", method = RequestMethod.GET)
+	public String resetPass(Model model){
+		model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+		Account user = new Account();
+		model.addAttribute("user", user);
+		return "resetpass";
 	}
 
 }
