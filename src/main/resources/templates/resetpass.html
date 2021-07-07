@@ -24,13 +24,18 @@
     </a>
 
     <div class="container" id="container">
-        <form th:action="@{/resetpassword}" th:object="${user}" method="post" id="passwordForm">
-            <p id="resetp">Create New Secure Password</p>
+        <form th:if="${confirmemail}" th:action="@{/resetpassword}" th:object="${user}" method="post" id="sendEmail">
+            <p id="ema">Enter Email Below</p>
+            <input type="email" name="username" id="username" placeholder="Email" required/>
+            <input type="number" name="vercode" id="vercode" placeholder="Enter 6 digit code" min="6" max="6" required/>
+            <input type="submit" name="submit" value="Send Code"/>
+        </form>
+        <form th:if="${showreset}" th:action="@{/resetpassword}" th:object="${user}" method="post" id="passwordForm">
+            <p id="resetp">Secure Password</p>
             <input type="password" name="password" id="password" onkeyup='check_pass();' placeholder="Password" required/>
             <input type="password" name="confirm_password" id="confirm_password" onkeyup='check_pass();' placeholder="Confirm Password" required/>
             <span id='message'></span>
             <input type="submit" name="submit" value="Reset Password" id="submit" disabled />
-
         </form>
     </div>
 

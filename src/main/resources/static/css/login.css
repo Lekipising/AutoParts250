@@ -91,6 +91,12 @@ input[type=submit] {
     color: black;
 }
 
+#ema {
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+
 input[type=submit]:disabled {
     background-color: white;
     color: black;
@@ -134,12 +140,24 @@ form {
     text-align: center;
 }
 
+#passwordForm {
+    width: 50%;
+    margin: 0px;
+}
+
 input {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+}
+
+#sendEmail {
+    float: left;
+    margin: 0px;
+    width: 40%;
+
 }
 
 #logosignup {

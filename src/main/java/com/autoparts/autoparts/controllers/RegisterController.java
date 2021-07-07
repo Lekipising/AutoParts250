@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,7 @@ public class RegisterController {
 
 	@Autowired
     BusinessDetailsService businessDetailsService;
+
 
 	@Autowired
 	public RegisterController(BCryptPasswordEncoder bCryptPasswordEncoder, AccountService userService,
@@ -182,7 +184,6 @@ public class RegisterController {
 
 		Strength strength = passwordCheck.measure((String) requestParams.get("password"));
 
-		System.out.println(strength.getScore() + " SCORE");
 		if (strength.getScore() < 3) {
 			bindingResult.reject("password");
 
@@ -228,11 +229,11 @@ public class RegisterController {
 		}
 
 		if (error != null) {
-			model.addAttribute("errorMsg", "Your username and password are invalid.");
+			model.addAttribute("errorMsg", "Your username and password are invalid");
 		}
 
 		if (logout != null) {
-			model.addAttribute("msg", "You have been logged out successfully.");
+			model.addAttribute("msg", "You have been logged out successfully");
 		}
 
 		return "login";
@@ -240,9 +241,34 @@ public class RegisterController {
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.GET)
 	public String resetPass(Model model){
-		model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+		// SecurityContext context = SecurityContextHolder.getContext();
+        // Account user = userService.getOneAccount(context.getAuthentication().getName());
 		Account user = new Account();
+		model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
 		model.addAttribute("user", user);
+		// show email box
+		model.addAttribute("showsendemail", true);
+		return "resetpass";
+	}
+
+	@RequestMapping(value = "/resetpassword", method = RequestMethod.POST)
+	public String processResetPass(Model model, @RequestParam Map requestParams, RedirectAttributes attributes){
+		SecurityContext context = SecurityContextHolder.getContext();
+        Account user = userService.getOneAccount(context.getAuthentication().getName());
+	
+		user.setPassword(bCryptPasswordEncoder.encode((CharSequence) requestParams.get("password")));
+		userService.addAccount(user);
+		attributes.addFlashAttribute("successpass", "Password updated!");
+		return "redirect:/myaccount";
+	}
+
+	@RequestMapping(value = "/confirmemail", method = RequestMethod.POST)
+	public String confirmEmail(@ModelAttribute("user") Account user, BindingResult bindingResult){
+		// find user by email
+		// if exists
+		// show reset form
+		// hide email form
+
 		return "resetpass";
 	}
 

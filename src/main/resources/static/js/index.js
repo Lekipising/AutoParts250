@@ -33,3 +33,12 @@ function check_pass() {
     }
   }
 }
+
+function showRes() {
+  if (document.getElementById("passwordForm").style.display == "block") {
+    document.getElementById("passwordForm").style.display = "none";
+  } else {
+    document.getElementById("passwordForm").style.display = "block";
+  }
+  
+}

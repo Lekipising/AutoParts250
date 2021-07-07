@@ -3,6 +3,7 @@ package com.autoparts.autoparts.controllers;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.autoparts.autoparts.classes.Account;
 import com.autoparts.autoparts.classes.Another;
+import com.autoparts.autoparts.classes.aResetTokens;
 import com.autoparts.autoparts.services.AccountService;
 import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.EmailSenderService;
@@ -17,6 +19,7 @@ import com.autoparts.autoparts.services.AnotherService;
 import com.autoparts.autoparts.services.OrdersService;
 import com.autoparts.autoparts.services.ReCaptchaValidationService;
 import com.autoparts.autoparts.services.ShippingService;
+import com.autoparts.autoparts.services.aResetTokensService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class homeController {
@@ -54,6 +58,9 @@ public class homeController {
 
     @Autowired
     AnotherService newsletterService;
+
+    @Autowired
+    aResetTokensService ResetTokensService;
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -163,26 +170,52 @@ public class homeController {
         model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
         model.addAttribute("user", user);
+        // generate email verify token
+        // Random random = new Random();
+        // int val = random.nextInt(999999);
+        // String confirmCode = String.format("%06d", val);
+        // model.addAttribute("coEmail", confirmCode);
+
         return "myaccount";
     }
 
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
-    public String updateUser(@ModelAttribute("user") Account user, BindingResult bindingResult, Model model,
-            @RequestParam(value = "username", required = false) String username) {
+    public String updateUser(Model model, @RequestParam Map requestParams, RedirectAttributes attributes) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
-            model.addAttribute("hide", true);
-            model.addAttribute("newsletter", new Another());
-            return "myaccount";
+        // if (bindingResult.hasErrors()) {
+        //     model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        //     model.addAttribute("hide", true);
+        //     model.addAttribute("newsletter", new Another());
+        //     return "myaccount";
+        // }
+
+        SecurityContext context = SecurityContextHolder.getContext();
+        Account user = accountService.getOneAccount(context.getAuthentication().getName());
+
+        String fn = (String) requestParams.get("firstName");
+        String sn = (String) requestParams.get("secondName");
+        String pn = (String) requestParams.get("phoneNumber");
+        String em = (String) requestParams.get("username");
+
+
+
+        if (!fn.equals("")) {
+            user.setFirstName((String) requestParams.get("firstName"));
+        }
+
+        if (!sn.equals("")) {
+            user.setSecondName((String) requestParams.get("secondName"));
+        }
+
+        if (!pn.equals("")) {
+            user.setPhoneNumber((String) requestParams.get("phoneNumber"));
         }
 
         accountService.addAccount(user);
-
-        model.addAttribute("success", "Your details were updated successfully!");
-        return "myaccount";
+        attributes.addFlashAttribute("successedit", "Your details were updated successfully!");
+        return "redirect:/myaccount";
     }
 
     @RequestMapping(value = "/addnewsletter", method = RequestMethod.POST)
@@ -255,6 +288,52 @@ public class homeController {
         model.addAttribute("hide", true);
         model.addAttribute("news", "Successfully subscribed to our newsletter!");
         return "home";
+    }
+
+    @RequestMapping(value = "/sendEmailP", method = RequestMethod.POST)
+    public String sendEmailP(Model model, @RequestParam Map requestParams, RedirectAttributes attributes){
+        SecurityContext context = SecurityContextHolder.getContext();
+        Account user = accountService.getOneAccount(context.getAuthentication().getName());
+        // generate code
+        Random random = new Random();
+        int val = random.nextInt(999999);
+        String confirmCode = String.format("%06d", val);
+        // send to email
+        SimpleMailMessage registrationEmail = new SimpleMailMessage();
+        registrationEmail.setTo(user.getUsername());
+        registrationEmail.setSubject("Confirmation Code");
+        registrationEmail.setText("Use this code to verify " + confirmCode);
+        registrationEmail.setFrom("noreply@domain.com");
+        emailService.sendEmail(registrationEmail);
+
+        aResetTokens newTkn = new aResetTokens();
+        Integer neT = Integer.valueOf(confirmCode);
+        newTkn.setTkn(neT);
+        ResetTokensService.addToken(newTkn);
+
+        attributes.addFlashAttribute("sentEmailS", "Confirmation code sent!");
+        attributes.addFlashAttribute("showEnterCode", true);
+
+        return "redirect:/myaccount";
+    }
+
+    @RequestMapping(value = "/confirmCode", method = RequestMethod.POST)
+    public String verifyCode(Model model, @RequestParam Map requestParams, RedirectAttributes attributes){
+        String receivedCode = (String) requestParams.get("vercode");
+        Integer receivedCodeInt = Integer.valueOf(receivedCode);
+        try {
+            aResetTokens theToken = ResetTokensService.getOneToken(receivedCodeInt);
+        } catch (NoSuchElementException e) {
+            attributes.addFlashAttribute("wrongCode", "Wrong verification code!");
+            return "redirect:/myaccount";
+        }
+
+        ResetTokensService.delToken(receivedCodeInt);
+        
+        attributes.addFlashAttribute("codeCorrect", "Code verified!");
+        attributes.addFlashAttribute("showResetPass", true);
+
+        return "redirect:/myaccount";
     }
 
 }

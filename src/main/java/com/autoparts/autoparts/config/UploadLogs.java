@@ -84,47 +84,47 @@ public class UploadLogs {
         return result;
     }
 
-    @Scheduled(fixedRate = 86400000)
-    public void dailyUpload() {
-        try {
-            List<String> files = findFiles(Paths.get("./"), "gz");
-            files.forEach(x -> uploadS3(x));
+    // @Scheduled(fixedRate = 86400000)
+    // public void dailyUpload() {
+    //     try {
+    //         List<String> files = findFiles(Paths.get("./"), "gz");
+    //         files.forEach(x -> uploadS3(x));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // File directory = new File("./");
-        // System.out.println(directory.getAbsolutePath());
-        logger.info("Uploaded Logs - {}", dateTimeFormatter.format(LocalDateTime.now()));
-    }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //     // File directory = new File("./");
+    //     // System.out.println(directory.getAbsolutePath());
+    //     logger.info("Uploaded Logs - {}", dateTimeFormatter.format(LocalDateTime.now()));
+    // }
 
-    @Scheduled(fixedRate = 86400000)
-    public void checkDisabled() {
-        // find all contacts
-        List<Another> allNews = newsletterService.getAllNewsletters();
-        List<Account> allAccs = accountService.getAllAccounts();
+    // @Scheduled(fixedRate = 86400000)
+    // public void checkDisabled() {
+    //     // find all contacts
+    //     List<Another> allNews = newsletterService.getAllNewsletters();
+    //     List<Account> allAccs = accountService.getAllAccounts();
 
-        for (int i = 0; i < allNews.size(); i++) {
-            try {
-                if (!allNews.get(i).getEnabled()) {
-                    newsletterService.deleteNewsletter(allNews.get(i).getEmail());
-                    logger.info("Deleted news acc");
-                }
-            } catch (Exception e) {
-                newsletterService.deleteNewsletter(allNews.get(i).getEmail());
-                logger.info("Deleted news acc");
-            }
+    //     for (int i = 0; i < allNews.size(); i++) {
+    //         try {
+    //             if (!allNews.get(i).getEnabled()) {
+    //                 newsletterService.deleteNewsletter(allNews.get(i).getEmail());
+    //                 logger.info("Deleted news acc");
+    //             }
+    //         } catch (Exception e) {
+    //             newsletterService.deleteNewsletter(allNews.get(i).getEmail());
+    //             logger.info("Deleted news acc");
+    //         }
 
-        }
+    //     }
 
-        for (int i = 0; i < allAccs.size(); i++) {
-            if (!allAccs.get(i).getEnabled()) {
-                accountService.delAccount(allAccs.get(i).getUsername());
-                logger.info("Deleted user");
-            }
-        }
+    //     for (int i = 0; i < allAccs.size(); i++) {
+    //         if (!allAccs.get(i).getEnabled()) {
+    //             accountService.delAccount(allAccs.get(i).getUsername());
+    //             logger.info("Deleted user");
+    //         }
+    //     }
 
-        logger.info("Ran DELETE not enabled");
-    }
+    //     logger.info("Ran DELETE not enabled");
+    // }
 
 }

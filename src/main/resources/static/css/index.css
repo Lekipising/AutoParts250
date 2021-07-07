@@ -856,6 +856,10 @@ input[type=email] {
     resize: vertical;
 }
 
+#passwordForm {
+    display: none;
+}
+
 input[type=file] {
     width: 70%;
     padding: 12px;
@@ -876,13 +880,23 @@ input[type=submit] {
     border-radius: 10px;
 }
 
+input[type=submit]:disabled {
+    background-color: darkgrey;
+    color: black;
+    /* font-weight: bold; */
+    display: inline-block;
+    /* font-size: 23px; */
+    /* border-radius: 10px; */
+    font-style: italic;
+}
+
 #submit:disabled {
     background-color: darkgrey;
     color: black;
-    font-weight: bold;
+    /* font-weight: bold; */
     display: inline-block;
-    font-size: 23px;
-    border-radius: 10px;
+    /* font-size: 23px; */
+    /* border-radius: 10px; */
     font-style: italic;
 }
 
