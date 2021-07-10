@@ -180,16 +180,16 @@ public class homeController {
     }
 
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
-    public String updateUser(Model model, @RequestParam Map requestParams, RedirectAttributes attributes) {
+    public String updateUser(Model model, BindingResult bindingResult, @RequestParam Map requestParams, RedirectAttributes attributes) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
-        // if (bindingResult.hasErrors()) {
-        //     model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
-        //     model.addAttribute("hide", true);
-        //     model.addAttribute("newsletter", new Another());
-        //     return "myaccount";
-        // }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
+            model.addAttribute("newsletter", new Another());
+            return "myaccount";
+        }
 
         SecurityContext context = SecurityContextHolder.getContext();
         Account user = accountService.getOneAccount(context.getAuthentication().getName());
@@ -197,9 +197,6 @@ public class homeController {
         String fn = (String) requestParams.get("firstName");
         String sn = (String) requestParams.get("secondName");
         String pn = (String) requestParams.get("phoneNumber");
-        String em = (String) requestParams.get("username");
-
-
 
         if (!fn.equals("")) {
             user.setFirstName((String) requestParams.get("firstName"));

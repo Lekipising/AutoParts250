@@ -1,6 +1,5 @@
 package com.autoparts.autoparts.controllers;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
@@ -15,7 +14,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -155,11 +153,10 @@ public class RegisterController {
 			modelAndView.addObject("invalidToken", "Oops!  This is an invalid confirmation link.");
 		} else { // Token found
 			// create date
-			Date sentOn = user.getCreatedDate();
-			Date receivedOn = new Date();
-			long diffInMillies = sentOn.getTime() - receivedOn.getTime();
-			System.out.println(diffInMillies + " MINUTES");
-			if (diffInMillies > 300000) {
+			LocalDateTime sentOn = user.getCreatedDate();
+			LocalDateTime receivedOn = LocalDateTime.now();
+			long diffInMillies = ChronoUnit.MINUTES.between(sentOn, receivedOn);
+			if (diffInMillies > 5) {
 				modelAndView.addObject("expiredToken", "Expired token!");
 				modelAndView.setViewName("confirm");
 				return modelAndView;
@@ -177,8 +174,6 @@ public class RegisterController {
 	public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult,
 			@RequestParam Map requestParams, RedirectAttributes redir, @RequestParam("password") String pass, @RequestParam("ConfirmPassword") String conpass) {
 		modelAndView.setViewName("confirm");
-		System.out.println(pass + " PASS");
-		System.out.println(conpass + " CONFIRM");
 
 		Zxcvbn passwordCheck = new Zxcvbn();
 
@@ -216,18 +211,6 @@ public class RegisterController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginPage(Model model, String error, String logout) {
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-			model.addAttribute("loggedin", auth.getName() + "is currently logged in");
-			return "login";
-		}
-
-		if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))) {
-			model.addAttribute("loggedin", auth.getName() + "is currently logged in");
-			return "login";
-		}
-
 		if (error != null) {
 			model.addAttribute("errorMsg", "Your username and password are invalid");
 		}
@@ -241,8 +224,6 @@ public class RegisterController {
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.GET)
 	public String resetPass(Model model){
-		// SecurityContext context = SecurityContextHolder.getContext();
-        // Account user = userService.getOneAccount(context.getAuthentication().getName());
 		Account user = new Account();
 		model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
 		model.addAttribute("user", user);
@@ -253,9 +234,18 @@ public class RegisterController {
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.POST)
 	public String processResetPass(Model model, @RequestParam Map requestParams, RedirectAttributes attributes){
+		Zxcvbn passwordCheck = new Zxcvbn();
+
+		Strength strength = passwordCheck.measure((String) requestParams.get("password"));
+
+		if (strength.getScore() < 3) {
+
+			attributes.addFlashAttribute("errorMessage", "Your password is too weak. Choose a stronger one.");
+
+			return "redirect:/myaccount";
+		}
 		SecurityContext context = SecurityContextHolder.getContext();
         Account user = userService.getOneAccount(context.getAuthentication().getName());
-	
 		user.setPassword(bCryptPasswordEncoder.encode((CharSequence) requestParams.get("password")));
 		userService.addAccount(user);
 		attributes.addFlashAttribute("successpass", "Password updated!");

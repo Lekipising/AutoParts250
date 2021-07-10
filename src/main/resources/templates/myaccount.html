@@ -108,17 +108,18 @@
                 <input style="width: 300px;" type="email" name="username" id="username" th:field="${user.username}" th:placeholder="${user.username}" >
                 <input type="submit" value="Update">
             </form>
-            <!-- send code -->
-            <!-- confirm code -->
-            <!-- reset password -->
+
             <button id="showReset" onclick="showRes()">Reset Password</button>
+
             <form th:action="@{/sendEmailP}" method="post" id="passwordForm">
+                <p>To reset your password, we will send a 6-digit code to your email</p>
                 <input type="submit" value="Request Verification Code">
             </form>
             <div th:if="${sentEmailS}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${sentEmailS}]]</div>
+            
             <form th:if="${showEnterCode}" th:action="@{/confirmCode}" method="post" id="sendEmail">
                 <input type="number" name="vercode" id="vercode" placeholder="Enter 6 digit code" required/>
-                <input type="submit" name="submit" value="Send Code"/>
+                <input type="submit" name="submit" value="Confirm"/>
             </form>
             <div th:if="${wrongCode}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${wrongCode}]]</div>
             <div th:if="${codeCorrect}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${codeCorrect}]]</div>
@@ -130,6 +131,7 @@
             <span id='message'></span>
         </div>
     </div>
+    <div th:if="${errorMessage}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${errorMessage}]]</div>
     <div th:if="${successpass}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successpass}]]</div>
     <div th:if="${successedit}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successedit}]]</div>
 

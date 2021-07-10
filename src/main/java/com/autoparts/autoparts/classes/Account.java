@@ -1,6 +1,5 @@
 // Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.classes;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
@@ -13,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Builder;
 @Entity
@@ -39,9 +40,8 @@ public class Account {
     @Column(name = "password")
     private String password;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdDate", nullable = false)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "confirmation_token")
 	private String confirmationToken;
@@ -128,11 +128,11 @@ public class Account {
         return String.format("%06d", val);
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
@@ -145,7 +145,7 @@ public class Account {
     }
 
     public Account(){
-        createdDate = new Date();
+        this.createdDate = LocalDateTime.now();
     }
 
 
