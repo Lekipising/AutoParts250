@@ -2,8 +2,7 @@
  
 .isa_info, .isa_success, .isa_warning, .isa_error {
     padding: 0px;
-    /* max-height: ; */
-    width: max-content;
+    width: auto;
     padding-right: 20px;
  
 }

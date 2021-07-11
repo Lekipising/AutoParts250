@@ -1,5 +1,7 @@
 // Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.classes;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +19,9 @@ public class aResetTokens {
     @Column(name = "status")
     private boolean status = false;
 
+    @Column(name = "sendTime")
+    private LocalDateTime sendTime;
+
     public Integer getTkn() {
         return tkn;
     }
@@ -33,6 +38,12 @@ public class aResetTokens {
         this.tkn = tkn;
     }
 
-    public aResetTokens(){}
+    public LocalDateTime getSendTime() {
+        return sendTime;
+    }
+
+    public aResetTokens(){
+        this.sendTime = LocalDateTime.now();
+    }
 
 }

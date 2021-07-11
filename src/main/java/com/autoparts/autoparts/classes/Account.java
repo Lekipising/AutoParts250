@@ -46,6 +46,12 @@ public class Account {
     @Column(name = "confirmation_token")
 	private String confirmationToken;
 
+    @Column(name = "lastupdate", nullable = true)
+    private LocalDateTime lastUpdate;
+
+    @Column(name = "tokendate", nullable = true)
+    private LocalDateTime tokenDate;
+
     @Builder.Default
 	private Boolean locked = false;
 
@@ -54,6 +60,22 @@ public class Account {
 
     @Column(name = "role")
     private String role = "USER";
+
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public void setTokenDate(LocalDateTime tokenDate) {
+        this.tokenDate = tokenDate;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public LocalDateTime getTokenDate() {
+        return tokenDate;
+    }
     
     public void setPassword(String password){
         this.password = password;
@@ -116,6 +138,7 @@ public class Account {
 
     public void setConfirmationToken(String confirmationToken) {
         this.confirmationToken = confirmationToken;
+        this.setTokenDate(LocalDateTime.now());
     }
 
     public String getConfirmationToken() {

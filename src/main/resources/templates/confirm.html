@@ -24,7 +24,7 @@
   </div>
   <div th:if="${expiredToken}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${expiredToken}]]
   </div>
-  <div id="stylego" th:if="!${validtoken}">
+  <div id="stylego" th:if="${afterDone}">
     <br>
     <a id="go" th:href="@{/}">Go to Home</a> <br> <br>
     <a id="go" th:href="@{/signup}">Create Account</a>
@@ -32,8 +32,9 @@
   </div>
 
   <h2 th:if="${validtoken}">Password Confirmation</h2>
+  <h2 th:if="${itsReset}">Password Reset</h2>
 
-  <div th:if="${validtoken}" class="container" id="container">
+  <div th:if="${showform}" class="container" id="container">
     <div class="form-container sign-in-container">
       <form autocomplete="off" class="m-t" id="passwordForm" role="form" action="#" th:object="${setPassword}"
         th:action="@{/confirm}" method="post">

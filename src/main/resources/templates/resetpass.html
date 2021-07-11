@@ -24,18 +24,18 @@
     </a>
 
     <div class="container" id="container">
-        <form th:if="${confirmemail}" th:action="@{/resetpassword}" th:object="${user}" method="post" id="sendEmail">
-            <p id="ema">Enter Email Below</p>
+        <form th:action="@{/sendEmailLink}" method="post" id="sendEmail">
+            <p id="ema">Reset Your Password</p>
             <input type="email" name="username" id="username" placeholder="Email" required/>
-            <input type="number" name="vercode" id="vercode" placeholder="Enter 6 digit code" min="6" max="6" required/>
-            <input type="submit" name="submit" value="Send Code"/>
-        </form>
-        <form th:if="${showreset}" th:action="@{/resetpassword}" th:object="${user}" method="post" id="passwordForm">
-            <p id="resetp">Secure Password</p>
-            <input type="password" name="password" id="password" onkeyup='check_pass();' placeholder="Password" required/>
-            <input type="password" name="confirm_password" id="confirm_password" onkeyup='check_pass();' placeholder="Confirm Password" required/>
-            <span id='message'></span>
-            <input type="submit" name="submit" value="Reset Password" id="submit" disabled />
+            <input type="submit" name="submit" value="Send Reset Email"/>
+            <div th:if="${sentEmailLink}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${sentEmailLink}]]</div>
+            <div th:if="${noSuch}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${noSuch}]]</div>
+            <div id="stylego">
+                <br>
+                <a id="go" th:href="@{/}">Go to Home</a> <br> <br>
+                <a id="go" th:href="@{/signup}">Create Account</a>
+                <a id="go" th:href="@{/login}"> Login</a>
+              </div>
         </form>
     </div>
 

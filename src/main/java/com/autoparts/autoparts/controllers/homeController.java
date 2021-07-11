@@ -180,7 +180,8 @@ public class homeController {
     }
 
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
-    public String updateUser(Model model, BindingResult bindingResult, @RequestParam Map requestParams, RedirectAttributes attributes) {
+    public String updateUser(Model model, BindingResult bindingResult, @RequestParam Map requestParams,
+            RedirectAttributes attributes) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
@@ -288,7 +289,7 @@ public class homeController {
     }
 
     @RequestMapping(value = "/sendEmailP", method = RequestMethod.POST)
-    public String sendEmailP(Model model, @RequestParam Map requestParams, RedirectAttributes attributes){
+    public String sendEmailP(Model model, @RequestParam Map requestParams, RedirectAttributes attributes) {
         SecurityContext context = SecurityContextHolder.getContext();
         Account user = accountService.getOneAccount(context.getAuthentication().getName());
         // generate code
@@ -315,7 +316,7 @@ public class homeController {
     }
 
     @RequestMapping(value = "/confirmCode", method = RequestMethod.POST)
-    public String verifyCode(Model model, @RequestParam Map requestParams, RedirectAttributes attributes){
+    public String verifyCode(Model model, @RequestParam Map requestParams, RedirectAttributes attributes) {
         String receivedCode = (String) requestParams.get("vercode");
         Integer receivedCodeInt = Integer.valueOf(receivedCode);
         try {
@@ -324,9 +325,16 @@ public class homeController {
             attributes.addFlashAttribute("wrongCode", "Wrong verification code!");
             return "redirect:/myaccount";
         }
+        LocalDateTime sentOn = ResetTokensService.getOneToken(receivedCodeInt).getSendTime();
+        LocalDateTime receivedOn = LocalDateTime.now();
+        long diffInMillies = ChronoUnit.MINUTES.between(sentOn, receivedOn);
+        if (diffInMillies > 1) {
+            attributes.addFlashAttribute("expiredToken", "Expired token!");
+            return "redirect:/myaccount";
+        }
 
         ResetTokensService.delToken(receivedCodeInt);
-        
+
         attributes.addFlashAttribute("codeCorrect", "Code verified!");
         attributes.addFlashAttribute("showResetPass", true);
 

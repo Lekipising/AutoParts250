@@ -121,6 +121,7 @@
                 <input type="number" name="vercode" id="vercode" placeholder="Enter 6 digit code" required/>
                 <input type="submit" name="submit" value="Confirm"/>
             </form>
+            <div th:if="${expiredToken}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${expiredToken}]]</div>
             <div th:if="${wrongCode}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${wrongCode}]]</div>
             <div th:if="${codeCorrect}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${codeCorrect}]]</div>
             <form th:if="${showResetPass}" th:action="@{/resetpassword}" th:object="${user}" method="post">

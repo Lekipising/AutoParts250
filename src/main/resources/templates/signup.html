@@ -26,13 +26,12 @@
     <h1>Welcome to 250 Auto Parts</h1>
 
     <div class="container" id="container">
-
+        <div th:if="${confirmationMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${confirmationMessage}]]</div>
         <div class="form-container sign-in-container">
             <form autocomplete="off" th:action="@{/signup}" th:object="${account}" method="post" class="m-t"
                 role="form" data-toggle="validator" style="overflow: hidden; display: inline-block;">
                 <h2>Create Account</h2>
 
-                <div th:if="${confirmationMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${confirmationMessage}]]</div>
                 <div th:if="${exists}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${exists}]]</div>
                 <div th:if="${errorMessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${errorMessage}]]</div>
                 <div th:if="${phnerr}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${phnerr}]]</div>
@@ -50,10 +49,7 @@
                 <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Lf3ZT0bAAAAAIP4PZYj6-5-bWpkJiG2yTeJKh_c"></div>
                 <br>
                 <div th:if="${capmessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${capmessage}]]</div>
-
-                <button id="submit" type="submit">Create Account</button> <br>
-                <a href="./home.html" th:href="@{/}">Go to Home</a> <br>
-                <a href="./login.html" th:href="@{login}">Login instead?</a> <br>
+                <button id="submit" type="submit">Create Account</button>
             </form>
 
         </div>
@@ -63,8 +59,10 @@
                 <div class="overlay-panel overlay-left">
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-
+                    <div id="stylego">
+                        <a id="go" th:href="@{/}">Go to Home</a> <br> <br>
+                        <a id="go" th:href="@{/login}"> Login</a>
+                      </div>
                 </div>
             </div>
         </div>
