@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
     <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" type="image/x-icon">
-    <link rel="stylesheet"  th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
     <link rel="stylesheet" th:href="@{/css/messages.css}">
 
     <title>Create Account | AutoParts 250</title>
@@ -26,29 +26,38 @@
     <h1>Welcome to 250 Auto Parts</h1>
 
     <div class="container" id="container">
-        <div th:if="${confirmationMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${confirmationMessage}]]</div>
+        <div th:if="${confirmationMessage}" class="isa_success" th:inline="text"><i class="fa fa-check"></i>
+            [[${confirmationMessage}]]</div>
         <div class="form-container sign-in-container">
-            <form autocomplete="off" th:action="@{/signup}" th:object="${account}" method="post" class="m-t"
-                role="form" data-toggle="validator" style="overflow: hidden; display: inline-block;">
+            <form autocomplete="off" th:action="@{/signup}" th:object="${account}" method="post" class="m-t" role="form"
+                data-toggle="validator" style="overflow: hidden; display: inline-block;">
                 <h2>Create Account</h2>
 
-                <div th:if="${exists}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${exists}]]</div>
-                <div th:if="${errorMessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${errorMessage}]]</div>
-                <div th:if="${phnerr}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${phnerr}]]</div>
+                <div th:if="${exists}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i>
+                    [[${exists}]]</div>
+                <div th:if="${errorMessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i>
+                    [[${errorMessage}]]</div>
+                <div th:if="${phnerr}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i>
+                    [[${phnerr}]]</div>
 
-                <p th:if="${#fields.hasErrors('firstName')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid first name</p>
-                <p th:if="${#fields.hasErrors('secondName')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid second name</p>
-                <p th:if="${#fields.hasErrors('phoneNumber')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid phone number</p>
-                <p th:if="${#fields.hasErrors('username')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid username</p>
+                <p th:if="${#fields.hasErrors('firstName')}" class="isa_error"><i class="fa fa-times-circle"></i>
+                    Invalid first name</p>
+                <p th:if="${#fields.hasErrors('secondName')}" class="isa_error"><i class="fa fa-times-circle"></i>
+                    Invalid second name</p>
+                <p th:if="${#fields.hasErrors('phoneNumber')}" class="isa_error"><i class="fa fa-times-circle"></i>
+                    Invalid phone number</p>
+                <p th:if="${#fields.hasErrors('username')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid
+                    username</p>
 
-                <input type="text" name="firstName" placeholder="First Name" required minlength="2"/>
-                <input type="text" name="secondName" placeholder="Second Name" required minlength="2"/>
-                <input type="text" name="phoneNumber" placeholder="Phone" required minlength="10" maxlength="10"/>
+                <input type="text" name="firstName" placeholder="First Name" required minlength="2" />
+                <input type="text" name="secondName" placeholder="Second Name" required minlength="2" />
+                <input type="text" name="phoneNumber" placeholder="Phone" required minlength="10" maxlength="10" />
                 <input type="email" name="username" placeholder="Email" required />
 
                 <div class="g-recaptcha" id="rcaptcha" data-sitekey="6Lf3ZT0bAAAAAIP4PZYj6-5-bWpkJiG2yTeJKh_c"></div>
                 <br>
-                <div th:if="${capmessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${capmessage}]]</div>
+                <div th:if="${capmessage}" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i>
+                    [[${capmessage}]]</div>
                 <button id="submit" type="submit">Create Account</button>
             </form>
 
@@ -60,9 +69,11 @@
                 </div>
                 <div class="overlay-panel overlay-right">
                     <div id="stylego">
-                        <a id="go" th:href="@{/}">Go to Home</a> <br> <br>
-                        <a id="go" th:href="@{/login}"> Login</a>
-                      </div>
+                        <a id="go" th:href="@{/}" style="width: 100px;"><i class="fa fa-home" aria-hidden="true"></i>
+                        </a> <br> <br>
+                        <a id="go" th:href="@{/login}" style="width: 100px;"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,8 +81,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-        <script src="https://www.google.com/recaptcha/api.js"></script>
-        <script type="text/javascript" th:src="@{/js/index.js}"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
 </body>
 
 </html>

@@ -8,8 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
-    <link rel="shortcut icon" th:href="@{/assets/favicon.ico}"  type="image/x-icon">
-    <link rel="stylesheet"  th:href="@{/css/responsive.css}">
+    <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
     <link rel="stylesheet" th:href="@{/css/messages.css}">
     <title>Login | AutoParts 250</title>
 
@@ -24,10 +24,10 @@
         <div class="form-container sign-in-container">
             <form action="" th:action="@{/login}" method="post">
                 <h1>Login</h1>
-                <div th:if="${param.error}" class="isa_error"><i class="fa fa-times-circle"></i> 
+                <div th:if="${param.error}" class="isa_error"><i class="fa fa-times-circle"></i>
                     Invalid username and password.
                 </div>
-                <div th:if="${param.logout}" class="isa_success"><i class="fa fa-check"></i> 
+                <div th:if="${param.logout}" class="isa_success"><i class="fa fa-check"></i>
                     You have been logged out.
                 </div>
                 <input type="email" id="username" name="username" placeholder="Email ..." required />
@@ -44,9 +44,13 @@
                 <div class="overlay-panel overlay-right">
                     <!-- <h1>Welcome Back!</h1> -->
                     <div id="stylego">
-                        <a id="go" th:href="@{/}">Go to Home</a> <br> <br>
-                        <a id="go" th:href="@{/signup}">Create Account</a>
-                      </div>
+                        <a id="go" th:href="@{/}" style="width: 100px;"><i class="fa fa-home" aria-hidden="true"></i>
+
+                        </a> <br> <br>
+                        <a id="go" th:href="@{/signup}" style="width: 100px;"><i class="fa fa-user-plus" aria-hidden="true"></i>
+
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
