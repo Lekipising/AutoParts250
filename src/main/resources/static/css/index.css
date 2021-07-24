@@ -737,7 +737,7 @@ button {
 }
 
 .theproduct {
-    width: 19%;
+    width: 245px;
     margin-right: 1%;
 
 }
@@ -759,6 +759,9 @@ button {
     border-radius: 10px;
 }
 
+.theproduct__one:hover > .theproduct__one__img {
+    box-shadow: 3px 3px #000000;
+}
 .theproduct__one:hover {
     color: #000000;
 }

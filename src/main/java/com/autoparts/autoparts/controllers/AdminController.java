@@ -1,4 +1,3 @@
-// Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.controllers;
 
 import java.util.NoSuchElementException;

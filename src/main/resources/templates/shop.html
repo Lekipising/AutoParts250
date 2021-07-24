@@ -117,10 +117,9 @@
                 <a href="./productview.html" th:href="@{'/' + ${product.productId}}" class="theproduct__one">
                     <img class="theproduct__one__img" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${product.photo}"
                         th:alt="${product.name}">
-                    <p class="" th:text="'Product ID : ' + ${product.productId}"
+                    <p class="" th:text="'ID : ' + ${product.productId} + ', Count: ' +  ${product.count}"
                         sec:authorize="hasAuthority('ADMIN')"></p>
                     <p class="" th:text="${product.name}"></p>
-                    <p class="" th:text="'Count: ' +  ${product.count}" sec:authorize="hasAuthority('ADMIN')">
                     </p>
                     <p class="" th:text="${product.description}"></p>
                     <p class="theprice" th:text="'Rwf ' + ${product.price}"></p>
