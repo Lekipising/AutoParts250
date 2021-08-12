@@ -1,15 +1,15 @@
-// Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.controllers;
 
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.autoparts.autoparts.classes.Account;
 import com.autoparts.autoparts.services.AccountService;
-import com.autoparts.autoparts.services.BusinessDetailsService;
 import com.autoparts.autoparts.services.EmailSenderService;
 import com.autoparts.autoparts.services.ReCaptchaValidationService;
 
@@ -36,30 +36,39 @@ public class AdminController {
 	ReCaptchaValidationService validator;
 
 	// Return registration form template
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView showRegistrationPage(ModelAndView modelAndView, Account user) {
 		modelAndView.addObject("account", user);
-		modelAndView.setViewName("create");
+		modelAndView.setViewName("admin");
 		return modelAndView;
 	}
 
 	// Process form input data
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin", method = RequestMethod.POST)
 	public ModelAndView processRegistrationForm(ModelAndView modelAndView,
 			@ModelAttribute("account") @Valid Account user, BindingResult bindingResult, Model model, HttpServletRequest request,
-			@RequestParam("username") String username, @RequestParam(name = "g-recaptcha-response") String resp) {
+			@RequestParam("username") String username, @RequestParam(name = "g-recaptcha-response") String resp, @RequestParam(name = "phoneNumber") String phn) {
 		if (validator.validateCaptcha(resp)) {
 			try {
 				Account exists = accountService.getOneAccount(username);
 				modelAndView.addObject("exists", "Email already in use, try a different one");
-				modelAndView.setViewName("create");
+				modelAndView.setViewName("admin");
 
 			} catch (NoSuchElementException e) {
+				Pattern pattern = Pattern.compile("^\\d{10}$");
+    			Matcher matcher = pattern.matcher(phn);
+				
+				if (!matcher.matches()){
+					modelAndView.addObject("phnerr", "Phone has to be atleast 10 digits");
+					modelAndView.setViewName("admin");
+					return modelAndView;
+				}
+				
 				if (bindingResult.hasErrors()) {
-					modelAndView.setViewName("create");
+					modelAndView.setViewName("admin");
 				}
 
-				else { // new user so we create user and send confirmation e-mail
+				else { // new user so we admin user and send confirmation e-mail
 					user.setUsername(username);
 					// Disable user until they click on confirmation link in email
 					user.setEnabled(false);
@@ -81,12 +90,12 @@ public class AdminController {
 
 					modelAndView.addObject("confirmationMessage",
 							"A confirmation e-mail has been sent to " + user.getUsername());
-					modelAndView.setViewName("create");
+					modelAndView.setViewName("admin");
 				}
 			}
 		} else {
             modelAndView.addObject("capmessage", "ReCaptcha failed! Please try again");
-            modelAndView.setViewName("create");
+            modelAndView.setViewName("admin");
         }
 
 		return modelAndView;

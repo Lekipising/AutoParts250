@@ -1,13 +1,19 @@
 // Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.classes;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Builder;
 @Entity
@@ -18,25 +24,33 @@ public class Account {
     @Column(unique = true)
     private String username;
  
+    @Size(min=2, max=255)
     @Column(name = "firstName", nullable = false)
     @NotEmpty(message = "Please provide your first name")
     private String firstName;
 
+    @Size(min=2, max=255)
     @Column(name = "secondName", nullable = false)
     @NotEmpty(message = "Please provide your second name")
     private String secondName;
 
-    @Column(name = "phoneNumber", nullable = true)
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "createdDate", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column(name = "confirmation_token")
 	private String confirmationToken;
+
+    @Column(name = "lastupdate", nullable = true)
+    private LocalDateTime lastUpdate;
+
+    @Column(name = "tokendate", nullable = true)
+    private LocalDateTime tokenDate;
 
     @Builder.Default
 	private Boolean locked = false;
@@ -46,6 +60,22 @@ public class Account {
 
     @Column(name = "role")
     private String role = "USER";
+
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public void setTokenDate(LocalDateTime tokenDate) {
+        this.tokenDate = tokenDate;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public LocalDateTime getTokenDate() {
+        return tokenDate;
+    }
     
     public void setPassword(String password){
         this.password = password;
@@ -82,8 +112,6 @@ public class Account {
         
     }
 
-
-
     public String getFirstName() {
         return firstName;
     }
@@ -100,8 +128,6 @@ public class Account {
         return password;
     }
 
-
-
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
@@ -112,6 +138,7 @@ public class Account {
 
     public void setConfirmationToken(String confirmationToken) {
         this.confirmationToken = confirmationToken;
+        this.setTokenDate(LocalDateTime.now());
     }
 
     public String getConfirmationToken() {
@@ -124,11 +151,11 @@ public class Account {
         return String.format("%06d", val);
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
@@ -141,7 +168,7 @@ public class Account {
     }
 
     public Account(){
-        createdDate = LocalDate.now();
+        this.createdDate = LocalDateTime.now();
     }
 
 

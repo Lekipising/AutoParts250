@@ -50,7 +50,7 @@
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
+                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Policies</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -73,7 +73,7 @@
                             Inventory
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
+                            <li><a class="dropdown-item" href="./admin.html" th:href="@{admin}">Create Admin</a></li>
 
                             <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a>
                             </li>
@@ -104,7 +104,7 @@
             <p th:if="${#fields.hasErrors('count')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product count</p>
             <p th:if="${#fields.hasErrors('studentPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid product image</p>
 
-            <div th:if="${success}" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
+            <div th:if="${success}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${success}]]</div>
 
             <label for="formGroupExampleInput" class="form-label">Product Id</label>
             <input type="text" class="form-control" th:field="${product.productId}" readonly="readonly"
@@ -112,19 +112,19 @@
 
             <label for="formGroupExampleInput1" class="form-label">Name</label>
             <input type="text" class="form-control" th:field="${product.name}" id="formGroupExampleInput1"
-                placeholder="Name" required>
+                placeholder="Name" required minlength="2">
 
             <label for="formGroupExampleInput2" class="form-label">Description</label>
             <input type="text" class="form-control" th:field="${product.description}" id="formGroupExampleInput2"
-                placeholder="Description" required>
+                placeholder="Description" required minlength="5">
 
             <label for="formGroupExampleInput3" class="form-label">Price</label>
             <input type="text" class="form-control" th:field="${product.price}" id="formGroupExampleInput3"
-                placeholder="Price" required>
+                placeholder="Price" required min="1">
 
             <label for="formGroupExampleInput4" class="form-label">Count</label>
             <input type="text" class="form-control" th:field="${product.count}" id="formGroupExampleInput4"
-                placeholder="Count" required>
+                placeholder="Count" required min="1">
 
             <label class="form-label">Upload Photo</label>
             <input type="file" path="studentPhoto" id="studentPhoto" name="studentPhoto" class="form-control"
@@ -135,19 +135,16 @@
         </form>
     </div>
     <div class="footer">
+        <a th:href="@{/}" id="newslink">Signup for our monthly Newsletter?</a>
         <footer>
-            <form action="#">
-                <input type="text" id="news" name="news" placeholder="Enter your email ...">
-                <label for="news">Sign up for newsletter</label>
-            </form>
-            <div class="iconss">
-                <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
-                <a href="#" class="fa fa-twitter"></a>
-                <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
-            </div>
-
+          <div class="iconss">
+            <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
+          </div>
+    
         </footer>
-    </div>
+      </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

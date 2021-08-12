@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
-
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
     <title>Order confirmed | AutoParts 250</title>
 </head>
 
@@ -49,7 +49,7 @@
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
+                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Policies</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -72,7 +72,7 @@
                             Inventory
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
+                            <li><a class="dropdown-item" href="./admin.html" th:href="@{admin}">Create Admin</a></li>
 
                             <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a>
                             </li>
@@ -103,19 +103,16 @@
 
 
     <div class="footer">
+        <a th:href="@{/}" id="newslink">Signup for our monthly Newsletter?</a>
         <footer>
-            <form action="#">
-                <input type="text" id="news" name="news" placeholder="Enter your email ..." required>
-                <label for="news">Sign up for newsletter</label>
-            </form>
-            <div class="iconss">
-                <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
-                <a href="#" class="fa fa-twitter"></a>
-                <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
-            </div>
-
+          <div class="iconss">
+            <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="https://www.instagram.com/250autoparts/" class="fa fa-instagram"></a>
+          </div>
+    
         </footer>
-    </div>
+      </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"

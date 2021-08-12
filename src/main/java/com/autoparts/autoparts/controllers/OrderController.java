@@ -1,6 +1,7 @@
 // Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts.controllers;
 
+import com.autoparts.autoparts.classes.Another;
 import com.autoparts.autoparts.classes.OrderProduct;
 import com.autoparts.autoparts.classes.Orders;
 import com.autoparts.autoparts.repository.OrderProductRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.autoparts.autoparts.classes.CartCarrier.cart;
 
+import java.util.NoSuchElementException;
 
 @Controller
 public class OrderController {
@@ -31,35 +33,43 @@ public class OrderController {
     @Autowired
     BusinessDetailsService businessDetailsService;
 
-
     // get all orders
     @GetMapping(path = "/orders")
-    public String getAllOrders(Model model){
+    public String getAllOrders(Model model) {
         model.addAttribute("orders", ordersService.getAllOrders());
+        model.addAttribute("newsletter", new Another());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return "orderlist";
     }
 
     // DELETE - delete an order
     @GetMapping("/order/delete/{orderId}")
-    public String delProduct(@PathVariable("orderId") Long orderId, Model model){
+    public String delProduct(@PathVariable("orderId") Long orderId, Model model) {
         ordersService.delOrder(orderId);
         model.addAttribute("deleted", "Order deleted successfully!");
         return "shop";
     }
 
-    // GET - one order details 
+    // GET - one order details
     @GetMapping(path = "/orders/{orderId}")
-    public Orders getOneOrder(@PathVariable("orderId") Long orderId, Model model){
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
-        return ordersService.getOneOrder(orderId);
+    public String getOneOrder(@PathVariable("orderId") Long orderId, Model model) {
+        try {
+            model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
+            model.addAttribute("orders", ordersService.getOneOrder(orderId));
+        } catch (NoSuchElementException e) {
+            model.addAttribute("noorder", "Order doesn't exist");
+            return "orderlist";
+        }
+        return "orderlist";
     }
 
     // POST - add order(Proceed to Checkout)
-    @RequestMapping(value="/addorder", method= RequestMethod.POST)
+    @RequestMapping(value = "/addorder", method = RequestMethod.POST)
     public String createOrder(@ModelAttribute("orders") Orders orders, BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "cart";
         }
 
@@ -75,15 +85,11 @@ public class OrderController {
 
     // Get details of a specific order
     @GetMapping(path = "/order/more/{id}")
-    public String getOrderDetails(@PathVariable("id") Long id,Model model){
-        model.addAttribute("orderedProducts",ordersService.getOneOrder(id).getOrderProduct());
+    public String getOrderDetails(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("orderedProducts", ordersService.getOneOrder(id).getOrderProduct());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
         return "orderdetails";
     }
 
-
-
 }
-
-
- 

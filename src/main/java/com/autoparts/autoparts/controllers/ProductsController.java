@@ -15,6 +15,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.autoparts.autoparts.classes.Another;
 import com.autoparts.autoparts.classes.OrderProduct;
 import com.autoparts.autoparts.classes.Products;
 import com.autoparts.autoparts.repository.ProductsRepository;
@@ -69,6 +70,8 @@ public class ProductsController {
     public String getAllProducts(Model model) {
         model.addAttribute("products", productsService.getAllProducts());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
+        model.addAttribute("newsletter", new Another());
         return "shop";
     }
 
@@ -77,6 +80,8 @@ public class ProductsController {
     public String showAddForm(Model model) {
         model.addAttribute("products", new Products());
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
+        model.addAttribute("newsletter", new Another());
         return "addproduct";
     }
 
@@ -87,6 +92,8 @@ public class ProductsController {
             model.addAttribute("products", productsService.getOneProduct(id));
             model.addAttribute("orderProduct", new OrderProduct());
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
+            model.addAttribute("newsletter", new Another());
         } catch (NoSuchElementException e) {
             return "error-404";
         }
@@ -98,25 +105,31 @@ public class ProductsController {
     @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
     public String saveProductSubmission(@ModelAttribute("products") @Valid Products product, Model model,
             BindingResult bindingResult, @RequestParam("studentPhoto") MultipartFile studentPhoto) throws IOException {
+        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
+        model.addAttribute("newsletter", new Another());
         if (bindingResult.hasErrors()) {
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
+            model.addAttribute("newsletter", new Another());
             return "addproduct";
         }
-        model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         productsService.addProduct(product);
         String extension = FilenameUtils.getExtension(studentPhoto.getOriginalFilename());
         String nameP = product.getProductId() + "." + extension;
         product.setPhoto(nameP);
-
         productsService.addProduct(product);
+        System.out.println(nameP);
+        System.out.println(extension);
 
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
-        AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+        final AmazonS3 s3client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
         File file = convertMultiPartToFile(studentPhoto);
         s3client.putObject("autoparts250", nameP, file);
         model.addAttribute("success", "Product Added Successfully!");
+        file.delete();
         return "addproduct";
     }
 
@@ -132,6 +145,8 @@ public class ProductsController {
     @GetMapping("/edit/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id, Model model) {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
+        model.addAttribute("newsletter", new Another());
         ModelAndView mav = new ModelAndView("updateproduct");
         Products product = productsService.getOneProduct(id);
         mav.addObject("product", product);
@@ -144,8 +159,12 @@ public class ProductsController {
             Model model, @RequestParam(value = "studentPhoto", required = false) MultipartFile studentPhoto)
             throws IOException {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+        model.addAttribute("hide", true);
+        model.addAttribute("newsletter", new Another());
         if (bindingResult.hasErrors()) {
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
+            model.addAttribute("hide", true);
+            model.addAttribute("newsletter", new Another()
             return "updateproduct";
         }
         // photo
@@ -158,16 +177,18 @@ public class ProductsController {
             // AWS S3
             AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
 
-            AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+            final AmazonS3 s3client = AmazonS3ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2)
                     .build();
 
             File file = convertMultiPartToFile(studentPhoto);
 
+            s3client.deleteObject("autoparts250", nameP);
             s3client.putObject("autoparts250", nameP, file);
 
             productsService.addProduct(product);
             model.addAttribute("success", "Product updated Successfully!");
+            file.delete();
             return "updateproduct";
         } catch (FileNotFoundException e) {
             productsService.addProduct(product);
@@ -180,6 +201,11 @@ public class ProductsController {
     // DELETE - delete a product
     @GetMapping("/delete/{productId}")
     public String delProduct(@PathVariable("productId") Long productId, Model model, RedirectAttributes attributes) {
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+        final AmazonS3 s3client = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2)
+                .build();
+        s3client.deleteObject("autoparts250", productsService.getOneProduct(productId).getPhoto());
         productsService.delProduct(productId);
         attributes.addFlashAttribute("success", "Product deleted Successfully!");
         return "redirect:/shop";

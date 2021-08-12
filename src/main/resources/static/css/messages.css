@@ -1,7 +1,9 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
  
 .isa_info, .isa_success, .isa_warning, .isa_error {
-margin: 10px 0px;
+    padding: 0px;
+    width: auto;
+    padding-right: 20px;
  
 }
 .isa_info {
@@ -21,7 +23,8 @@ margin: 10px 0px;
     background-color: #FFD2D2;
 }
 .isa_info i, .isa_success i, .isa_warning i, .isa_error i {
-    margin-right: 10px;
-    font-size: 2em;
-    vertical-align:middle;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }

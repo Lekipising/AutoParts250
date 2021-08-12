@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" href="../static/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/logo.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
+    <title>Edit Logo and Business Name | AutoParts 250</title>
+</head>
+
+<body>
+    <h2 id="editlh">Edit Logo and Business Name - form</h2>
+
+    <form th:action="@{/updatelogo}" th:object="${businessDetail}" method="post" enctype="multipart/form-data"
+        id="editl">
+        <input type="text" name="detailid" id="detailid" th:field="${businessDetail.detailid}" readonly="readonly"> <br>
+        <input type="text" name="bname" id="bname" th:field="${businessDetail.bname}"
+            placeholder="Enter new business name ..."> <br>
+        <input type="hidden" name="logo" id="logo" th:field="${businessDetail.logo}"> <br>
+        <input type="file" path="logoPhoto" id="logoPhoto" name="logoPhoto" th:field="${businessDetail.logoPhoto}"
+            accept="image/png, image/jpeg" placeholder="Upload new logo ..."> <br>
+        <button type="submit">Update Details</button> <br>
+        <div th:if="${successup}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${successup}]]
+        </div>
+        <p th:if="${#fields.hasErrors('bname')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid bname</p>
+        <p th:if="${#fields.hasErrors('logoPhoto')}" class="isa_error"><i class="fa fa-times-circle"></i> Invalid logo</p>
+    </form>
+</body>
+
+</html>

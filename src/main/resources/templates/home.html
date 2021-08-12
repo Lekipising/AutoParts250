@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
+  <link rel="stylesheet" th:href="@{/css/messages.css}">
   <title>250 Auto Parts Rwanda</title>
 </head>
 
@@ -26,7 +27,8 @@
     <div class="container-fluid">
       <p th:text="${businessDetails.bname}" id="bname"></p>
       <a href="./home.html" th:href="@{/}">
-        <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}" alt="logo" class="d-inline-block align-text-top" id="logoimg">
+        <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}" alt="logo"
+          class="d-inline-block align-text-top" id="logoimg">
       </a>
     </div>
     <div class="container-fluid">
@@ -49,7 +51,7 @@
             <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
+            <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Policies</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -72,7 +74,7 @@
               Inventory
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
+              <li><a class="dropdown-item" href="./admin.html" th:href="@{admin}">Create Admin</a></li>
 
               <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a></li>
               <li><a class="dropdown-item" href="./users.html" th:href="@{users}">Users</a></li>
@@ -128,21 +130,33 @@
         <img src="../static/assets/product_pics/Hydraulic%20Pump.jpeg"
           th:src="@{/assets/product_pics/Hydraulic%20Pump.jpeg}" alt="Hydraulic_pump">
         <div>Hydraulic Pump</div>
-        <div>Price: Rwf 150,000</div>
+        <div>Price: Rwf 250,000</div>
       </div>
     </div>
     <a href="./shop.html" th:href="@{shop}"
       style="font-size: 20px; color: white; background-color: black; margin-left: 45%; margin-top: 50px;">View in
       Shop</a>
   </div>
-
-
-
+  
   <div class="footer">
+    <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i> [[${news}]]
+    </div>
+    <div th:if="${exists}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${exists}]]
+    </div>
+    <div th:if="${coderr}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${coderr}]]
+    </div>
+    <div th:if="${tm}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${tm}]]
+    </div>
     <footer>
-      <form action="#">
-        <input type="text" id="news" name="news" placeholder="Enter your email ...">
-        <label for="news">Sign up for newsletter</label>
+      <form th:if="${hide}" th:action="@{/addnewsletter}" th:object="${newsletter}" method="post">
+        <input type="email" id="email" name="email" th:field="${newsletter.email}" placeholder="Enter your email ...">
+        <button type="submit">Sign up for newsletter</button>
+      </form>
+      <div th:if="${sent}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i> [[${sent}]]
+      </div>
+      <form th:if="${show}" th:action="@{/confirmnews}" method="post">
+        <input type="number" id="conf" name="conf" placeholder="Enter code">
+        <button type="submit">Confirm</button>
       </form>
       <div class="iconss">
         <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>

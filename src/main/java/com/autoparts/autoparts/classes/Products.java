@@ -114,7 +114,7 @@ public class Products {
 
 	@Override
 	public String toString(){
-		return "Name : " + this.name + "Count : " + this.count + " Price : " + this.price;
+		return "Name : " + this.name + "Count : " + this.count + " Price : " + this.price + " PhotoName : " + this.photo;
 	}
 
 }

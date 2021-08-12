@@ -1,0 +1,49 @@
+<!-- // Authors: Liplan Lekipising and catherine Muthoni -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" th:href="@{/css/login.css}" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/assets/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/css/messages.css}">
+
+    <title>Reset Password | AutoParts 250</title>
+
+</head>
+
+<body>
+
+    <a href="./home.html" th:href="@{/}">
+        <img id="logosignup" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetails.logo}"
+            alt="logo">
+    </a>
+
+    <div class="container" id="container">
+        <form th:action="@{/sendEmailLink}" method="post" id="sendEmail">
+            <p id="ema">Reset Your Password</p>
+            <input type="email" name="username" id="username" placeholder="Email" required/>
+            <input type="submit" name="submit" value="Send Reset Email"/>
+            <div th:if="${sentEmailLink}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check"></i> [[${sentEmailLink}]]</div>
+            <div th:if="${noSuch}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${noSuch}]]</div>
+            <div id="stylego">
+                <br>
+                <a id="go" th:href="@{/}">Go to Home</a> <br> <br>
+                <a id="go" th:href="@{/signup}">Create Account</a>
+                <a id="go" th:href="@{/login}"> Login</a>
+              </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script th:src="@{/js/index.js}"></script>
+</body>
+
+</html>

@@ -14,13 +14,31 @@ function enableBtn() {
   document.getElementById("submit").disabled = false;
 }
 
-var myVar;
-
-function myFunction() {
-  myVar = setTimeout(showPage, 3000);
+function check_pass() {
+  if (
+    document.getElementById("password").value != "" &&
+    document.getElementById("password").value != ""
+  ) {
+    if (
+      document.getElementById("password").value ==
+      document.getElementById("confirm_password").value
+    ) {
+      document.getElementById("submit").disabled = false;
+      document.getElementById("message").style.color = "green";
+      document.getElementById("message").innerHTML = "Password match";
+    } else {
+      document.getElementById("submit").disabled = true;
+      document.getElementById("message").style.color = "red";
+      document.getElementById("message").innerHTML = "Password does not match";
+    }
+  }
 }
 
-function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("myDiv").style.display = "block";
+function showRes() {
+  if (document.getElementById("passwordForm").style.display == "block") {
+    document.getElementById("passwordForm").style.display = "none";
+  } else {
+    document.getElementById("passwordForm").style.display = "block";
+  }
+  
 }

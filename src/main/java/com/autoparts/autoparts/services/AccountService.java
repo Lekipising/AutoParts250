@@ -35,8 +35,8 @@ public class AccountService {
     }
     
     // update product details
-    public Account updateAccount(String email){
-        return accountRepository.findById(email).get();
+    public void updateAccount(Account account, String email){
+        accountRepository.save(account);
     }
     
 

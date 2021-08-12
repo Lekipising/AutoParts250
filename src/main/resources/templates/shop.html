@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/responsive.css" th:href="@{/css/responsive.css}">
     <link rel="stylesheet" th:href="@{/css/messages.css}">
+
     <title>Shop | AutoParts 250</title>
 </head>
 
@@ -51,7 +52,7 @@
                         <a class="nav-link" href="./contact.html" th:href="@{contact}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Store Policies</a>
+                        <a class="nav-link" href="./storepolicies.html" th:href="@{storepolicies}">Policies</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -74,7 +75,7 @@
                             Inventory
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./create.html" th:href="@{create}">Create Admin</a></li>
+                            <li><a class="dropdown-item" href="./admin.html" th:href="@{admin}">Create Admin</a></li>
 
                             <li><a class="dropdown-item" href="./shippings.html" th:href="@{shippings}">Shippings</a>
                             </li>
@@ -93,50 +94,45 @@
             </div>
         </div>
     </nav>
+
+    <p th:if="${rmv}" class="isa_success" id="disappear" th:inline="text"><i class="fa fa-check"></i> [[${rmv}]]</p>
+    <p th:if="${deleted}" class="isa_success" id="disappear" th:inline="text"><i class="fa fa-check"></i> [[${deleted}]]
+    </p>
+    <p th:if="${succe}" class="isa_success" id="disappear" th:inline="text"><i class="fa fa-check"></i> [[${succe}]]</p>
+
+    <div class="row" sec:authorize="hasAuthority('ADMIN')">
+        <a class="btn btn-primary col-md-3" href="./addproduct.html" th:href="@{/newproduct}" role="button">Add
+            Product</a>
+    </div>
+
     <div class="cont">
+        <div>
+            <p id="phn">Need help to place an order? Give us a call on <strong>0780123456</strong></p>
+        </div>
         <div class="he">
             <h2 style="margin-left: 32%;">View our quality products</h2>
         </div>
-        <div class="row" sec:authorize="hasAuthority('ADMIN')">
-            <a class="btn btn-primary col-md-3" href="./addproduct.html" th:href="@{/newproduct}" role="button">Add
-                Product</a>
-        </div>
-        <p th:if="${rmv}" class="isa_success"  th:text="${rmv}" th:inline="text"><i class="fa fa-check"></i> [[${rmv}]]</p>
-        <p th:if="${deleted}" class="isa_success"  th:text="${deleted}" th:inline="text"><i class="fa fa-check"></i> [[${deleted}]]</p>
-        <p th:if="${succe}" class="isa_success" th:text="${succe}" th:inline="text"><i class="fa fa-check"></i> [[${succe}]]</p>
-        <div class="table">
-            <div th:each="product: ${products}" class="ap">
-
-                <div class="card">
-                    <img src="" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${product.photo}"
-                        alt="...">
-                    <div class="cardbody">
-                        <h5 class="cardtitle" th:text="'Product ID : ' + ${product.productId}"
-                            sec:authorize="hasAuthority('ADMIN')"></h5>
-                        <p class="cardtext" th:text="${product.name}"></p>
-                    </div>
-                    <ul class="pdetails">
-                        <li class="pc" th:text="'Count: ' +  ${product.count}" sec:authorize="hasAuthority('ADMIN')">
-                        </li>
-                        <li class="pd" th:text="${product.description}"></li>
-                        <li class="pd" th:text="'Price: Rwf ' + ${product.price} + ' only!'"></li>
-                    </ul>
-                    <div class="morebtn">
-                        <a class="btnmore" href="./productview.html" th:href="@{'/' + ${product.productId}}"
-                            role="button">View More Details</a>
-                    </div>
-                </div>
+        <div class="alltheps">
+            <div th:each="product: ${products}" class="theproduct">
+                <a href="./productview.html" th:href="@{'/' + ${product.productId}}" class="theproduct__one">
+                    <img class="theproduct__one__img" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${product.photo}"
+                        th:alt="${product.name}">
+                    <p class="" th:text="'ID : ' + ${product.productId} + ', Count: ' +  ${product.count}"
+                        sec:authorize="hasAuthority('ADMIN')"></p>
+                    <p class="" th:text="${product.name}"></p>
+                    </p>
+                    <p class="" th:text="${product.description}"></p>
+                    <p class="theprice" th:text="'Rwf ' + ${product.price}"></p>
+                </a>
             </div>
         </div>
+    </div>
 
 
     </div>
     <div class="footer">
+        <a th:href="@{/}" id="newslink">Signup for our monthly Newsletter?</a>
         <footer>
-            <form action="#">
-                <input type="text" id="news" name="news" placeholder="Enter your email ...">
-                <label for="news">Sign up for newsletter</label>
-            </form>
             <div class="iconss">
                 <a href="https://www.facebook.com/250autoparts-108045514701833" class="fa fa-facebook"></a>
                 <a href="#" class="fa fa-twitter"></a>
