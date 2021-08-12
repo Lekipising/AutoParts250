@@ -1,4 +1,3 @@
-// Authors: Liplan Lekipising and catherine Muthoni
 package com.autoparts.autoparts;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,3 +13,4 @@ public class AutopartsApplication extends SpringBootServletInitializer{
 
 	}
 }
+//DefaultEndpointsProtocol=https;AccountName=aut0parts;AccountKey=zoXpdsjpzp8qrm70P6G/L0yvVn/RciCPOfwE+eRHKO7huGcruGletpRYhLTVKFNHUGnga2MWpjbS8G6UvWIWPw==;EndpointSuffix=core.windows.net
