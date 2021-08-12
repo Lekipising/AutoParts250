@@ -63,8 +63,6 @@ public class OrderController {
             return "orderlist";
         }
         return "orderlist";
-
-
     }
 
     // POST - add order(Proceed to Checkout)
