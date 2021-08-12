@@ -164,7 +164,7 @@ public class ProductsController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
             model.addAttribute("hide", true);
-            model.addAttribute("newsletter", new Another()
+            model.addAttribute("newsletter", new Another());
             return "updateproduct";
         }
         // photo

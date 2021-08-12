@@ -7,7 +7,6 @@ import com.autoparts.autoparts.classes.Account;
 import com.autoparts.autoparts.repository.AccountRepository;
 import com.autoparts.autoparts.services.AccountService;
 
-// Authors: Liplan Lekipising and catherine Muthoni
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
