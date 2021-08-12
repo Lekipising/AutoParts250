@@ -42,6 +42,7 @@ public class OrderProductController {
     public String getAllOrderProduct(Model model) {
         model.addAttribute("orderProducts", cart);
         model.addAttribute("newsletter", new Another());
+
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         return "cart";
     }
@@ -55,6 +56,7 @@ public class OrderProductController {
         model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
         model.addAttribute("hide", true);
         model.addAttribute("newsletter", new Another());
+
         if (bindingResult.hasErrors()) {
             mav.addObject("errorss", "Error in adding items to cart, try again");
             mav.setViewName("productview");

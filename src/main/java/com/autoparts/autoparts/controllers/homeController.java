@@ -106,6 +106,7 @@ public class homeController {
                 modelAndView.addObject("message2",
                         "We have received your message, one of our agents will get back you. Keep shopping!");
                 model.addAttribute("newsletter", new Another());
+
                 model.addAttribute("businessDetails", businessDetailsService.getOneDetail(0L));
                 modelAndView.setViewName("contact");
 
@@ -341,4 +342,4 @@ public class homeController {
         return "redirect:/myaccount";
     }
 
-}
+
