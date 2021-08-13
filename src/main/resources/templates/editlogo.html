@@ -15,7 +15,7 @@
 
     <div th:each="businessDetailss: ${businessDetailss}" class="logos">
         <div>
-            <img id="logoimg" th:src="@{https://autoparts250.s3.us-east-2.amazonaws.com/} + ${businessDetailss.logo}" th:alt="${businessDetailss.bname}">
+            <img id="logoimg" th:src="@{https://aut0parts.s3.us-east-2.amazonaws.com/} + ${businessDetailss.logo}" th:alt="${businessDetailss.bname}">
         </div>
         <p th:text="${businessDetailss.bname}"></p>
         <a th:href="@{'/editlogo/' + ${businessDetailss.detailid}}" id="bn" role="button">Click to Edit</a>

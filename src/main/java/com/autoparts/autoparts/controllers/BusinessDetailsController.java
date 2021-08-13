@@ -84,7 +84,7 @@ public class BusinessDetailsController {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
         File file = convertMultiPartToFile(logoPhoto);
-        s3client.putObject("autoparts250", nameP, file);
+        s3client.putObject("aut0parts", nameP, file);
         businessDetailsService.addDetail(businessDetails);
         file.delete();
         model.addAttribute("success", "Business details added successfully!");
@@ -115,8 +115,8 @@ public class BusinessDetailsController {
 
             File file = convertMultiPartToFile(logoPhoto);
 
-            s3client.deleteObject("autoparts250", nameP);
-            s3client.putObject("autoparts250", nameP, file);
+            s3client.deleteObject("aut0parts", nameP);
+            s3client.putObject("aut0parts", nameP, file);
 
             businessDetailsService.addDetail(businessDetails);
             model.addAttribute("successup", "Business details updated successfully!");

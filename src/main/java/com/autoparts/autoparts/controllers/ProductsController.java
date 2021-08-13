@@ -127,7 +127,7 @@ public class ProductsController {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2).build();
 
         File file = convertMultiPartToFile(studentPhoto);
-        s3client.putObject("autoparts250", nameP, file);
+        s3client.putObject("aut0parts", nameP, file);
         model.addAttribute("success", "Product Added Successfully!");
         file.delete();
         return "addproduct";
@@ -183,8 +183,8 @@ public class ProductsController {
 
             File file = convertMultiPartToFile(studentPhoto);
 
-            s3client.deleteObject("autoparts250", nameP);
-            s3client.putObject("autoparts250", nameP, file);
+            s3client.deleteObject("aut0parts", nameP);
+            s3client.putObject("aut0parts", nameP, file);
 
             productsService.addProduct(product);
             model.addAttribute("success", "Product updated Successfully!");
@@ -205,7 +205,7 @@ public class ProductsController {
         final AmazonS3 s3client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials)).withRegion(Regions.US_EAST_2)
                 .build();
-        s3client.deleteObject("autoparts250", productsService.getOneProduct(productId).getPhoto());
+        s3client.deleteObject("aut0parts", productsService.getOneProduct(productId).getPhoto());
         productsService.delProduct(productId);
         attributes.addFlashAttribute("success", "Product deleted Successfully!");
         return "redirect:/shop";
