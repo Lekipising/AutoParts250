@@ -107,26 +107,22 @@
     <h2><strong>Featured Products</strong></h2>
     <div class="featured">
       <div class="pr">
-        <img src="../static/assets/product_pics/Alternator.jpeg" th:src="@{/assets/product_pics/Alternator.jpeg}"
-          alt="alternator">
+        <img th:src="@{/assets/product_pics/Alternator.jpeg}" alt="alternator">
         <div>Alternator</div>
         <div>Price: Rwf 50,000</div>
       </div>
       <div class="pr">
-        <img src="../static/assets/product_pics/oil%20filter.jpeg" th:src="@{/assets/product_pics/oil%20filter.jpeg}"
-          alt="oil_filter">
+        <img th:src="@{/assets/product_pics/injectors.jpeg}" alt="oil_filter">
         <div>Oil Filters</div>
         <div>Price: Rwf 30,000</div>
       </div>
       <div class="pr">
-        <img src="../static/assets/product_pics/injectors.jpeg" th:src="@{/assets/product_pics/injectors.jpeg}"
-          alt="injectors">
+        <img th:src="@{/assets/product_pics/injectors.jpeg}" alt="injectors">
         <div>Injectors</div>
         <div>Price: Rw 40,000</div>
       </div>
       <div class="pr">
-        <img src="../static/assets/product_pics/Hydraulic%20Pump.jpeg"
-          th:src="@{/assets/product_pics/Hydraulic%20Pump.jpeg}" alt="Hydraulic_pump">
+        <img th:src="@{/assets/product_pics/Hydraulic%20Pump.jpeg}" alt="Hydraulic_pump">
         <div>Hydraulic Pump</div>
         <div>Price: Rwf 250,000</div>
       </div>
@@ -135,13 +131,16 @@
       style="font-size: 20px; color: white; background-color: black; margin-left: 45%; margin-top: 50px;">View in
       Shop</a>
   </div>
-  
+
   <div class="footer">
-    <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i> [[${news}]]
+    <div th:if="${news}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i>
+      [[${news}]]
     </div>
-    <div th:if="${exists}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${exists}]]
+    <div th:if="${exists}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i>
+      [[${exists}]]
     </div>
-    <div th:if="${coderr}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${coderr}]]
+    <div th:if="${coderr}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i>
+      [[${coderr}]]
     </div>
     <div th:if="${tm}" id="disappear" class="isa_error" th:inline="text"><i class="fa fa-times-circle"></i> [[${tm}]]
     </div>
@@ -150,7 +149,8 @@
         <input type="email" id="email" name="email" th:field="${newsletter.email}" placeholder="Enter your email ...">
         <button type="submit">Sign up for newsletter</button>
       </form>
-      <div th:if="${sent}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i> [[${sent}]]
+      <div th:if="${sent}" id="disappear" class="isa_success" th:inline="text"><i class="fa fa-check-circle"></i>
+        [[${sent}]]
       </div>
       <form th:if="${show}" th:action="@{/confirmnews}" method="post">
         <input type="number" id="conf" name="conf" placeholder="Enter code">
